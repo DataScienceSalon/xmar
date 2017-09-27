@@ -1,0 +1,10 @@
+infile dictionary {
+    _column(1)    numeric                               YEAR   %20f  "Gss year for this respondent                       "
+   _column(21)    numeric                                ID_   %20f  "Respondent id number"
+   _column(41)    numeric                                AGE   %20f  "Age of respondent"
+   _column(61)    numeric                             REGION   %20f  "Region of interview"
+   _column(81)    numeric                           POLVIEWS   %20f  "Think of self as liberal or conservative"
+  _column(101)    numeric                             CLASS_   %20f  "Subjective class identification"
+  _column(121)    numeric                            XMARSEX   %20f  "Sex with person other than spouse"
+  _column(141)    numeric                            EVSTRAY   %20f  "Have sex other than spouse while married"
+}

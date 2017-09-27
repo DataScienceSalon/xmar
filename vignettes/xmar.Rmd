@@ -1,0 +1,80 @@
+---
+title: "Extra-Marital Sex: Attitudes and Behaviors"
+author: "John James jjames@datasciencesalon.org"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  rmdformats::readthedown:
+    highlight: kate
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE, warning=FALSE, message=FALSE}
+options(knitr.table.format = "html")
+options(max.print="75", scipen=999, width = 800)
+knitr::opts_chunk$set(echo=FALSE,
+	             cache=FALSE,
+               prompt=FALSE,
+               tidy=TRUE,
+               root.dir = "..",
+               fig.height = 4,
+               fig.width = 10,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+knitr::opts_knit$set(width=100, figr.prefix = T, figr.link = T)
+knitr::knit_hooks$set(inline = function(x) {
+  prettyNum(x, big.mark=",")
+})
+```
+
+```{r loadData, cache=TRUE}
+source("../inst/extdata/GSS.r")
+```
+
+```{r preprocess, cache=TRUE}
+xmar <- preprocess(GSS)
+```
+
+```{r univariate, cache=TRUE}
+xmarUnivariate <- univariate(xmar)
+```
+
+
+
+
+# Abstract
+# Introduction
+## Background Information
+## Research Questions
+## Document Organization
+# Methods
+## Data 
+## Data Analysis
+## Sample Size Analysis
+The minimum sample size required for this study is that in which the sample proportion is within 5% of the population proportion with a 95% confidence level.  
+
+```{r sampleSize, cache=TRUE}
+p = 0.5
+me = .05
+z = 1.96
+n = (p * (1-p) * z^2) / me^2
+```
+
+The minimum necessary sample size is `r ceiling(n)`
+
+### Descriptive Statistics
+### Inferential Statistics
+## System and Environment
+# Results
+## Univariate Analysis
+## MultiVariate Analysis
+## Research Question 1: 
+## Research Question 2:
+# Discussion
+# Conclusion
+# Appendix
+# References
