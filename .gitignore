@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 inst/doc
+vignettes/xmar_cache
+vignettes/xmar_files

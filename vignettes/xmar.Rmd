@@ -5,6 +5,8 @@ date: '`r format(Sys.time(), "%d %B, %Y")`'
 output:
   rmdformats::readthedown:
     highlight: kate
+    css: rmdStyles.css
+bibliography: library.bib
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -35,44 +37,223 @@ knitr::knit_hooks$set(inline = function(x) {
 source("../inst/extdata/GSS.r")
 ```
 
-```{r preprocess, cache=TRUE}
-xmar <- preprocess(GSS)
-```
-
-```{r univariate, cache=TRUE}
-xmarUnivariate <- univariate(xmar)
-```
-
-
-
-
 # Abstract
 # Introduction
 ## Background Information
 ## Research Questions
+Three research questions have been devised to examine attitudes and behaviors with respect to extra-marital sex. Concretely, this analysis examines the degree to which attitudes and behaviors align, and how they vary by various demographics.
+
+### Research Question #1: Attitudes and Behaviors
+The first research question considers the relationship between attitudes and behaviors with respect to extra-marital sex.  
+
+> Is there an association between attitudes and behaviors with respect to extra-marital sex?
+
+The sample includes attitudes and behaviors from GSS survey years 2010 thru 2016. Attitudes levels include "Wrong", "Sometimes Wrong", "Not Wrong At All". Behaviors is a dichotomous variable indicating whether the respondent has every had extra-marital sex.
+
+### Research Question #2: Attitudes and Demographics
+The association between attitudes and various demographics are explored.  Concretely,
+
+> Is there an association between attitudes and geographic region, class, political view, and education level?
+
+There are seven geographic regions: "New England", "Middle Atlantic", "North Mid-West", "South Mid-West", "South Atlantic", "Mountain", and "Pacific". The class levels include: "Lower", "Working", "Middle", and "Upper". Political views are: "Liberal", "Moderate", and "Conservative", and education levels are "Less Than High School", "High School", "Junior College", "Bachelor", and "Graduate".
+
+### Research Question #3: Behaviors and Demographics
+The association between behaviors and various demographics are explored.  Concretely,
+
+> Is there an association between behaviors and geographic region, class, political view, and education level?
+
+For questions two and three, hypotheses tests were conducted for each demographic grouping variable.
+
 ## Document Organization
+The methods section describes the data, the sampling techniques, data preprocessing, univariate analyses of each variable and multivariate analyses for each research question. The results section summarizes the descriptive and inferential statistics, and the results of the hypotheses tests. The discussion section describes the significance of the findings vis-a-vis currently available research. Lastly, the conclusion synthesizes the key points.
+
 # Methods
 ## Data 
-## Data Analysis
-## Sample Size Analysis
-The minimum sample size required for this study is that in which the sample proportion is within 5% of the population proportion with a 95% confidence level.  
+The General Social Survey (GSS), a project of the NORC at the University of Chicago, provided the data upon which this report is based. Formerly known as the National Opinion Research Center, "NORC at the University of Chicago is an objective non-partisan research institution that delivers reliable data and rigorous analysis to guide critical programmatic, business, and policy decisions" [@NORC]. Principally funded by the National Science Foundation, the GSS has been monitoring evolution, complexity attitudes, behaviors, and attributes of American society since 1972. Targeting the adult population, age 18 and over in the United, the data covers a diverse range of issues including national spending priorities, marijuana use, crime and punishment, race relations, quality of life, confidence in institutions, and sexual behavior.
 
-```{r sampleSize, cache=TRUE}
-p = 0.5
-me = .05
-z = 1.96
-n = (p * (1-p) * z^2) / me^2
+### Data Sampling Strategy
+The GSS employed a multi-stage area full probability sampling strategy. 
+
+At the first stage, NORC employed the Standard Metropolitan Statistical Areas (SMSAs) or non-metropolitan counties selected in NORC's Master Sample, as the Primary Sampling Unit (PSU). These were further subdvided into three categories. Category 1, representing 56% of the US population, comprised of the nations largest metropolitan areas or Consolidated Statistical Areas (CSAs) with a population of at least 1,543,728 (0.5 percent of the 2010 Census U.S. population). The second category, covering 35% of the US population, included Core Based Statistical Areas and CSAs with at least 8 tracts that are predominantly street-style addresses.  The third category spanned 9% of the US population and consisted of small counties with at most 8 tracts. Minimum size for tracts were defined as 300 respondents.
+
+Similarly, the second stage sampling was conducted in three categories. Category 1 comprised 216 type A tracts (city addresses) and 8 block-groups within type B (rural) tracts. Category 2, consisted of 8 segments per first-stage selection resulted in 480 segments in the 2010 National Sample Design, but GSS used only 120 of them. For category 3 first-stage selections, the 2010 National Sample Design only selected 5 segments per first-stage selection, but GSS used 4 and one half of them for a total of 56 segments.  
+
+The sampling strategy employed by GSS was designed to give each household an equal probability of being included in the sample. For each household selected, sampling procedures were undertaken to ensure that each individual in that household had an equal probability of being interviewed. 
+
+### Data Sampling Bias
+The GSS samples closely resemble distributions reported in the Census and other authoritative sources. However, survey non-response, sampling variation, and various other factors have introduced potential sources of bias and resulted in variance from Census distributions on some variables. For instance all full-probability samples under-represent males and block quota samples under-represented men in full-time employment. Weights were designed (and should be employed when using GSS 2004 or later), to assure proper representation of non-response sub-samples, and other factors. For a full discussion of distributional variation due to non-response, one should refer to the GSS Methodological Reports in the help and resources section at https://gssdataexplorer.norc.org/,
+
+This full probability design was acknowledged by the National Science Foundation to be superior to simple random sampling, and **generalizable** to the population of adult citizens in America.  Consisting of over 60,000 individual responses, spanning over 40 years, the GSS data remains one of the nations treasures, providing data for inference about American society to researchers, academics, students, politicians, and opinion makers.  Yet, as respondents were randomly selected (not assigned), one is careful to limit inferences to **association, and not causation.**  That said, the extent to which results of a research question can be generalized to the population will require that the inference conditions are met, specifically the proportion success/failure condition. As such, the question of "generalizeability" will need to be re-addressed independently for each research question.
+
+### Data Variables
+The following table lists the variables used in and created for, this analysis.
+
+`r kfigr::figr(label = "variableTbl", prefix = TRUE, link = TRUE, type="Table")`: GSS and Derived Variables Used in Study 
+```{r variableTbl, echo = F, message = FALSE, warning=FALSE}
+variables <- read.csv("../data/variables.csv")
+knitr::kable(variables) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
 ```
 
-The minimum necessary sample size is `r ceiling(n)`
+### Data Preprocessing
+The GSS variables were extracted for years 2010 thru 2016. Data sets containing individual proportions were created. Responses with "NAs", "Don't Know", and other non-response values for the GSS variables in scope, were filtered from the data set. To confirm that the sample proportions were representative of the population proportions, a priori sample size analysis was undertaken.
+
+```{r preprocess, cache=TRUE}
+xmar <- preprocess(GSS)
+```
+
+### Sample Size Analysis
+In this sample size analysis, null proportions were calculated based upon the number of levels for each grouping variable. The following summarizes the minimum required sample sizes to be 95% confidence that the sample proportions were within a 5% margin of error of the population proportions.
+
+`r kfigr::figr(label = "sampleSizeTable", prefix = TRUE, link = TRUE, type="Table")`: Sample Size Analysis
+```{r sampleSizeTable, echo = F, message = FALSE, warning=FALSE}
+sampleSize <- sampleSize(xmar)
+knitr::kable(sampleSize) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
+```
+
+The sample size is `r `% of the maximum required sample size, leaving a comfortable margin. Assuming inference conditions are met for each hypothesis, one can assume with 95% confidence that the sample proportions are within a 5% margin of error of the population proportions.
+
+## Data Analysis
+The study involved both descriptive and inferential statistics. Descriptive statistics describe each of the variables within the scope of this study; wherase, the inferential statistics characterize relationships between categorical variables.
 
 ### Descriptive Statistics
+The study began with a univariate analysis of the sample variables of interest. Proportions and frequency counts were calculated and presented in tables and bar plots. Population proportions were estimated with confidence intervals using one-proportion z-tests. 
+
 ### Inferential Statistics
+To evaluate the association between attitudes, behaviors and demographic variables, contingency tables were rendered and chi-square tests of independence were performed to determine the association between the variables. Two-proportion tests were performed to determine the statistical significance of the differences between selected proportions. The $\alpha$ significance level was uniformly set to .05 for all statistical tests. 
+
 ## System and Environment
-# Results
-## Univariate Analysis
-## MultiVariate Analysis
-## Research Question 1: 
+This analysis was implemented using the 64 bit version of the R Programming Language, version 3.4.1. [@TheRFoundation2015] within the R. Studio Version 1.1.330 [@RStudioTeam2016] development environment on a Windows x64-based laptop powered by an Intel Core i7-3610QM CPU @ 2.30GHz, 2301 MHz processor with 4 Cores, 8 Logical Processors, and 16.0 GB of installed memory, running the Microsoft Windows 10 Home operating system, version	10.0.14393 Build 14393. Report writing and generation packages included knitr [@Xie2013], and kfigr [@Koohafkan2015].  Data management functionality was provided by the dplyr [Wickham2015a], reshape2 [@Rcpp2016], xtable [@Dahl2016] and data table [@Dowle2016] packages. Graphics and data visualization were powered by the ggplot2 [@Wickham2016], gridExtra [@BaptisteAuguie2016], and the stargazer [@Hlavac2015] packages.  The inference [@VinhNguyen2017] statistcal package provided functionality for extracting inferential values from a fitted model.
+
+# Results  
+## Univariate Analysis  
+The univariate analysis examines each variable and reports their sample proportions, as well as the 95% confidence intervals for the population proportions.  `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` summarizes the variables in the analysis, in terms of their categorical levels, complete and NA cases, and complete response rates.  
+
+`r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`: Variable Summary
+```{r univariateSummary, echo = F, message = FALSE, warning=FALSE}
+uni <- univariate(xmar)
+knitr::kable(uni$summary) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
+```
+
+### Degree
+
+`r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Highest Degree Attained
+```{r degreeData, include=T, echo = F, results='html'}
+knitr::kable(uni$degree$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+```{r degreePlot, include=T, echo = F, results='html'}
+uni$degree$plot
+``` 
+`r kfigr::figr(label = "degreePlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Highest Degree Attained
+
+### Region
+
+`r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Region
+```{r regionData, include=T, echo = F, results='html'}
+knitr::kable(uni$region$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+```{r regionPlot, include=T, echo = F, results='html'}
+uni$region$plot
+``` 
+`r kfigr::figr(label = "regionPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Region
+
+
+### Political Views
+
+`r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Political View
+```{r viewsData, include=T, echo = F, results='html'}
+knitr::kable(uni$views$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+```{r viewsPlot, include=T, echo = F, results='html'}
+uni$views$plot
+``` 
+`r kfigr::figr(label = "viewsPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Political View
+
+
+### Class
+
+`r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Class
+```{r classData, include=T, echo = F, results='html'}
+knitr::kable(uni$degree$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+```{r classPlot, include=T, echo = F, results='html'}
+uni$class$plot
+``` 
+`r kfigr::figr(label = "classPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Class
+
+
+### Extra-Marital Sex Attitudes 
+
+
+`r kfigr::figr(label = "attitudeData", prefix = TRUE, link = TRUE, type="Table")`: Frequency Proportion of Responses by Opinions regarding Extra Marital Sex
+```{r attitudeData, include=T, echo = F, results='html'}
+knitr::kable(uni$attitude$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+```{r attitudePlot, include=T, echo = F, results='html'}
+uni$attitude$plot
+``` 
+`r kfigr::figr(label = "attitudePlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Opinions regarding Extra Marital Sex 
+
+
+### Extra-Marital Sex Behaviors
+
+`r kfigr::figr(label = "strayData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+```{r strayData, include=T, echo = F, results='html'}
+knitr::kable(uni$stray$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+```{r strayPlot, include=T, echo = F, results='html'}
+uni$stray$plot
+``` 
+`r kfigr::figr(label = "strayPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+
+## Research Question 1: Attitudes and Behaviors
+```{r rq1, cache=TRUE}
+rq1Data <- rq1(xmar)
+```
+
+The degree to which attitudes are aligned with behaviors is the focus of this first inquiry. More formally stated, we pose the following question:
+
+> Is there an association between attitudes and behaviors with respect to extra-marital sex?
+
+The hypotheses are stated as follows:  
+$H_0:$ Attitudes and behaviors with respect to extra-marital sex are **not** associated.  
+$H_a:$ Attitudes and behaviors with respect to extra-marital sex **are** associated.  
+
+<center>
+`r kfigr::figr("rq1Data", prefix = TRUE,  link = TRUE, type = "Table")`: Attitudes and Beliefs Contingency Table
+```{r rq1Data, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq1Data$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html')
+``` 
+</center>
+
+
+
+```{r rq1Plot, include=T, echo = F, results='html'}
+rq1Data$plots$prop
+``` 
+`r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+
+
 ## Research Question 2:
 # Discussion
 # Conclusion
