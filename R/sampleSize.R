@@ -21,9 +21,19 @@ sampleSize <- function(xmar) {
     Degree = 1 / length(levels(xmar$Degree)),
     Views = 1 / length(levels(xmar$Views)),
     Class = 1 / length(levels(xmar$Class)),
-    Attitude = 1 / length(levels(xmar$Attitude)),
-    Stray = 1 / length(levels(xmar$Stray))
+    Opinion = 1 / length(levels(xmar$Opinion)),
+    Behavior = 1 / length(levels(xmar$Behavior))
   )
+
+  completeCases <- list(
+    region = nrow(subset(xmar, Region != "NA")),
+    degree = nrow(subset(xmar, Degree != "NA")),
+    views = nrow(subset(xmar, Views != "NA")),
+    class = nrow(subset(xmar, Class != "NA")),
+    opinion = nrow(subset(xmar, Opinion != "NA")),
+    behavior = nrow(subset(xmar, Behavior != "NA"))
+  )
+
 
   me <- 0.05
   zstar <- qnorm(.975)
@@ -33,10 +43,11 @@ sampleSize <- function(xmar) {
     ssl = list(
      `Grouping Variable` = names(proportions[p]),
      Levels = 1 / proportions[[p]],
-      p = round(proportions[[p]],2),
-      zStar = round(zstar,2),
-      `Margin of Error` = me,
-      `Sample Size` = ceiling(ss)
+     p = round(proportions[[p]],2),
+     zStar = round(zstar,2),
+     `Margin of Error` = me,
+     `Required Sample Size` = ceiling(ss),
+     `Complete Cases` = completeCases[[p]]
     )
     ssl
   }))

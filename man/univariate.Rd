@@ -10,8 +10,11 @@ univariate(xmar)
 \code{univariate} Performs univariate analysis of variables
 }
 \seealso{
-Other xmar functions: \code{\link{preprocess}},
-  \code{\link{rq1}}, \code{\link{sampleSize}}
+Other xmar functions: \code{\link{X2}},
+  \code{\link{formatData}}, \code{\link{plotBars}},
+  \code{\link{preprocess}}, \code{\link{rq1}},
+  \code{\link{rq2}}, \code{\link{rq3}},
+  \code{\link{sampleSize}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

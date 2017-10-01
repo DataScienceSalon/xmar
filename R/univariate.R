@@ -54,8 +54,8 @@ univariate <- function(xmar) {
                         Proportion = rnorm(n = 10000, mean = data$Proportion[i], sd = data$SE[i])))
     }
 
-    densityPlot = ggplot2::ggplot(data = d,ggplot2::aes(x = Proportion, fill = Degree)) +
-      ggplot2::geom_density() + xlim(min(d$Proportion), max(d$Proportion))+
+    densityPlot <- ggplot2::ggplot(data = d,ggplot2::aes(x = Proportion, fill = Degree)) +
+      ggplot2::geom_density() +
       ggplot2::theme_minimal(base_size = 14) +
       ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
                      axis.title.x = ggplot2::element_blank(),
@@ -107,10 +107,33 @@ univariate <- function(xmar) {
       ggplot2::scale_fill_brewer(palette = 'Greens') +
       ggplot2::ggtitle('Proportion of Responses by Region')
 
+    # Density Plot
+    set.seed(23292)
+    d <- data.frame()
+    data <- subset(data, Region != "NA")
+    data$Region <- factor(data$Region)
+    for (i in 1:nrow(data)) {
+      d <- rbind(d, data.frame(Region = rep(data$Region[i], 10000),
+                               Proportion = rnorm(n = 10000, mean = data$Proportion[i], sd = data$SE[i])))
+    }
+
+    densityPlot <- ggplot2::ggplot(data = d,ggplot2::aes(x = Proportion, fill = Region)) +
+      ggplot2::geom_density() +
+      ggplot2::theme_minimal(base_size = 14) +
+      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
+                     axis.title.x = ggplot2::element_blank(),
+                     axis.ticks.x = ggplot2::element_blank(),
+                     legend.position = "right") +
+      ggplot2::scale_fill_brewer(palette = 'Greens') +
+      ggplot2::ggtitle('Simulated Sampling Distribution of Proportions by Region') +
+      ggplot2::labs(x = "Proportion", y = "Density")
+
+
     analysis <- list(
       data = data,
       stats = stats,
-      barPlot = barPlot
+      barPlot = barPlot,
+      densityPlot = densityPlot
     )
     return(analysis)
   }
@@ -146,10 +169,33 @@ univariate <- function(xmar) {
       ggplot2::scale_fill_brewer(palette = 'Greens') +
       ggplot2::ggtitle('Proportion of Responses by Political View')
 
+    # Density Plot
+    set.seed(23292)
+    d <- data.frame()
+    data <- subset(data, Views != "NA")
+    data$Views <- factor(data$Views)
+    for (i in 1:nrow(data)) {
+      d <- rbind(d, data.frame(Views = rep(data$Views[i], 10000),
+                               Proportion = rnorm(n = 10000, mean = data$Proportion[i], sd = data$SE[i])))
+    }
+
+    densityPlot <- ggplot2::ggplot(data = d,ggplot2::aes(x = Proportion, fill = Views)) +
+      ggplot2::geom_density() +
+      ggplot2::theme_minimal(base_size = 14) +
+      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
+                     axis.title.x = ggplot2::element_blank(),
+                     axis.ticks.x = ggplot2::element_blank(),
+                     legend.position = "right") +
+      ggplot2::scale_fill_brewer(palette = 'Greens') +
+      ggplot2::ggtitle('Simulated Sampling Distribution of Proportions by Political View') +
+      ggplot2::labs(x = "Proportion", y = "Density")
+
+
     analysis <- list(
       data = data,
       stats = stats,
-      barPlot = barPlot
+      barPlot = barPlot,
+      densityPlot = densityPlot
     )
     return(analysis)
   }
@@ -185,17 +231,40 @@ univariate <- function(xmar) {
       ggplot2::scale_fill_brewer(palette = 'Greens') +
       ggplot2::ggtitle('Proportion of Responses by Class')
 
+    # Density Plot
+    set.seed(23292)
+    d <- data.frame()
+    data <- subset(data, Class != "NA")
+    data$Class <- factor(data$Class)
+    for (i in 1:nrow(data)) {
+      d <- rbind(d, data.frame(Class = rep(data$Class[i], 10000),
+                               Proportion = rnorm(n = 10000, mean = data$Proportion[i], sd = data$SE[i])))
+    }
+
+    densityPlot <- ggplot2::ggplot(data = d,ggplot2::aes(x = Proportion, fill = Class)) +
+      ggplot2::geom_density() +
+      ggplot2::theme_minimal(base_size = 14) +
+      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
+                     axis.title.x = ggplot2::element_blank(),
+                     axis.ticks.x = ggplot2::element_blank(),
+                     legend.position = "right") +
+      ggplot2::scale_fill_brewer(palette = 'Greens') +
+      ggplot2::ggtitle('Simulated Sampling Distribution of Proportions by Class') +
+      ggplot2::labs(x = "Proportion", y = "Density")
+
+
     analysis <- list(
       data = data,
       stats = stats,
-      barPlot = barPlot
+      barPlot = barPlot,
+      densityPlot = densityPlot
     )
     return(analysis)
   }
 
-  analyzeAttitudes <- function(xmar) {
+  analyzeOpinions <- function(xmar) {
 
-    data <- xmar %>% group_by(Attitude) %>% dplyr::summarize(N = n()) %>%
+    data <- xmar %>% group_by(Opinion) %>% dplyr::summarize(N = n()) %>%
       mutate(Proportion = round(N / sum(N), 2),
              Cumulative = round(cumsum(Proportion), 2),
              LowerCI = round(Proportion - (qnorm(.975) *
@@ -206,35 +275,58 @@ univariate <- function(xmar) {
 
     stats <- xmar %>% summarise(
       Variable = "XMARSEX",
-      Description = "Attitude / opinion regarding extra-marital sex",
-      Levels = length(levels(xmar$Attitude)),
-      Complete = nrow(subset(xmar, xmar$Attitude != "NA")),
-      NAs = nrow(subset(xmar, xmar$Attitude == "NA")),
+      Description = "Opinion / opinion regarding extra-marital sex",
+      Levels = length(levels(xmar$Opinion)),
+      Complete = nrow(subset(xmar, xmar$Opinion != "NA")),
+      NAs = nrow(subset(xmar, xmar$Opinion == "NA")),
       Total = n(),
       Rate = paste0(round(Complete / Total * 100, 0), "%")
     )
 
     barPlot <- ggplot2::ggplot(data = data,
-                            ggplot2::aes(x = Attitude, y = Proportion, fill = Attitude)) +
+                            ggplot2::aes(x = Opinion, y = Proportion, fill = Opinion)) +
       ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 18) +
       ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
                      axis.title.x = ggplot2::element_blank(),
                      axis.ticks.x = ggplot2::element_blank(),
                      legend.position = "none") +
       ggplot2::scale_fill_brewer(palette = 'Greens') +
-      ggplot2::ggtitle('Proportion of Attitudes about Extra-Marital Sex')
+      ggplot2::ggtitle('Proportion of Opinions about Extra-Marital Sex')
+
+    # Density Plot
+    set.seed(23292)
+    d <- data.frame()
+    data <- subset(data, Opinion != "NA")
+    data$Opinion <- factor(data$Opinion)
+    for (i in 1:nrow(data)) {
+      d <- rbind(d, data.frame(Opinion = rep(data$Opinion[i], 10000),
+                               Proportion = rnorm(n = 10000, mean = data$Proportion[i], sd = data$SE[i])))
+    }
+
+    densityPlot <- ggplot2::ggplot(data = d,ggplot2::aes(x = Proportion, fill = Opinion)) +
+      ggplot2::geom_density() +
+      ggplot2::theme_minimal(base_size = 14) +
+      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
+                     axis.title.x = ggplot2::element_blank(),
+                     axis.ticks.x = ggplot2::element_blank(),
+                     legend.position = "right") +
+      ggplot2::scale_fill_brewer(palette = 'Greens') +
+      ggplot2::ggtitle('Simulated Sampling Distribution of Proportions by Opinion') +
+      ggplot2::labs(x = "Proportion", y = "Density")
+
 
     analysis <- list(
       data = data,
       stats = stats,
-      barPlot = barPlot
+      barPlot = barPlot,
+      densityPlot = densityPlot
     )
     return(analysis)
   }
 
-  analyzeStrays <- function(xmar) {
+  analyzeBehaviors <- function(xmar) {
 
-    data <- xmar %>% group_by(Stray) %>% dplyr::summarize(N = n()) %>%
+    data <- xmar %>% group_by(Behavior) %>% dplyr::summarize(N = n()) %>%
       mutate(Proportion = round(N / sum(N), 2),
              Cumulative = round(cumsum(Proportion), 2),
              LowerCI = round(Proportion - (qnorm(.975) *
@@ -246,15 +338,15 @@ univariate <- function(xmar) {
     stats <- xmar %>% summarise(
       Variable = "EVSTRAY",
       Description = "Has the respondent ever had extra-marital sex",
-      Levels = length(levels(xmar$Stray)),
-      Complete = nrow(subset(xmar, xmar$Stray != "NA")),
-      NAs = nrow(subset(xmar, xmar$Stray == "NA")),
+      Levels = length(levels(xmar$Behavior)),
+      Complete = nrow(subset(xmar, xmar$Behavior != "NA")),
+      NAs = nrow(subset(xmar, xmar$Behavior == "NA")),
       Total = n(),
       Rate = paste0(round(Complete / Total * 100, 0), "%")
     )
 
     barPlot <- ggplot2::ggplot(data = data,
-                            ggplot2::aes(x = Stray, y = Proportion, fill = Stray)) +
+                            ggplot2::aes(x = Behavior, y = Proportion, fill = Behavior)) +
       ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 14) +
       ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
                      axis.title.x = ggplot2::element_blank(),
@@ -263,10 +355,33 @@ univariate <- function(xmar) {
       ggplot2::scale_fill_brewer(palette = 'Greens') +
       ggplot2::ggtitle('Extra-Marital Sex Proportions')
 
+    # Density Plot
+    set.seed(23292)
+    d <- data.frame()
+    data <- subset(data, Behavior != "NA")
+    data$Behavior <- factor(data$Behavior)
+    for (i in 1:nrow(data)) {
+      d <- rbind(d, data.frame(Behavior = rep(data$Behavior[i], 10000),
+                               Proportion = rnorm(n = 10000, mean = data$Proportion[i], sd = data$SE[i])))
+    }
+
+    densityPlot <- ggplot2::ggplot(data = d,ggplot2::aes(x = Proportion, fill = Behavior)) +
+      ggplot2::geom_density() +
+      ggplot2::theme_minimal(base_size = 14) +
+      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
+                     axis.title.x = ggplot2::element_blank(),
+                     axis.ticks.x = ggplot2::element_blank(),
+                     legend.position = "right") +
+      ggplot2::scale_fill_brewer(palette = 'Greens') +
+      ggplot2::ggtitle('Simulated Sampling Distribution of Proportions Who Behavior') +
+      ggplot2::labs(x = "Proportion", y = "Density")
+
+
     analysis <- list(
       data = data,
       stats = stats,
-      barPlot = barPlot
+      barPlot = barPlot,
+      densityPlot = densityPlot
     )
     return(analysis)
   }
@@ -276,10 +391,10 @@ univariate <- function(xmar) {
   region <- analyzeRegion(xmar)
   views <- analyzeViews(xmar)
   class <- analyzeClass(xmar)
-  attitudes <- analyzeAttitudes(xmar)
-  strays <- analyzeStrays(xmar)
+  opinions <- analyzeOpinions(xmar)
+  strays <- analyzeBehaviors(xmar)
   summary <- rbind(degree$stats, region$stats, views$stats, class$stats,
-                   attitudes$stats, strays$stats)
+                   opinions$stats, strays$stats)
 
   # Return results
   univariate <- list(
@@ -288,7 +403,7 @@ univariate <- function(xmar) {
     region = region,
     views = views,
     class = class,
-    attitudes = attitudes,
+    opinions = opinions,
     strays = strays
   )
 

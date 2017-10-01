@@ -1,5 +1,5 @@
 ---
-title: "Extra-Marital Sex: Attitudes and Behaviors"
+title: "Extra-Marital Sex: Opinions and Behaviors"
 author: "John James jjames@datasciencesalon.org"
 date: '`r format(Sys.time(), "%d %B, %Y")`'
 output:
@@ -41,35 +41,17 @@ source("../inst/extdata/GSS.r")
 # Introduction
 ## Background Information
 ## Research Questions
-Three research questions have been devised to examine attitudes and behaviors with respect to extra-marital sex. Concretely, this analysis examines the degree to which attitudes and behaviors align, and how they vary by various demographics.
-
-### Research Question #1: Attitudes and Behaviors
-The first research question considers the relationship between attitudes and behaviors with respect to extra-marital sex.  
-
-> Is there an association between attitudes and behaviors with respect to extra-marital sex?
-
-The sample includes attitudes and behaviors from GSS survey years 2010 thru 2016. Attitudes levels include "Wrong", "Sometimes Wrong", "Not Wrong At All". Behaviors is a dichotomous variable indicating whether the respondent has every had extra-marital sex.
-
-### Research Question #2: Attitudes and Demographics
-The association between attitudes and various demographics are explored.  Concretely,
-
-> Is there an association between attitudes and geographic region, class, political view, and education level?
-
-There are seven geographic regions: "New England", "Middle Atlantic", "North Mid-West", "South Mid-West", "South Atlantic", "Mountain", and "Pacific". The class levels include: "Lower", "Working", "Middle", and "Upper". Political views are: "Liberal", "Moderate", and "Conservative", and education levels are "Less Than High School", "High School", "Junior College", "Bachelor", and "Graduate".
-
-### Research Question #3: Behaviors and Demographics
-The association between behaviors and various demographics are explored.  Concretely,
-
-> Is there an association between behaviors and geographic region, class, political view, and education level?
-
-For questions two and three, hypotheses tests were conducted for each demographic grouping variable.
+Three research questions have been devised to examine the relationship between opinion and behavior with respect to extra-marital sex, and the degree to which they vary by select demographic factors. Concretely, the following three research questions are presented, analyzed and discussed:  
+1. Is there an association between opinion and behavior with respect to extra-marital sex in the United States?
+2. Is there an association between opinion and geographic region, class, political view, and education level in the United States?
+3. Is there an association between behavior and geographic region, class, political view, and education level in teh United States?
 
 ## Document Organization
-The methods section describes the data, the sampling techniques, data preprocessing, univariate analyses of each variable and multivariate analyses for each research question. The results section summarizes the descriptive and inferential statistics, and the results of the hypotheses tests. The discussion section describes the significance of the findings vis-a-vis currently available research. Lastly, the conclusion synthesizes the key points.
+The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the univariate and multivariate analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
 
 # Methods
 ## Data 
-The General Social Survey (GSS), a project of the NORC at the University of Chicago, provided the data upon which this report is based. Formerly known as the National Opinion Research Center, "NORC at the University of Chicago is an objective non-partisan research institution that delivers reliable data and rigorous analysis to guide critical programmatic, business, and policy decisions" [@NORC]. Principally funded by the National Science Foundation, the GSS has been monitoring evolution, complexity attitudes, behaviors, and attributes of American society since 1972. Targeting the adult population, age 18 and over in the United, the data covers a diverse range of issues including national spending priorities, marijuana use, crime and punishment, race relations, quality of life, confidence in institutions, and sexual behavior.
+The General Social Survey (GSS), a project of the NORC at the University of Chicago, provided the data upon which this report is based. Formerly known as the National Opinion Research Center, "NORC at the University of Chicago is an objective non-partisan research institution that delivers reliable data and rigorous analysis to guide critical programmatic, business, and policy decisions" [@NORC]. Principally funded by the National Science Foundation, the GSS has been monitoring evolution, complexity opinions, behaviors, and attributes of American society since 1972. Targeting the adult population, age 18 and over in the United, the data covers a diverse range of issues including national spending priorities, marijuana use, crime and punishment, race relations, quality of life, confidence in institutions, and sexual behavior.
 
 ### Data Sampling Strategy
 The GSS employed a multi-stage area full probability sampling strategy. 
@@ -96,14 +78,14 @@ knitr::kable(variables) %>%
 ```
 
 ### Data Preprocessing
-The GSS variables were extracted for years 2010 thru 2016. Data sets containing individual proportions were created. Responses with "NAs", "Don't Know", and other non-response values for the GSS variables in scope, were filtered from the data set. To confirm that the sample proportions were representative of the population proportions, a priori sample size analysis was undertaken.
+The GSS variables were extracted for years 2010 thru 2016. Data sets containing individual proportions were created. Responses with "NAs", "Don't Know", and other non-response values for the GSS variables in scope, were filtered from the data set. The degree to which the results of this analysis are generalizable to the population of American adults age 18 and over, is largely dependent upon the the representativeness of the sample. Since multiple categorical variables were used, each with different completion rates, a priori sample size analysis was conducted for each categorical variable.
 
 ```{r preprocess, cache=TRUE}
 xmar <- preprocess(GSS)
 ```
 
 ### Sample Size Analysis
-In this sample size analysis, null proportions were calculated based upon the number of levels for each grouping variable. The following summarizes the minimum required sample sizes to be 95% confidence that the sample proportions were within a 5% margin of error of the population proportions.
+In this sample size analysis, null proportions and their associated standard errors were calculated for each grouping variable. The following summarizes the minimum sample sizes required to be 95% confidence that the sample proportions were within a 5% margin of error of the population proportions.
 
 `r kfigr::figr(label = "sampleSizeTable", prefix = TRUE, link = TRUE, type="Table")`: Sample Size Analysis
 ```{r sampleSizeTable, echo = F, message = FALSE, warning=FALSE}
@@ -112,23 +94,49 @@ knitr::kable(sampleSize) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
 ```
 
-The sample size is `r `% of the maximum required sample size, leaving a comfortable margin. Assuming inference conditions are met for each hypothesis, one can assume with 95% confidence that the sample proportions are within a 5% margin of error of the population proportions.
+`r kfigr::figr(label = "sampleSizeTable", prefix = TRUE, link = TRUE, type="Table")` shows that the sample size is large enough to support the inferences that generalize to the population. Specifically, one can assume that with 95% confidence that the sample proportions are within a 5% margin of error of the population proportions.
 
 ## Data Analysis
-The study involved both descriptive and inferential statistics. Descriptive statistics describe each of the variables within the scope of this study; wherase, the inferential statistics characterize relationships between categorical variables.
+The study involved both descriptive and inferential statistics. Descriptive statistics describe each of the variables within the scope of this study; whereas, the inferential statistics characterize relationships between the categorical variables.
 
 ### Descriptive Statistics
-The study began with a univariate analysis of the sample variables of interest. Proportions and frequency counts were calculated and presented in tables and bar plots. Population proportions were estimated with confidence intervals using one-proportion z-tests. 
+For each variable of interest, proportions and frequency counts were calculated and presented in tables and bar plots. Confidence intervals for the population proporations were estimated using sample proportions and standard errors with a 95% confidence as follows:
+
+$$95\% CI = \hat{p}  \pm z^{*}SE_{\hat{p}}$$
+where: $\hat{p}$ is the point estimate for the proportion, $z^{*} = 1.96$, the 95% critical value and:
+$$SE_{\hat{p}} = \sqrt{(\frac{\hat{p}(1-\hat{p})}{n})}$$
+**Bootstrapping** was used to visualize the sampling distribution of proportions. Since *independence* and *success/failure conditions* were met, normal distributions of the sample proportions $X \approx N(\mu, \sigma^2)$ were simulated, where $X$ was the sample proportion, a normally distributed random variable, $\mu$ was estimated using the sample proportion $\hat{p}$ and $\sigma^2$ was estimated using the sample proportion standard error, $SE_{\hat{p}}$. The simulation was repeated 10,000 times and plots provided visual depictions of the population proportions.
 
 ### Inferential Statistics
-To evaluate the association between attitudes, behaviors and demographic variables, contingency tables were rendered and chi-square tests of independence were performed to determine the association between the variables. Two-proportion tests were performed to determine the statistical significance of the differences between selected proportions. The $\alpha$ significance level was uniformly set to .05 for all statistical tests. 
+To evaluate the association between opinions, behaviors and demographic variables, contingency tables and bar plots were rendered and chi-square ($X^2$) tests of independence were performed to determine the association between the variables. The $X^2$ distribution with $k$ degrees of freedom is the distribution of a sum of the squares of $k$ independent standard normal random variables, in this case, a *target* or study variable and a *grouping* variable. The $X^2$ test statistic is computed as follows:
+$$X^2 = \displaystyle\sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i}$$
+where:  
+  $X^2 = $Pearson's cumulative test statistic.  
+  $O_i = $the number of observations of type $i$.  
+  $E_i = $the expected (theoretical) frequency of type $i$, asserted by the null hypothesis that the fraction of type $i$ in the population is $p_i = \frac{1}{l}$, where $l$ is the number of levels for the categorical variable.  
+  $n = $the number of cells in the contingency table.  
+  
+The results were tabulated and chi-square distributions, showing the rejection zone and test statistic, were plotted. Pairwise, two-sided, two-proportion hypothesis tests were performed to determine the statistical significance of the differences between selected proportions. Concretely, the following hypotheses were tested.  
+  $H_0: \hat{p_1} = \hat{p_2}$  
+  $H_a: \hat{p_1} \ne \hat{p_2}$  
+such that:  
+$$Z = \frac{(\hat{p_1} - \hat{p_2}) - 0}{SE_{pooled}}$$  
+where:  
+$$SE_{pooled} = \sqrt{\frac{\hat{p}(1-\hat{p})}{n_1} + \frac{\hat{p}(1-\hat{p})}{n_2}}$$  
+where:  
+$$\hat{p} = \frac{\hat{p_1}n_1 + \hat{p_2}n_2}{n_1 + n_2}$$  
+
+The $\alpha$ significance level was uniformly set to $\alpha = 0.05$ for all statistical tests, except for the pair-wise two-proportion tests. Multiple z-tests increase the chances of a type 1 error.  To counter this, the **Bonferroni Correction** was applied to the significance level, whereby $\alpha_{bc} = \alpha / correction$. where:  
+
+$correction = \frac{k(k - 1)}{2}$, and
+$k = $the number of comparisons.
 
 ## System and Environment
 This analysis was implemented using the 64 bit version of the R Programming Language, version 3.4.1. [@TheRFoundation2015] within the R. Studio Version 1.1.330 [@RStudioTeam2016] development environment on a Windows x64-based laptop powered by an Intel Core i7-3610QM CPU @ 2.30GHz, 2301 MHz processor with 4 Cores, 8 Logical Processors, and 16.0 GB of installed memory, running the Microsoft Windows 10 Home operating system, version	10.0.14393 Build 14393. Report writing and generation packages included knitr [@Xie2013], and kfigr [@Koohafkan2015].  Data management functionality was provided by the dplyr [Wickham2015a], reshape2 [@Rcpp2016], xtable [@Dahl2016] and data table [@Dowle2016] packages. Graphics and data visualization were powered by the ggplot2 [@Wickham2016], gridExtra [@BaptisteAuguie2016], and the stargazer [@Hlavac2015] packages.  The inference [@VinhNguyen2017] statistcal package provided functionality for extracting inferential values from a fitted model.
 
 # Results  
 ## Univariate Analysis  
-The univariate analysis examines each variable and reports their sample proportions, as well as the 95% confidence intervals for the population proportions.  `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` summarizes the variables in the analysis, in terms of their categorical levels, complete and NA cases, and complete response rates.  
+The univariate analysis examines each variable and reports their sample proportions, as well as the 95% confidence intervals for the population proportions. Plots depicting the estimated distribution of population proportions were rendered. `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` summarizes the variables examined in the analysis, in terms of their categorical levels, complete and NA cases, and complete response rates.  
 
 `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`: Variable Summary
 ```{r univariateSummary, echo = F, message = FALSE, warning=FALSE}
@@ -137,124 +145,389 @@ knitr::kable(uni$summary) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
 ```
 
-### Degree
-
-`r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Highest Degree Attained
-```{r degreeData, include=T, echo = F, results='html'}
-knitr::kable(uni$degree$data) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
-``` 
-
-
-```{r degreePlot, include=T, echo = F, results='html'}
-uni$degree$plot
-``` 
-`r kfigr::figr(label = "degreePlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Highest Degree Attained
+Next, the sample proportions are examined, population proportions estimated, and confidence intervals computed.
 
 ### Region
+As shown in `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`, the `r sum(uni$region$data$N)` responses were distributed among `r nrow(uni$region$data)` regions, ranging from `r min(uni$region$data$N)`, to `r max(uni$region$data$N)` complete cases. Since the independence and success/failure criteria were met, 95% confidence intervals for the population proportions were estimated as indicated below.
 
-`r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Region
+`r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Responses by Region
 ```{r regionData, include=T, echo = F, results='html'}
-knitr::kable(uni$region$data) %>%  
+knitr::kable(uni$region$data, digits = c(0,0,2,2,3,3,5)) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
 ``` 
 
+`r kfigr::figr(label = "regionBarPlot", prefix = TRUE, link = TRUE, type="Figure")` graphically depicts the sample **proportions** of responses by region. The mid-west accounts for approximately `r round(sum(uni$region$data$Proportion[4], uni$region$data$Proportion[5]) * 100, 0)`% of all responses. The Atlantic states stood for `r round(sum(uni$region$data$Proportion[1], uni$region$data$Proportion[2], uni$region$data$Proportion[3]) * 100, 0)`% of the data, mountain and pacific states, `r round(sum(uni$region$data$Proportion[6], uni$region$data$Proportion[7]) * 100, 0)`%.
 
-```{r regionPlot, include=T, echo = F, results='html'}
-uni$region$plot
+```{r regionBarPlot, include=T, echo = F, results='html'}
+uni$region$barPlot
 ``` 
-`r kfigr::figr(label = "regionPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Region
+`r kfigr::figr(label = "regionBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Region
+
+Using the **bootstrap** method, a sampling distribution of proporations was simulated based upon the sample proportions and standard errors. Depicted in `r kfigr::figr(label = "regionDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`,  
+
+```{r regionDensityPlot, include=T, echo = F, results='html'}
+uni$region$densityPlot
+``` 
+`r kfigr::figr(label = "regionDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Simulated Sampling Distribution of Proportions. Since the independence and success/failure criteria were met, one could infer that the population proportions are  within a 5% margin of error of the sample proportions, with 95% confidence. Moreover, one could estimate the statistical significance of the differences in proportions by inspecting the overlap (or lack thereof) between the sampling distributions.
 
 
 ### Political Views
+There were `r uni$summary$Complete[3]` (`r uni$summary$Rate[3]`) compete cases, where a plurality (`r uni$summary$Proportion[2] * 100`%)of repondents identified as "Moderate", `r uni$summary$Proportion[3] * 100`% held conservative views and `r uni$summary$Proportion[1] * 100`% considered themselves liberal. Since conditions of independence and normality were met, non-overlapping confidence intervals indicate that the differences in proportions were significant.
 
 `r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Political View
 ```{r viewsData, include=T, echo = F, results='html'}
-knitr::kable(uni$views$data) %>%  
+knitr::kable(uni$views$data, digits = c(0,0,2,2,3,3,5)) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
 ``` 
 
+The bar plot below graphically presents the proportions and `r kfigr::figr(label = "viewsDensityPlot", prefix = TRUE, link = TRUE, type="Figure")` reveals the simulated sampling distribution of the proportions. 
 
-```{r viewsPlot, include=T, echo = F, results='html'}
-uni$views$plot
+```{r viewsBarPlot, include=T, echo = F, results='html'}
+uni$views$barPlot
 ``` 
-`r kfigr::figr(label = "viewsPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Political View
+`r kfigr::figr(label = "viewsBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Political View
 
+```{r viewsDensityPlot, include=T, echo = F, results='html'}
+uni$views$densityPlot
+``` 
+`r kfigr::figr(label = "viewsDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Simulated Sampling Distribution of Proportions by Political View
 
 ### Class
 
 `r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Class
 ```{r classData, include=T, echo = F, results='html'}
-knitr::kable(uni$degree$data) %>%  
+knitr::kable(uni$class$data, digits = c(0,0,2,2,3,3,5)) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
 ``` 
 
 
-```{r classPlot, include=T, echo = F, results='html'}
-uni$class$plot
+```{r classBarPlot, include=T, echo = F, results='html'}
+uni$class$barPlot
 ``` 
-`r kfigr::figr(label = "classPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Class
+`r kfigr::figr(label = "degreeBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Class
 
+```{r classDensityPlot, include=T, echo = F, results='html'}
+uni$class$densityPlot
+``` 
+`r kfigr::figr(label = "degreeDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Class
 
-### Extra-Marital Sex Attitudes 
+### Education
+With a nearly 100% complete case rate of `r uni$summary$Total[1]` independent samples, one may assert that 95% of the population proportions lie within the confidence intervals indicated in `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`.
 
-
-`r kfigr::figr(label = "attitudeData", prefix = TRUE, link = TRUE, type="Table")`: Frequency Proportion of Responses by Opinions regarding Extra Marital Sex
-```{r attitudeData, include=T, echo = F, results='html'}
-knitr::kable(uni$attitude$data) %>%  
+`r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Responses by Highest Degree Attained
+```{r degreeData, include=T, echo = F, results='html'}
+knitr::kable(uni$degree$data, digits = c(0,0,2,2,3,3,5)) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
 ``` 
 
-
-```{r attitudePlot, include=T, echo = F, results='html'}
-uni$attitude$plot
+```{r degreeBarPlot, include=T, echo = F, results='html'}
+uni$degree$barPlot
 ``` 
-`r kfigr::figr(label = "attitudePlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Opinions regarding Extra Marital Sex 
+`r kfigr::figr(label = "degreeBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Highest Degree Attained
 
+```{r degreeDensityPlot, include=T, echo = F, results='html'}
+uni$degree$densityPlot
+``` 
+`r kfigr::figr(label = "degreeDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Highest Degree Attained
+
+### Extra-Marital Sex Opinions 
+
+`r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`: Frequency Proportion of Responses by Opinions regarding Extra Marital Sex
+```{r opinionData, include=T, echo = F, results='html'}
+knitr::kable(uni$opinions$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+```{r opinionBarPlot, include=T, echo = F, results='html'}
+uni$opinions$barPlot
+``` 
+`r kfigr::figr(label = "opinionBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Opinions regarding Extra Marital Sex 
+
+```{r opinionDensityPlot, include=T, echo = F, results='html'}
+uni$opinions$densityPlot
+``` 
+`r kfigr::figr(label = "opinionDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Opinions regarding Extra Marital Sex 
 
 ### Extra-Marital Sex Behaviors
 
-`r kfigr::figr(label = "strayData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Respondents Who Have Engaged in Extra-Marital Sex
-```{r strayData, include=T, echo = F, results='html'}
-knitr::kable(uni$stray$data) %>%  
+`r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+```{r behaviorData, include=T, echo = F, results='html'}
+knitr::kable(uni$behavior$data) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
 ``` 
 
-
-```{r strayPlot, include=T, echo = F, results='html'}
-uni$stray$plot
+```{r behaviorBarPlot, include=T, echo = F, results='html'}
+uni$behavior$barPlot
 ``` 
-`r kfigr::figr(label = "strayPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+`r kfigr::figr(label = "behaviorBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
 
-## Research Question 1: Attitudes and Behaviors
+```{r behaviorDensityPlot, include=T, echo = F, results='html'}
+uni$behavior$densityPlot
+``` 
+`r kfigr::figr(label = "behaviorDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+
+## Research Question 1: Opinions and Behaviors
 ```{r rq1, cache=TRUE}
 rq1Data <- rq1(xmar)
 ```
 
-The degree to which attitudes are aligned with behaviors is the focus of this first inquiry. More formally stated, we pose the following question:
+The degree to which opinions are aligned with behaviors is the focus of this first inquiry. More formally stated, we pose the following question:
 
-> Is there an association between attitudes and behaviors with respect to extra-marital sex?
+> Is there an association between opinions and behaviors with respect to extra-marital sex?
 
 The hypotheses are stated as follows:  
-$H_0:$ Attitudes and behaviors with respect to extra-marital sex are **not** associated.  
-$H_a:$ Attitudes and behaviors with respect to extra-marital sex **are** associated.  
+$H_0:$ Opinions and behaviors with respect to extra-marital sex are **not** associated.  
+$H_a:$ Opinions and behaviors with respect to extra-marital sex **are** associated.  
 
 <center>
-`r kfigr::figr("rq1Data", prefix = TRUE,  link = TRUE, type = "Table")`: Attitudes and Beliefs Contingency Table
-```{r rq1Data, include=T, echo = F, results='asis'}
+`r kfigr::figr("rq1Freq", prefix = TRUE,  link = TRUE, type = "Table")`: Opinions and Beliefs Contingency Table
+```{r rq1Freq, include=T, echo = F, results='asis'}
 stargazer::stargazer(format(rq1Data$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html')
 ``` 
 </center>
 
-
-
 ```{r rq1Plot, include=T, echo = F, results='html'}
 rq1Data$plots$prop
 ``` 
-`r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+`r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Opinions by Behavior Proportions
 
+`r kfigr::figr(label = "rq1TestTable", prefix = TRUE, link = TRUE, type="Table")`: Frequency Proportion of Responses by Opinions regarding Extra Marital Sex
+```{r rq1TestTable, include=T, echo = F, results='html'}
+knitr::kable(rq1Data$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+```{r rq1TestPlot, include=T, echo = F, results='html'}
+rq1Data$test$distribution
+``` 
+`r kfigr::figr(label = "rq1TestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-square Test for Independence of Opinions and Behaviors
 
 ## Research Question 2:
+
+```{r rq2, cache=TRUE}
+rq2Data <- rq2(xmar)
+```
+
+### Opinions by Region
+<center>
+`r kfigr::figr(label = "rq2RegionFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Opinions by Region
+```{r rq2RegionFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq2Data$region$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq2RegionProp, include=T, echo = F, results='html'}
+rq2Data$region$plots$propBar
+``` 
+`r kfigr::figr(label = "rq2RegionProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Opinions by Region
+
+```{r rq2RegionTestPlot, include=T, echo = F, results='html'}
+rq2Data$region$test$plot
+``` 
+`r kfigr::figr(label = "rq2RegionTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Opinion and Geographic Region
+
+`r kfigr::figr(label = "rq2RegionTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Opinion and Geographic Region
+```{r rq2RegionTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq2Data$region$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+### Opinions by Political Views
+
+<center>
+`r kfigr::figr(label = "rq2ViewsFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Opinions by Views
+```{r rq2ViewsFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq2Data$views$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq2ViewsProp, include=T, echo = F, results='html'}
+rq2Data$views$plots$propBar
+``` 
+`r kfigr::figr(label = "rq2ViewsProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Opinions by Views
+
+```{r rq2ViewsTestPlot, include=T, echo = F, results='html'}
+rq2Data$views$test$plot
+``` 
+`r kfigr::figr(label = "rq2ViewsTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Opinion and Geographic Views
+
+`r kfigr::figr(label = "rq2ViewsTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Opinion and Geographic Views
+```{r rq2ViewsTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq2Data$views$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+
+
+### Opinions by Class
+
+
+<center>
+`r kfigr::figr(label = "rq2ClassFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Opinions by Class
+```{r rq2ClassFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq2Data$class$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq2ClassProp, include=T, echo = F, results='html'}
+rq2Data$class$plots$propBar
+``` 
+`r kfigr::figr(label = "rq2ClassProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Opinions by Class
+
+```{r rq2ClassTestPlot, include=T, echo = F, results='html'}
+rq2Data$class$test$plot
+``` 
+`r kfigr::figr(label = "rq2ClassTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Opinion and Geographic Class
+
+`r kfigr::figr(label = "rq2ClassTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Opinion and Geographic Class
+```{r rq2ClassTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq2Data$class$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+### Opinions by Degree
+
+
+<center>
+`r kfigr::figr(label = "rq2DegreeFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Opinions by Degree
+```{r rq2DegreeFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq2Data$degree$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq2DegreeProp, include=T, echo = F, results='html'}
+rq2Data$degree$plots$propBar
+``` 
+`r kfigr::figr(label = "rq2DegreeProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Opinions by Degree
+
+```{r rq2DegreeTestPlot, include=T, echo = F, results='html'}
+rq2Data$degree$test$plot
+``` 
+`r kfigr::figr(label = "rq2DegreeTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Opinion and Geographic Degree
+
+`r kfigr::figr(label = "rq2DegreeTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Opinion and Geographic Degree
+```{r rq2DegreeTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq2Data$degree$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+## Research Question 3:
+
+
+```{r rq3, cache=TRUE}
+rq3Data <- rq3(xmar)
+```
+
+### Behaviors by Region
+<center>
+`r kfigr::figr(label = "rq3RegionFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Behaviors by Region
+```{r rq3RegionFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq3Data$region$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq3RegionProp, include=T, echo = F, results='html'}
+rq3Data$region$plots$propBar
+``` 
+`r kfigr::figr(label = "rq3RegionProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Behaviors by Region
+
+```{r rq3RegionTestPlot, include=T, echo = F, results='html'}
+rq3Data$region$test$plot
+``` 
+`r kfigr::figr(label = "rq3RegionTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Behavior and Geographic Region
+
+`r kfigr::figr(label = "rq3RegionTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Behavior and Geographic Region
+```{r rq3RegionTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq3Data$region$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+### Behaviors by Political Views
+
+<center>
+`r kfigr::figr(label = "rq3ViewsFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Behaviors by Views
+```{r rq3ViewsFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq3Data$views$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq3ViewsProp, include=T, echo = F, results='html'}
+rq3Data$views$plots$propBar
+``` 
+`r kfigr::figr(label = "rq3ViewsProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Behaviors by Views
+
+```{r rq3ViewsTestPlot, include=T, echo = F, results='html'}
+rq3Data$views$test$plot
+``` 
+`r kfigr::figr(label = "rq3ViewsTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Behavior and Geographic Views
+
+`r kfigr::figr(label = "rq3ViewsTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Behavior and Geographic Views
+```{r rq3ViewsTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq3Data$views$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
+
+
+### Behaviors by Class
+
+
+<center>
+`r kfigr::figr(label = "rq3ClassFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Behaviors by Class
+```{r rq3ClassFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq3Data$class$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq3ClassProp, include=T, echo = F, results='html'}
+rq3Data$class$plots$propBar
+``` 
+`r kfigr::figr(label = "rq3ClassProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Behaviors by Class
+
+```{r rq3ClassTestPlot, include=T, echo = F, results='html'}
+rq3Data$class$test$plot
+``` 
+`r kfigr::figr(label = "rq3ClassTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Behavior and Geographic Class
+
+`r kfigr::figr(label = "rq3ClassTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Behavior and Geographic Class
+```{r rq3ClassTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq3Data$class$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+### Behaviors by Degree
+
+
+<center>
+`r kfigr::figr(label = "rq3DegreeFreq", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Behaviors by Degree
+```{r rq3DegreeFreq, include=T, echo = F, results='asis'}
+stargazer::stargazer(format(rq3Data$degree$data$freqTbl, quote = FALSE, justify = "right", big.mark = ","), type = 'html') 
+``` 
+</center>
+
+```{r rq3DegreeProp, include=T, echo = F, results='html'}
+rq3Data$degree$plots$propBar
+``` 
+`r kfigr::figr(label = "rq3DegreeProp", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Behaviors by Degree
+
+```{r rq3DegreeTestPlot, include=T, echo = F, results='html'}
+rq3Data$degree$test$plot
+``` 
+`r kfigr::figr(label = "rq3DegreeTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of the Independence of Behavior and Geographic Degree
+
+`r kfigr::figr(label = "rq3DegreeTestTable", prefix = TRUE, link = TRUE, type="Table")`: Chi-Square Test of the Independence of Behavior and Geographic Degree
+```{r rq3DegreeTestTable, include=T, echo = F, results='html'}
+knitr::kable(rq3Data$degree$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+``` 
+
+
 # Discussion
 # Conclusion
 # Appendix

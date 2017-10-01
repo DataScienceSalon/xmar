@@ -38,10 +38,10 @@ preprocess <- function(GSS) {
                      ifelse(CLASS_ == 2, "Working Class",
                             ifelse(CLASS_ == 3, "Middle Class",
                                    ifelse(CLASS_ == 4, "Upper Class", "NA")))),
-      Attitude = ifelse(XMARSEX %in% c(1,2), "Wrong",
+      Opinion = ifelse(XMARSEX %in% c(1,2), "Wrong",
                         ifelse(XMARSEX == 3, "Sometimes Wrong",
                                ifelse(XMARSEX == 4, "Not Wrong At All", "NA"))),
-      Stray = ifelse(EVSTRAY == 1, "Yes",
+      Behavior = ifelse(EVSTRAY == 1, "Yes",
                      ifelse(EVSTRAY == 2,"No", "NA")))
 
   # Create factor levels
@@ -56,9 +56,9 @@ preprocess <- function(GSS) {
                        levels = c("Liberal", "Moderate", "Conservative", "NA"))
   xmar$Class <- factor(xmar$Class,
                        levels = c("Lower Class", "Working Class", "Middle Class", "Upper Class", "NA"))
-  xmar$Attitude <- factor(xmar$Attitude,
+  xmar$Opinion <- factor(xmar$Opinion,
                           levels = c("Wrong", "Sometimes Wrong", "Not Wrong At All", "NA"))
-  xmar$Stray <- factor(xmar$Stray,
+  xmar$Behavior <- factor(xmar$Behavior,
                        levels = c("Yes", "No", "NA"))
   return(xmar)
 }
