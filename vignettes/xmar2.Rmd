@@ -34,7 +34,15 @@ knitr::knit_hooks$set(inline = function(x) {
 ```
 
 ```{r loadData, cache=TRUE}
-load(file = "../inst/extdata/GSS.Rdata")
+load(file = "../data/GSS.Rdata")
+```
+
+```{r preprocess, cache=TRUE}
+xmar <- preprocess(GSS)
+```
+
+```{r univariate, echo = F, message = FALSE, warning=FALSE}
+uni <- univariate(xmar)
 ```
 
 # Abstract
@@ -79,10 +87,6 @@ knitr::kable(variables) %>%
 
 ### Data Preprocessing
 The GSS variables were extracted for years 2010 thru 2016. Data sets containing individual proportions were created. Responses with "NAs", "Don't Know", and other non-response values for the GSS variables in scope, were filtered from the data set. The degree to which the results of this analysis are generalizable to the population of American adults age 18 and over, is largely dependent upon the the representativeness of the sample. Since multiple categorical variables were used, each with different completion rates, a priori sample size analysis was conducted for each categorical variable.
-
-```{r preprocess, cache=TRUE}
-xmar <- preprocess(GSS)
-```
 
 ### Sample Size Analysis
 In this sample size analysis, null proportions and their associated standard errors were calculated for each grouping variable. The following summarizes the minimum sample sizes required to be 95% confidence that the sample proportions were within a 5% margin of error of the population proportions.
@@ -193,19 +197,25 @@ $$z* = \frac{c-\mu_0}{\frac{\sigma}{\sqrt{n}}}$$
 ## System and Environment
 This analysis was implemented using the 64 bit version of the R Programming Language, version 3.4.1. [@TheRFoundation2015] within the R. Studio Version 1.1.330 [@RStudioTeam2016] development environment on a Windows x64-based laptop powered by an Intel Core i7-3610QM CPU @ 2.30GHz, 2301 MHz processor with 4 Cores, 8 Logical Processors, and 16.0 GB of installed memory, running the Microsoft Windows 10 Home operating system, version	10.0.14393 Build 14393. Report writing and generation packages included knitr [@Xie2013], and kfigr [@Koohafkan2015].  Data management functionality was provided by the dplyr [Wickham2015a], reshape2 [@Rcpp2016], xtable [@Dahl2016] and data table [@Dowle2016] packages. Graphics and data visualization were powered by the ggplot2 [@Wickham2016], gridExtra [@BaptisteAuguie2016], and the stargazer [@Hlavac2015] packages.  The inference [@VinhNguyen2017] statistcal package provided functionality for extracting inferential values from a fitted model.
 
-# Results  
-The proportions and 95% confidence intervals are reported for the variables summarized in `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`  
+# Results 
+## Univariate Analysis
+`r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` summarizes the study variables, in terms of their categorical levels, the number of complete cases range = [`r min(uni$summary$Complete)`, `r max(uni$summary$Complete)`], and the complete case rate range = [`r uni$summary$Rate[6]`, `r uni$summary$Rate[1]`]  
 
 `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`: Variable Summary
 ```{r univariateSummary, echo = F, message = FALSE, warning=FALSE}
-uni <- univariate(xmar)
 knitr::kable(uni$summary) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-### Degree
-With a nearly 100% complete case rate of `r uni$summary$Total[1]` independent samples, one may assert that 95% of the population proportions lie within the confidence intervals indicated in `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`.
+Next, the variables in `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` are examined in terms of:  
+* **N**: The counts for each level of the categorical variable   
+* **Minimum N**: The minimum sample size required to compute the population confidence interval with 95% confidence  
+* **Proportion**: The proportions for each level of the categorical variable  
+* **Cumulative**: The cumulative proportions  
+* **Confidence Interval**: The 95% confidence interval for the population proportion at each categorical level   
 
+### Degree
+The Degree variable characterizes the respondent's education level in terms of his or her highest degree earned. As indicated in `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$degree$data$N)` complete cases, with counts range = [`r min(uni$degree$data$N)`, `r max(uni$degree$data$N)`], and range of proportions = [`r min(uni$degree$data$Proportion)`, `r max(uni$degree$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$degree$data[,3])` to `r max(uni$degree$data[,3])`, for a total of `r sum(uni$degree$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
 
 `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`: Education variable descriptive statistics
 ```{r degreeData, include=T, echo = F, results='html'}
@@ -218,6 +228,86 @@ uni$degree$barplot
 ``` 
 `r kfigr::figr(label = "degreeBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Education level proportions 
 
-As shown in `r kfigr::figr(label = "degreeBarPlot", prefix = TRUE, link = TRUE, type="Figure")` high school graduates comprise a near majority of the responses (`r round(max(uni$degree$data$p) * 100, 0)`%), followed by under graduates (`r round(uni$degree$data$p[4] * 100, 0)`%). Those with with less than high school degrees, those with graduate degrees, and respondents with junior college degrees make up `r round(uni$degree$data$p[1] * 100, 0)`%, `r round(uni$degree$data$p[5] * 100, 0)`%, , and `r round(uni$degree$data$p[3] * 100, 0)`%, respectively.
+As graphically depicted in `r kfigr::figr(label = "degreeBarplot", prefix = TRUE, link = TRUE, type="Figure")` high school graduates comprise a near majority of the responses (`r round(max(uni$degree$data$Proportion) * 100, 0)`%), followed by under graduates (`r round(uni$degree$data$Proportion[4] * 100, 0)`%). Those with with less than high school degrees, those with graduate degrees, and respondents with junior college degrees make up `r round(uni$degree$data$Proportion[1] * 100, 0)`%, `r round(uni$degree$data$Proportion[5] * 100, 0)`%, and `r round(uni$degree$data$Proportion[3] * 100, 0)`%, respectively.
+
+### Region
+The Region variable indicates the geographic region in which the interview was conducted. As indicated in `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$region$data$N)` complete cases, with counts range = [`r min(uni$region$data$N)`, `r max(uni$region$data$N)`], and range of proportions = [`r min(uni$region$data$Proportion)`, `r max(uni$region$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$region$data[,3])` to `r max(uni$region$data[,3])`, for a total of `r sum(uni$region$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+
+`r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`: Region variable descriptive statistics
+```{r regionData, include=T, echo = F, results='html'}
+knitr::kable(uni$region$data, digits = c(0,0,2,2,3,3,5), align = c("l", rep("c", 5))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r regionBarplot, include=T, echo = F, results='html'}
+uni$region$barplot
+``` 
+`r kfigr::figr(label = "regionBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Region level proportions 
+
+As graphically depicted in `r kfigr::figr(label = "regionBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the Atlantic, Midwest, Mountain and Pacific regions constitute `r round(sum(uni$region$data$Proportion[1:3]) * 100, 0)`%, `r round(sum(uni$region$data$Proportion[4:5]) * 100, 0)`%, `r round(uni$region$data$Proportion[6] * 100, 0)`%, and `r round(uni$region$data$Proportion[7] * 100, 0)`% of the sample, respectively.
+
+### Political Views
+The Views variable characterizes a respondent as having either conservative, liberal or moderate political views. As indicated in `r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$views$data$N)` complete cases, with counts range = [`r min(uni$views$data$N)`, `r max(uni$views$data$N)`], and range of proportions = [`r min(uni$views$data$Proportion)`, `r max(uni$views$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$views$data[,3])` to `r max(uni$views$data[,3])`, for a total of `r sum(uni$views$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+
+`r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`: Views variable descriptive statistics
+```{r viewsData, include=T, echo = F, results='html'}
+knitr::kable(uni$views$data, digits = c(0,0,2,2,3,3,5), align = c("l", rep("c", 5))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r viewsBarplot, include=T, echo = F, results='html'}
+uni$views$barplot
+``` 
+`r kfigr::figr(label = "viewsBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Responses by political view  
+
+As graphically depicted in `r kfigr::figr(label = "viewsBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the sample proportions of respondents with liberal, moderate, and conservative views were `r round(uni$views$data$Proportion[1] * 100, 0)`%, `r round(uni$views$data$Proportion[2] * 100, 0)`%, and `r round(uni$views$data$Proportion[3] * 100, 0)`%, respectively.
+
+### Class
+As indicated in `r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$class$data$N)` complete cases, with counts range = [`r min(uni$class$data$N)`, `r max(uni$class$data$N)`], and range of proportions = [`r min(uni$class$data$Proportion)`, `r max(uni$class$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$class$data[,3])` to `r max(uni$class$data[,3])`, for a total of `r sum(uni$class$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+
+`r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`: Class variable descriptive statistics
+```{r classData, include=T, echo = F, results='html'}
+knitr::kable(uni$class$data, digits = c(0,0,2,2,3,3,5), align = c("l", rep("c", 5))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r classBarplot, include=T, echo = F, results='html'}
+uni$class$barplot
+``` 
+`r kfigr::figr(label = "classBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Responses by class  
+
+As graphically depicted in `r kfigr::figr(label = "classBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the vast majority of respondents (`r round(sum(uni$class$data$Proportion[2:3]) * 100, 0)`%) characterized themselves as working class or middle class.  
+
+### Opinion
+As indicated in `r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$opinion$data$N)` complete cases, with counts range = [`r min(uni$opinion$data$N)`, `r max(uni$opinion$data$N)`], and range of proportions = [`r min(uni$opinion$data$Proportion)`, `r max(uni$opinion$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$opinion$data[,3])` to `r max(uni$opinion$data[,3])`, for a total of `r sum(uni$opinion$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+
+`r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`: Opinion variable descriptive statistics
+```{r opinionData, include=T, echo = F, results='html'}
+knitr::kable(uni$opinion$data, digits = c(0,0,2,2,3,3,5), align = c("l", rep("c", 5))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r opinionBarplot, include=T, echo = F, results='html'}
+uni$opinion$barplot
+``` 
+`r kfigr::figr(label = "opinionBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Responses by opinion  
+
+As graphically depicted in `r kfigr::figr(label = "opinionBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the vast majority of respondents (`r round(uni$opinion$data$Proportion[1] * 100, 0)`%) consider extra-marital sex as wrong. Approximately `r round(sum(uni$opinion$data$Proportion[2:3]) * 100, 0)`% of respondents consider extra-marital sex as sometimes wrong or not wrong at all.
+
+### Behavior
+As indicated in `r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$behavior$data$N)` complete cases, with counts range = [`r min(uni$behavior$data$N)`, `r max(uni$behavior$data$N)`], and range of proportions = [`r min(uni$behavior$data$Proportion)`, `r max(uni$behavior$data$Proportion)`]. Minimum required sample size was `r sum(uni$behavior$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+
+`r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`: Behavior variable descriptive statistics
+```{r behaviorData, include=T, echo = F, results='html'}
+knitr::kable(uni$behavior$data, digits = c(0,0,2,2,3,3,5), align = c("l", rep("c", 5))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r behaviorBarplot, include=T, echo = F, results='html'}
+uni$behavior$barplot
+``` 
+`r kfigr::figr(label = "behaviorBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Responses by behavior  
+
+As graphically depicted in `r kfigr::figr(label = "behaviorBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the vast majority of respondents (`r round(uni$behavior$data$Proportion[2] * 100, 0)`%)  have not engaged in extra-marital sex. 
 
 # References

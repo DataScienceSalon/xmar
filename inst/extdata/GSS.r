@@ -33,4 +33,4 @@ GSS_metadata <- read.dct("./inst/extdata/GSS.dct")
 GSS_ascii <- read.dat("./inst/extdata/GSS.dat", GSS_metadata)
 attr(GSS_ascii, "col.label") <- GSS_metadata[["ColLabel"]]
 GSS <- GSS_ascii
-save(GSS, file = "./inst/extdata/GSS.Rdata")
+save(GSS, file = "./data/GSS.Rdata")

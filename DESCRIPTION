@@ -14,12 +14,12 @@ LazyData: true
 Depends:
     R (>= 3.4.1),
     data.table,
-    dplyr
+    dplyr,
+    extrafont
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
 Imports:
-    extrafont,
     ggplot2,
     ggthemes,
     gridExtra,

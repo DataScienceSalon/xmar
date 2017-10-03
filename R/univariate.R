@@ -237,7 +237,7 @@ univariate <- function(xmar) {
 
     stats <- xmar %>% summarise(
       Variable = "XMARSEX",
-      Description = "OpinionS regarding extra-marital sex",
+      Description = "Opinions regarding extra-marital sex",
       Levels = length(levels(xmar$Opinion)),
       Complete = nrow(subset(xmar, xmar$Opinion != "NA")),
       NAs = nrow(subset(xmar, xmar$Opinion == "NA")),
