@@ -1,0 +1,3 @@
+Test,Package,Function
+Two-proportion z-test,stats,prop.test
+Chi-square test of independence,stats,chisq.test

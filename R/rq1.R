@@ -22,7 +22,7 @@ rq1 <- function(xmar) {
                   Group = factor(x$Behavior))
 
   # Format data, render bar plots, and conduct hypothesis test
-  data <- formatData(d)
+  data <- formatData(d, target = target, group = group)
   plots <- plotBars(data$data, target = target, group = group)
   test <- X2(data$table, target = target, group = group)
 

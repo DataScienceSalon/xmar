@@ -23,7 +23,7 @@ rq2 <- function(xmar) {
                     Group = factor(x$Region))
 
     # Format data, render bar plots, and conduct hypothesis test
-    data <- formatData(d)
+    data <- formatData(d, target = target, group = group)
     plots <- plotBars(data$data, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
@@ -35,7 +35,7 @@ rq2 <- function(xmar) {
     return(results)
   }
 
-  rq2Viewss <- function(xmar) {
+  rq2Views <- function(xmar) {
     #Set Constants
     target = "Opinions"
     group = "Political Views"
@@ -47,7 +47,7 @@ rq2 <- function(xmar) {
 
 
     # Format data, render bar plots, and conduct hypothesis test
-    data <- formatData(d)
+    data <- formatData(d, target = target, group = group)
     plots <- plotBars(data$data, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
@@ -71,7 +71,7 @@ rq2 <- function(xmar) {
 
 
     # Format data, render bar plots, and conduct hypothesis test
-    data <- formatData(d)
+    data <- formatData(d, target = target, group = group)
     plots <- plotBars(data$data, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
@@ -95,7 +95,7 @@ rq2 <- function(xmar) {
 
 
     # Format data, render bar plots, and conduct hypothesis test
-    data <- formatData(d)
+    data <- formatData(d, target = target, group = group)
     plots <- plotBars(data$data, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
@@ -108,7 +108,7 @@ rq2 <- function(xmar) {
   }
 
   region <- rq2Region(xmar)
-  views <- rq2Viewss(xmar)
+  views <- rq2Views(xmar)
   class <- rq2Class(xmar)
   degree <- rq2Degree(xmar)
 

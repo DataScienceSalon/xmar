@@ -97,46 +97,104 @@ knitr::kable(sampleSize) %>%
 `r kfigr::figr(label = "sampleSizeTable", prefix = TRUE, link = TRUE, type="Table")` shows that the sample size is large enough to support the inferences that generalize to the population. Specifically, one can assume that with 95% confidence that the sample proportions are within a 5% margin of error of the population proportions.
 
 ## Data Analysis
-The study involved both descriptive and inferential statistics. Descriptive statistics describe each of the variables within the scope of this study; whereas, the inferential statistics characterize relationships between the categorical variables.
+The data analysis outlined in the results section of this paper follows the following hypothesis testing approach:  
+1. State Hypotheses  
+2. Check Parametric Inference Conditions
+3. Evaluate Representativeness 
+4. Select appropriate hypothesis test / test statistic
+5. Compute the p-value, the probability of observing the data given the null hypothesis
+6. Interpret and report results.
+7. Type I / Type II Error Analysis.
 
-### Descriptive Statistics
-For each variable of interest, proportions and frequency counts were calculated and presented in tables and bar plots. Confidence intervals for the population proporations were estimated using sample proportions and standard errors with a 95% confidence as follows:
+### State Hypotheses
+Two types of hypothesis tests were conducted during this analysis; tests for independence and tests for differences in proportions.  
 
-$$95\% CI = \hat{p}  \pm z^{*}SE_{\hat{p}}$$
-where: $\hat{p}$ is the point estimate for the proportion, $z^{*} = 1.96$, the 95% critical value and:
-$$SE_{\hat{p}} = \sqrt{(\frac{\hat{p}(1-\hat{p})}{n})}$$
-**Bootstrapping** was used to visualize the sampling distribution of proportions. Since *independence* and *success/failure conditions* were met, normal distributions of the sample proportions $X \approx N(\mu, \sigma^2)$ were simulated, where $X$ was the sample proportion, a normally distributed random variable, $\mu$ was estimated using the sample proportion $\hat{p}$ and $\sigma^2$ was estimated using the sample proportion standard error, $SE_{\hat{p}}$. The simulation was repeated 10,000 times and plots provided visual depictions of the population proportions.
+Hypothesis tests for independence of categorical variables takes the form:
+$H_0$ The two categorical variables are independent, e.g. expected counts $E$ and observed counts $O$ are equal.
+$H_a$ The two categorical variables are **not** independent, e.g. expected counts $E$ and observed counts $O$ are **not** equal.
 
-### Inferential Statistics
-To evaluate the association between opinions, behaviors and demographic variables, contingency tables and bar plots were rendered and chi-square ($X^2$) tests of independence were performed to determine the association between the variables. The $X^2$ distribution with $k$ degrees of freedom is the distribution of a sum of the squares of $k$ independent standard normal random variables, in this case, a *target* or study variable and a *grouping* variable. The $X^2$ test statistic is computed as follows:
-$$X^2 = \displaystyle\sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i}$$
+Tests for differences in proportions takes the following form:
+$H_0$ All proportions are equal, e.g. $p_1 = p_2 = ...= p_n$
+$H_a$ At least one proportion is statistically different from the others.
+
+### Inference Conditions
+Statistical inferences were derived from parametric statistics and the central limit theoreom, whereby the former assumes that sample data comes from a population distribution with a fixed set of parameters, and the later assumes that the distribution is normal and that the parameters are $N(\mu, \sigma^2)$, where $\mu$ is the population proportion parameter $\hat{p}$ and $\sigma^2$ is the variation of of the population proportion parameter. We can assume that the sample comes from a normally distributed population if:  
+1. **Independence:** The sample observations must be independent, 
+2. **Success/Failure:** There are at least 10 successes and 10 failures for dichotomous categorical variables.
+3. **Sample Size:** The sample size must be less than 10% of the population, if drawn without replacement.
+3. **Expected Values:** For multiple groups or for categorical variables with multiple levels (>2), the *expected* counts must be greater than five for each variable and level. 
+
+
+### Evaluate Representativeness
+The full-probability sampling strategy employed by the GSS, has produced a sample of over 60,000 individual responses; one considered by researchers, academics, government and industry as representative of the overall adult population in the United States. However, this analysis was based upon a *subset* of the sample; therefore, the question of representativeness must be re-examined. As such, sample size analyses was undertaken to determine the minimum required sample size to ensure that the population proportions were within a designated margin of error from the sample proportion, at set confidence level.  Designated margin of error and confidence levels were $ME = 5\%$ and $CL = 95\%$ respectively. The minimum required sample size was calculated as follows:
+$$n = \frac{p_0(1-p_0)}{z*^2}$$
+where:   
+z* = number of standard errors associated with $\frac{\alpha }{2}$ for two-sided comparisons
+$p_{0} = \frac{1}{k}$, the null proportion where $k$ is the number of levels for the categorical variable
+
+### Test Statistics  
+Three types of tests were used to evaluate the hypotheses statements:   
+1. One-proportion z-tests to compute confidence intervals for population proportions. 
+2. Two-proportion z-tests to evaluate the difference between two proportions.  
+3. Pearson's chi-square test of independence for evaluating the association between categorical variables.  
+
+#### One proportion z-test
+One sample proportion z-tests were conducted to compute the confidence intervals for the population proportions as where:
+$$\hat{p} – z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \le p \le \hat{p}  + z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
 where:  
-  $X^2 = $Pearson's cumulative test statistic.  
-  $O_i = $the number of observations of type $i$.  
-  $E_i = $the expected (theoretical) frequency of type $i$, asserted by the null hypothesis that the fraction of type $i$ in the population is $p_i = \frac{1}{l}$, where $l$ is the number of levels for the categorical variable.  
-  $n = $the number of cells in the contingency table.  
-  
-The results were tabulated and chi-square distributions, showing the rejection zone and test statistic, were plotted. Pairwise, two-sided, two-proportion hypothesis tests were performed to determine the statistical significance of the differences between selected proportions. Concretely, the following hypotheses were tested.  
-  $H_0: \hat{p_1} = \hat{p_2}$  
-  $H_a: \hat{p_1} \ne \hat{p_2}$  
-such that:  
+$p$ is the population proportion of interest  
+$\hat{p}$ is the sample proportion of interest  
+$\alpha$ is the probability of a type I error  
+$z_{\frac{\alpha}{2}}$ is the number of standard errors from the sample mean  
+
+
+#### Two proportion z-test  
+Pairwise, two-sided, two-proportion z-tests were performed to determine if a statistically significant difference was extant between two proportions.  Concretely, hypotheses were of the following form.
+  $H_0: p_1 = p_2$  
+  $H_a: p_1 \ne p_2$  
+As such, the test statistic is:  
 $$Z = \frac{(\hat{p_1} - \hat{p_2}) - 0}{SE_{pooled}}$$  
-where:  
+where $\hat{p_1}$ and $\hat{p_2}$ are proportions from each sample and
+
 $$SE_{pooled} = \sqrt{\frac{\hat{p}(1-\hat{p})}{n_1} + \frac{\hat{p}(1-\hat{p})}{n_2}}$$  
-where:  
+and:  
 $$\hat{p} = \frac{\hat{p_1}n_1 + \hat{p_2}n_2}{n_1 + n_2}$$  
 
-The $\alpha$ significance level was uniformly set to $\alpha = 0.05$ for all statistical tests, except for the pair-wise two-proportion tests. Multiple z-tests increase the chances of a type 1 error.  To counter this, the **Bonferroni Correction** was applied to the significance level, whereby $\alpha_{bc} = \alpha / correction$. where:  
+#### Chi-square test of independence  
+To evaluate the association between opinions, behaviors and demographic variables, Pearson’s chi-square $X^2$ test of independence was employed to compute the probability of observing differences in proportions as extreme as the differences observed, assuming the null hypothesis. The $X^2$ distribution with $k$ degrees of freedom is the distribution of a sum of the squares of $k$ independent standard normal random variables, in this case, a *target* or study variable and a *grouping* variable. The $X^2$ test statistic is computed as follows:
+$$X^2 = \displaystyle\sum_{i=1}^{n} \frac{(O_i - E_i)^2}{E_i}$$
+where:  
+  $X^2 = $ Pearson's cumulative test statistic.  
+  $O_i = $ the number of observations of type $i$.  
+  $E_i = $ the expected (theoretical) frequency of type $i$, asserted by the null hypothesis that the fraction of type $i$ in the population is $p_i = \frac{1}{l}$, where $l$ is the number of levels for the categorical variable.  
+  $n = $ the number of cells in the contingency table.  
 
-$correction = \frac{k(k - 1)}{2}$, and
-$k = $the number of comparisons.
+
+#### P-Values 
+The probability (p-value)of encountering differences in proportions as extreme as the observed difference were computed using the stats package produced by the R Core Team [@RCoreTeam2013].
+
+#### Interpret and Report Results
+Results were interpreted in terms of whether the null hypothesis was rejected or not as follows:
+p-value $\le \alpha$, the hypothesis is **rejected** in favor of the alternative hypothesis.
+p-value $> \alpha$, the hypothesis is **not rejected** in favor of the alternative hypothesis.
+
+#### Type I and II Error Rate
+The probability of rejecting the null hypothesis when it is true $\alpha$ is acknowledged and accepted at 5% ($\alpha = 0.05$). The probability of failing to reject the null hypothesis given $H_a$, $\beta$, is the complement of correctly rejecting the null hypothesis (power), and was obtained via the following equation:
+$$P(\hat{p} \ge c | H_a) = 1 - \beta$$
+or:
+$$P(\frac{\hat{p} - \mu_a}{\frac{\sigma}{\sqrt{n}}} \ge \frac{c - \mu_a}{\frac{\sigma}{\sqrt{n}}}) = 1 - \beta$$
+where:
+$\sigma$ = standard deviation of the difference in proportions.  
+$n$ = sample size
+$\hat{p}$ = the difference in proportions $\hat{p_1}$ and $\hat{p_2}$
+$c$ is the critical value associated with $\alpha$ and is computed as follows:
+$$z* = \frac{c-\mu_0}{\frac{\sigma}{\sqrt{n}}}$$
 
 ## System and Environment
 This analysis was implemented using the 64 bit version of the R Programming Language, version 3.4.1. [@TheRFoundation2015] within the R. Studio Version 1.1.330 [@RStudioTeam2016] development environment on a Windows x64-based laptop powered by an Intel Core i7-3610QM CPU @ 2.30GHz, 2301 MHz processor with 4 Cores, 8 Logical Processors, and 16.0 GB of installed memory, running the Microsoft Windows 10 Home operating system, version	10.0.14393 Build 14393. Report writing and generation packages included knitr [@Xie2013], and kfigr [@Koohafkan2015].  Data management functionality was provided by the dplyr [Wickham2015a], reshape2 [@Rcpp2016], xtable [@Dahl2016] and data table [@Dowle2016] packages. Graphics and data visualization were powered by the ggplot2 [@Wickham2016], gridExtra [@BaptisteAuguie2016], and the stargazer [@Hlavac2015] packages.  The inference [@VinhNguyen2017] statistcal package provided functionality for extracting inferential values from a fitted model.
 
 # Results  
-## Univariate Analysis  
-The univariate analysis examines each variable and reports their sample proportions, as well as the 95% confidence intervals for the population proportions. Plots depicting the estimated distribution of population proportions were rendered. `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` summarizes the variables examined in the analysis, in terms of their categorical levels, complete and NA cases, and complete response rates.  
+The proportions and 95% confidence intervals are reported for the variables summarized in `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`  
 
 `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`: Variable Summary
 ```{r univariateSummary, echo = F, message = FALSE, warning=FALSE}
@@ -145,7 +203,20 @@ knitr::kable(uni$summary) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
 ```
 
-Next, the sample proportions are examined, population proportions estimated, and confidence intervals computed.
+### Degree
+<div class = 'col2'>
+With a nearly 100% complete case rate of `r uni$summary$Total[1]` independent samples, one may assert that 95% of the population proportions lie within the confidence intervals indicated in `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`.
+
+As shown in `r kfigr::figr(label = "degreeBarPlot", prefix = TRUE, link = TRUE, type="Figure")` high school graduates comprise a near majority of the responses (`r round(max(uni$degree$data$Proportion) * 100, 0)`%), followed by under graduates (`r round(uni$degree$data$Proportion[4] * 100, 0)`%). Those with with less than high school degrees, those with graduate degrees, and respondents with junior college degrees make up `r round(uni$degree$data$Proportion[1] * 100, 0)`%, `r round(uni$degree$data$Proportion[5] * 100, 0)`%, , and `r round(uni$degree$data$Proportion[3] * 100, 0)`%, respectively.
+
+
+`r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Responses by Highest Degree Attained
+```{r degreeData, include=T, echo = F, results='html'}
+knitr::kable(uni$degree$data, digits = c(0,0,2,2,3,3,5)) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "float_right") 
+``` 
+</div>
+
 
 ### Region
 As shown in `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`, the `r sum(uni$region$data$N)` responses were distributed among `r nrow(uni$region$data)` regions, ranging from `r min(uni$region$data$N)`, to `r max(uni$region$data$N)` complete cases. Since the independence and success/failure criteria were met, 95% confidence intervals for the population proportions were estimated as indicated below.
@@ -153,22 +224,8 @@ As shown in `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, typ
 `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Responses by Region
 ```{r regionData, include=T, echo = F, results='html'}
 knitr::kable(uni$region$data, digits = c(0,0,2,2,3,3,5)) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "float_right") 
 ``` 
-
-`r kfigr::figr(label = "regionBarPlot", prefix = TRUE, link = TRUE, type="Figure")` graphically depicts the sample **proportions** of responses by region. The mid-west accounts for approximately `r round(sum(uni$region$data$Proportion[4], uni$region$data$Proportion[5]) * 100, 0)`% of all responses. The Atlantic states stood for `r round(sum(uni$region$data$Proportion[1], uni$region$data$Proportion[2], uni$region$data$Proportion[3]) * 100, 0)`% of the data, mountain and pacific states, `r round(sum(uni$region$data$Proportion[6], uni$region$data$Proportion[7]) * 100, 0)`%.
-
-```{r regionBarPlot, include=T, echo = F, results='html'}
-uni$region$barPlot
-``` 
-`r kfigr::figr(label = "regionBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Region
-
-Using the **bootstrap** method, a sampling distribution of proporations was simulated based upon the sample proportions and standard errors. Depicted in `r kfigr::figr(label = "regionDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`,  
-
-```{r regionDensityPlot, include=T, echo = F, results='html'}
-uni$region$densityPlot
-``` 
-`r kfigr::figr(label = "regionDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Simulated Sampling Distribution of Proportions. Since the independence and success/failure criteria were met, one could infer that the population proportions are  within a 5% margin of error of the sample proportions, with 95% confidence. Moreover, one could estimate the statistical significance of the differences in proportions by inspecting the overlap (or lack thereof) between the sampling distributions.
 
 
 ### Political Views
@@ -177,94 +234,38 @@ There were `r uni$summary$Complete[3]` (`r uni$summary$Rate[3]`) compete cases, 
 `r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Political View
 ```{r viewsData, include=T, echo = F, results='html'}
 knitr::kable(uni$views$data, digits = c(0,0,2,2,3,3,5)) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "float_right") 
 ``` 
 
-The bar plot below graphically presents the proportions and `r kfigr::figr(label = "viewsDensityPlot", prefix = TRUE, link = TRUE, type="Figure")` reveals the simulated sampling distribution of the proportions. 
-
-```{r viewsBarPlot, include=T, echo = F, results='html'}
-uni$views$barPlot
-``` 
-`r kfigr::figr(label = "viewsBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Political View
-
-```{r viewsDensityPlot, include=T, echo = F, results='html'}
-uni$views$densityPlot
-``` 
-`r kfigr::figr(label = "viewsDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Simulated Sampling Distribution of Proportions by Political View
 
 ### Class
+Of the `r uni$summary$Complete[4]` complete cases, the plurality `r round(uni$class$data$Proportion[2] * 100, 0)`% self-identified as working class. Middle class characterized `r round(uni$class$data$Proportion[3] * 100, 0)`% of respondents, whereas the lower and upper classes constituted, `r round(uni$class$data$Proportion[1] * 100, 0)`% and `r round(uni$class$data$Proportion[4] * 100, 0)`%, respectively.
 
 `r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Responses by Class
 ```{r classData, include=T, echo = F, results='html'}
 knitr::kable(uni$class$data, digits = c(0,0,2,2,3,3,5)) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "float_right") 
 ``` 
 
 
-```{r classBarPlot, include=T, echo = F, results='html'}
-uni$class$barPlot
-``` 
-`r kfigr::figr(label = "degreeBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Class
+### Opinions 
+As shown in `r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")` and graphically illuminated in `r kfigr::figr(label = "opinionBarPlot", prefix = TRUE, link = TRUE, type="Figure")`, nearly all respondents (`r round(uni$opinion$Proportion[1] * 100,2)`%) have a negative to strongly negative opinion of extra-marital sex. Approximately `r round(sum(uni$opinion$Proportion[2], uni$opinion$Proportion[3]) * 100,2)`% believe that having sex outside the marriage is "Sometimes Wrong" or "Not Wrong At All".
 
-```{r classDensityPlot, include=T, echo = F, results='html'}
-uni$class$densityPlot
-``` 
-`r kfigr::figr(label = "degreeDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Class
-
-### Education
-With a nearly 100% complete case rate of `r uni$summary$Total[1]` independent samples, one may assert that 95% of the population proportions lie within the confidence intervals indicated in `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`.
-
-`r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Responses by Highest Degree Attained
-```{r degreeData, include=T, echo = F, results='html'}
-knitr::kable(uni$degree$data, digits = c(0,0,2,2,3,3,5)) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
-``` 
-
-```{r degreeBarPlot, include=T, echo = F, results='html'}
-uni$degree$barPlot
-``` 
-`r kfigr::figr(label = "degreeBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Highest Degree Attained
-
-```{r degreeDensityPlot, include=T, echo = F, results='html'}
-uni$degree$densityPlot
-``` 
-`r kfigr::figr(label = "degreeDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Highest Degree Attained
-
-### Extra-Marital Sex Opinions 
-
-`r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`: Frequency Proportion of Responses by Opinions regarding Extra Marital Sex
+`r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`: Frequency of Responses by Opinion
 ```{r opinionData, include=T, echo = F, results='html'}
-knitr::kable(uni$opinions$data) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+knitr::kable(uni$opinion$data) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "float_right") 
 ``` 
 
-```{r opinionBarPlot, include=T, echo = F, results='html'}
-uni$opinions$barPlot
-``` 
-`r kfigr::figr(label = "opinionBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Opinions regarding Extra Marital Sex 
+### Behaviors
+Given that the sample satisfies conditions of independence and normality, we can infer with 95% confidence that the proportion of Americans that have engaged in extra-marital sex is between `r round(uni$behavior$data$LowerCI[1] * 100, 1)`% and `r round(uni$behavior$data$UpperrCI[1] * 100, 1)`% of the population of American adults age 18 and older ($\hat{p} = $ `r round(uni$behavior$data$Proportion[1] * 100, 1)`%, $SE = $ `r round(uni$behavior$data$SE[1] * 100, 3)`). Similarly, the proportion of the population who have not engaged in such behavior is is between `r round(uni$behavior$data$LowerCI[2] * 100, 1)`% and `r round(uni$behavior$data$UpperrCI[2] * 100, 1)`% of the population of American adults age 18 and older ($\hat{p} = $ `r round(uni$behavior$data$Proportion[2] * 100, 1)`%, $SE = $ `r round(uni$behavior$data$SE[2] * 100, 3)`). 
 
-```{r opinionDensityPlot, include=T, echo = F, results='html'}
-uni$opinions$densityPlot
-``` 
-`r kfigr::figr(label = "opinionDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Responses by Opinions regarding Extra Marital Sex 
 
-### Extra-Marital Sex Behaviors
-
-`r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Respondents Who Have Engaged in Extra-Marital Sex
+`r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`: Frequency and Proportion of Respondents by Behavior
 ```{r behaviorData, include=T, echo = F, results='html'}
-knitr::kable(uni$behavior$data) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center") 
+knitr::kable(uni$behavior$data, digits = c(0,0,2,2,3,3,4)) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "float_right") 
 ``` 
-
-```{r behaviorBarPlot, include=T, echo = F, results='html'}
-uni$behavior$barPlot
-``` 
-`r kfigr::figr(label = "behaviorBarPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
-
-```{r behaviorDensityPlot, include=T, echo = F, results='html'}
-uni$behavior$densityPlot
-``` 
-`r kfigr::figr(label = "behaviorDensityPlot", prefix = TRUE, link = TRUE, type="Figure")`: Proportion of Respondents Who Have Engaged in Extra-Marital Sex
 
 ## Research Question 1: Opinions and Behaviors
 ```{r rq1, cache=TRUE}
@@ -273,11 +274,26 @@ rq1Data <- rq1(xmar)
 
 The degree to which opinions are aligned with behaviors is the focus of this first inquiry. More formally stated, we pose the following question:
 
-> Is there an association between opinions and behaviors with respect to extra-marital sex?
+> Is there an association between opinions of, and behaviors in, extra-marital sex?
 
 The hypotheses are stated as follows:  
 $H_0:$ Opinions and behaviors with respect to extra-marital sex are **not** associated.  
 $H_a:$ Opinions and behaviors with respect to extra-marital sex **are** associated.  
+
+### Conditions for Inference
+Statistical inferences were derived from parametric statistics and the central limit theoreom, whereby the former assumes that sample data comes from a population distribution based upon a fixed set of parameters, and the later assumes that the distribution is normal and that the parameters are $N(\mu, \sigma^2)$, where $\mu$ is the population proportion parameter $\hat{p}$ and $\sigma^2$ is the variation of of the population proportion parameter. We can assume that the sample comes from a normally distributed population if:  
+1. **Independence:** The sample observations must be independent, 
+2. **Success/Failure:** There are at least 10 successes and 10 failures for dichotomous categorical variables, or 5 observations for each level of a categorical variable with more than 2 levels.
+3. **Sample Size: ** The sample size must be less than 10% of the population, if drawn without replacement.
+
+#### Independence
+The households selected for sampling were determined by a full-probability sampling strategy, an advanced stratified random sampling strategy that provides samples representative of the population. One adult from each residence was selected randomly.  Therefore, the assumption of independence is supported.
+
+#### Success/Failure Rate
+
+
+#### Normality
+Normality can be assumed when 
 
 <center>
 `r kfigr::figr("rq1Freq", prefix = TRUE,  link = TRUE, type = "Table")`: Opinions and Beliefs Contingency Table
@@ -299,7 +315,7 @@ knitr::kable(rq1Data$test$table) %>%
 
 
 ```{r rq1TestPlot, include=T, echo = F, results='html'}
-rq1Data$test$distribution
+rq1Data$test$plot
 ``` 
 `r kfigr::figr(label = "rq1TestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-square Test for Independence of Opinions and Behaviors
 
@@ -532,3 +548,134 @@ knitr::kable(rq3Data$degree$test$table) %>%
 # Conclusion
 # Appendix
 # References
+
+
+
+#### Opinions and Behaviors 
+The first research question examines the relationship between opinions and behaviors with respect to (w.r.t.) extra-marital sex. The hypotheses are formally stated as follows: 
+$H_0$ There is **no** association between opinions and behaviors w.r.t. extra-marital sex.  
+$H_a$ There **is** an association between opinions and behaviors w.r.t. extra-marital sex.  
+
+#### Opinions, Demographics and Views
+In the second research question, the relationships between opinions and geographic region, political view, class and education level are explored via the following hypotheses:
+
+**Opinions and Geographic Region**
+$H_0$ There is **no** association between opinions and geographic region w.r.t. extra-marital sex (e.m.s).  
+$H_a$ There **is** an association between opinions and geographic region w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain opinions and select regions are conducted to ascertain, for instance, the regions with the most conservative (e.m.s is wrong), or most liberal (e.m.s. is ok), opinions. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Opinion*
+$H_0$ The proportions of the population in region a and region b that have the *conservative* opinion are the same
+$H_a$ The proportions of the population in region a and region b that have the *conservative* opinion are **not** the same
+
+*Liberal Opinion*
+$H_0$ The proportions of the population in region a and region b that have the *liberal* opinion are the same
+$H_a$ The proportions of the population in region a and region b that have the *liberal* opinion are **not** the same
+
+
+**Opinions and Political View**
+$H_0$ There is **no** association between opinions and political view w.r.t. extra-marital sex.  
+$H_a$ There **is** an association between opinions and political view w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain opinions and select political views are conducted to ascertain, for instance, the political views with the most conservative or most liberal opinions. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Opinion*
+$H_0$ The proportions of the population in political view a and political view b that have the *conservative* opinion are the same
+$H_a$ The proportions of the population in political view a and political view b that have the *conservative* opinion are **not** the same
+
+*Liberal Opinion*
+$H_0$ The proportions of the population in political view a and political view b that have the *liberal* opinion are the same
+$H_a$ The proportions of the population in political view a and political view b that have the *liberal* opinion are **not** the same
+
+**Opinions and Class**
+$H_0$ There is **no** association between opinions and class w.r.t. extra-marital sex.  
+$H_a$ There **is** an association between opinions and class w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain opinions and select pol
+itical views are conducted to ascertain, for instance, the classs with the most conservative or most liberal opinions. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Opinion*
+$H_0$ The proportions of the population in class a and class b that have the *conservative* opinion are the same
+$H_a$ The proportions of the population in class a and class b that have the *conservative* opinion are **not** the same
+
+*Liberal Opinion*
+$H_0$ The proportions of the population in class a and class b that have the *liberal* opinion are the same
+$H_a$ The proportions of the population in class a and class b that have the *liberal* opinion are **not** the same
+
+**Opinions and Education**
+$H_0$ There is **no** association between opinions and education level w.r.t. extra-marital sex.  
+$H_a$ There **is** an association between opinions and education level w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain opinions and select pol
+itical views are conducted to ascertain, for instance, the education levels with the most conservative or most liberal opinions. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Opinion*
+$H_0$ The proportions of the population in education level a and education level b that have the *conservative* opinion are the same
+$H_a$ The proportions of the population in education level a and education level b that have the *conservative* opinion are **not** the same
+
+*Liberal Opinion*
+$H_0$ The proportions of the population in education level a and education level b that have the *liberal* opinion are the same
+$H_a$ The proportions of the population in education level a and education level b that have the *liberal* opinion are **not** the same
+
+#### Behaviors, Demographics and Views
+In the second research question, the relationships between opinions and geographic region, political view, class and education level are explored via the following hypotheses:
+
+**Behaviors and Geographic Region**
+$H_0$ There is **no** association between behaviors and geographic region w.r.t. extra-marital sex (e.m.s).  
+$H_a$ There **is** an association between behaviors and geographic region w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain behaviors and select regions are conducted to ascertain, for instance, the regions with the most conservative (e.m.s is wrong), or most liberal (e.m.s. is ok), behaviors. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Behavior*
+$H_0$ The proportions of the population in region a and region b that have the *conservative* behavior are the same
+$H_a$ The proportions of the population in region a and region b that have the *conservative* behavior are **not** the same
+
+*Liberal Behavior*
+$H_0$ The proportions of the population in region a and region b that have the *liberal* behavior are the same
+$H_a$ The proportions of the population in region a and region b that have the *liberal* behavior are **not** the same
+
+
+**Behaviors and Political View**
+$H_0$ There is **no** association between behaviors and political view w.r.t. extra-marital sex.  
+$H_a$ There **is** an association between behaviors and political view w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain behaviors and select political views are conducted to ascertain, for instance, the political views with the most conservative or most liberal behaviors. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Behavior*
+$H_0$ The proportions of the population in political view a and political view b that have the *conservative* behavior are the same
+$H_a$ The proportions of the population in political view a and political view b that have the *conservative* behavior are **not** the same
+
+*Liberal Behavior*
+$H_0$ The proportions of the population in political view a and political view b that have the *liberal* behavior are the same
+$H_a$ The proportions of the population in political view a and political view b that have the *liberal* behavior are **not** the same
+
+**Behaviors and Class**
+$H_0$ There is **no** association between behaviors and class w.r.t. extra-marital sex.  
+$H_a$ There **is** an association between behaviors and class w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain behaviors and select pol
+itical views are conducted to ascertain, for instance, the classs with the most conservative or most liberal behaviors. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Behavior*
+$H_0$ The proportions of the population in class a and class b that have the *conservative* behavior are the same
+$H_a$ The proportions of the population in class a and class b that have the *conservative* behavior are **not** the same
+
+*Liberal Behavior*
+$H_0$ The proportions of the population in class a and class b that have the *liberal* behavior are the same
+$H_a$ The proportions of the population in class a and class b that have the *liberal* behavior are **not** the same
+
+**Behaviors and Education**
+$H_0$ There is **no** association between behaviors and education level w.r.t. extra-marital sex.  
+$H_a$ There **is** an association between behaviors and education level w.r.t. extra-marital sex.  
+
+Further, pairwise comparisons of proportions for certain behaviors and select pol
+itical views are conducted to ascertain, for instance, the education levels with the most conservative or most liberal behaviors. These questions will be examined via hypotheses statements of the following form:
+
+*Conservative Behavior*
+$H_0$ The proportions of the population in education level a and education level b that have the *conservative* behavior are the same
+$H_a$ The proportions of the population in education level a and education level b that have the *conservative* behavior are **not** the same
+
+*Liberal Behavior*
+$H_0$ The proportions of the population in education level a and education level b that have the *liberal* behavior are the same
+$H_a$ The proportions of the population in education level a and education level b that have the *liberal* behavior are **not** the same

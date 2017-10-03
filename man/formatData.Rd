@@ -4,11 +4,15 @@
 \alias{formatData}
 \title{formatData}
 \usage{
-formatData(data)
+formatData(data, target, group)
 }
 \arguments{
 \item{data}{Data frame containing proportions comprised of two columns: 'target' and 'group'.
 'target' represents the proportions for the target variable and 'group' is the name of the grouping variable}
+
+\item{target}{Character string indicating the name of the target variable}
+
+\item{group}{Character string indicating the name of the grouping variable}
 }
 \description{
 \code{formatData} Render frequency and proportion data

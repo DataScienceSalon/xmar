@@ -1,12 +1,26 @@
-.col2 {
-  -webkit-columns: 2 200px; /* chrome, safari */
-    -moz-columns: 2 200px;    /* firefox */
-    columns: 2 200px;         /* number of columns and width in pixels*/
+.col3-left{
+  float: left;
+  width: 33%;
+  text-align: left;
 }
-.col3 {
-  -webkit-columns: 3 100px;
-  -moz-columns: 3 100px;
-  columns: 3 100px;
-
+.col3-center{
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+.col3-right{
+  float: right;
+  width: 33%;
+  text-align: right;
 }
 
+.col2-left{
+  float: left;
+  width: 50%;
+  text-align: left;
+}
+.col2-right{
+  float: right;
+  width: 50%;
+  text-align: right;
+}
