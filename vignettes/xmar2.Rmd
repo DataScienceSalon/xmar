@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo=FALSE,
                prompt=FALSE,
                tidy=TRUE,
                root.dir = "..",
-               fig.height = 6,
+               fig.height = 8,
                fig.width = 20,
                comment=NA,
                message=FALSE,
@@ -45,14 +45,18 @@ xmar <- preprocess(GSS)
 uni <- univariate(xmar)
 ```
 
+```{r rq1, echo = F, message = FALSE, warning=FALSE}
+rq1Data <- rq1(xmar)
+```
+
 # Abstract
 # Introduction
 ## Background Information
 ## Research Questions
 Three research questions have been devised to examine the relationship between opinion and behavior with respect to extra-marital sex, and the degree to which they vary by select demographic factors. Concretely, the following three research questions are presented, analyzed and discussed:  
-1. Is there an association between opinion and behavior with respect to extra-marital sex in the United States?
-2. Is there an association between opinion and geographic region, class, political view, and education level in the United States?
-3. Is there an association between behavior and geographic region, class, political view, and education level in teh United States?
+1. Is there an association between opinion and behavior with respect to extra-marital sex in the United States?  
+2. Is there an association between opinion and geographic region, class, political view, and education level in the United States?  
+3. Is there an association between behavior and geographic region, class, political view, and education level in teh United States?  
 
 ## Document Organization
 The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the univariate and multivariate analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
@@ -103,44 +107,27 @@ knitr::kable(sampleSize) %>%
 ## Data Analysis
 The data analysis outlined in the results section of this paper follows the following hypothesis testing approach:  
 1. State Hypotheses  
-2. Check Parametric Inference Conditions
-3. Evaluate Representativeness 
-4. Select appropriate hypothesis test / test statistic
-5. Compute the p-value, the probability of observing the data given the null hypothesis
-6. Interpret and report results.
-7. Type I / Type II Error Analysis.
+2. Select appropriate hypothesis test / test statistic  
+3. Check Parametric Inference Conditions  
+4. Compute the p-value, the probability of observing the data given the null hypothesis  
+5. Interpret and report results.  
 
 ### State Hypotheses
 Two types of hypothesis tests were conducted during this analysis; tests for independence and tests for differences in proportions.  
 
-Hypothesis tests for independence of categorical variables takes the form:
-$H_0$ The two categorical variables are independent, e.g. expected counts $E$ and observed counts $O$ are equal.
-$H_a$ The two categorical variables are **not** independent, e.g. expected counts $E$ and observed counts $O$ are **not** equal.
+Hypothesis tests for independence of categorical variables takes the form:   
+$H_0$ The two categorical variables are independent, e.g. expected counts $E$ and observed counts $O$ are equal.  
+$H_a$ The two categorical variables are **not** independent, e.g. expected counts $E$ and observed counts $O$ are **not** equal.  
 
-Tests for differences in proportions takes the following form:
-$H_0$ All proportions are equal, e.g. $p_1 = p_2 = ...= p_n$
-$H_a$ At least one proportion is statistically different from the others.
+Tests for differences in proportions takes the following form:  
+$H_0$ All proportions are equal, e.g. $p_1 = p_2 = ...= p_n$   
+$H_a$ At least one proportion is statistically different from the others.  
 
-### Inference Conditions
-Statistical inferences were derived from parametric statistics and the central limit theoreom, whereby the former assumes that sample data comes from a population distribution with a fixed set of parameters, and the later assumes that the distribution is normal and that the parameters are $N(\mu, \sigma^2)$, where $\mu$ is the population proportion parameter $\hat{p}$ and $\sigma^2$ is the variation of of the population proportion parameter. We can assume that the sample comes from a normally distributed population if:  
-1. **Independence:** The sample observations must be independent, 
-2. **Success/Failure:** There are at least 10 successes and 10 failures for dichotomous categorical variables.
-3. **Sample Size:** The sample size must be less than 10% of the population, if drawn without replacement.
-3. **Expected Values:** For multiple groups or for categorical variables with multiple levels (>2), the *expected* counts must be greater than five for each variable and level. 
-
-
-### Evaluate Representativeness
-The full-probability sampling strategy employed by the GSS, has produced a sample of over 60,000 individual responses; one considered by researchers, academics, government and industry as representative of the overall adult population in the United States. However, this analysis was based upon a *subset* of the sample; therefore, the question of representativeness must be re-examined. As such, sample size analyses was undertaken to determine the minimum required sample size to ensure that the population proportions were within a designated margin of error from the sample proportion, at set confidence level.  Designated margin of error and confidence levels were $ME = 5\%$ and $CL = 95\%$ respectively. The minimum required sample size was calculated as follows:
-$$n = \frac{p_0(1-p_0)}{z*^2}$$
-where:   
-z* = number of standard errors associated with $\frac{\alpha }{2}$ for two-sided comparisons
-$p_{0} = \frac{1}{k}$, the null proportion where $k$ is the number of levels for the categorical variable
-
-### Test Statistics  
+### Test Statistics
 Three types of tests were used to evaluate the hypotheses statements:   
-1. One-proportion z-tests to compute confidence intervals for population proportions. 
-2. Two-proportion z-tests to evaluate the difference between two proportions.  
-3. Pearson's chi-square test of independence for evaluating the association between categorical variables.  
+1. One-proportion z-tests to compute confidence intervals for population proportions.  
+2. Two-proportion z-tests to evaluate the difference between two proportions.   
+3. Pearson's chi-square test of independence for evaluating the association between categorical variables.   
 
 #### One proportion z-test
 One sample proportion z-tests were conducted to compute the confidence intervals for the population proportions as where:
@@ -153,12 +140,12 @@ $z_{\frac{\alpha}{2}}$ is the number of standard errors from the sample mean
 
 
 #### Two proportion z-test  
-Pairwise, two-sided, two-proportion z-tests were performed to determine if a statistically significant difference was extant between two proportions.  Concretely, hypotheses were of the following form.
-  $H_0: p_1 = p_2$  
-  $H_a: p_1 \ne p_2$  
+Pairwise, two-sided, two-proportion z-tests were performed to determine if a statistically significant difference was extant between two proportions.  Concretely, hypotheses were of the following form.  
+  $H_0: p_1 = p_2$   
+  $H_a: p_1 \ne p_2$    
 As such, the test statistic is:  
 $$Z = \frac{(\hat{p_1} - \hat{p_2}) - 0}{SE_{pooled}}$$  
-where $\hat{p_1}$ and $\hat{p_2}$ are proportions from each sample and
+where $\hat{p_1}$ and $\hat{p_2}$ are proportions from each sample and  
 
 $$SE_{pooled} = \sqrt{\frac{\hat{p}(1-\hat{p})}{n_1} + \frac{\hat{p}(1-\hat{p})}{n_2}}$$  
 and:  
@@ -173,33 +160,26 @@ where:
   $E_i = $ the expected (theoretical) frequency of type $i$, asserted by the null hypothesis that the fraction of type $i$ in the population is $p_i = \frac{1}{l}$, where $l$ is the number of levels for the categorical variable.  
   $n = $ the number of cells in the contingency table.  
 
-
-#### P-Values 
-The probability (p-value)of encountering differences in proportions as extreme as the observed difference were computed using the stats package produced by the R Core Team [@RCoreTeam2013].
+### Inference Conditions
+Statistical inferences were derived from parametric statistics and the central limit theoreom, whereby the former assumes that sample data comes from a population distribution with a fixed set of parameters, and the later assumes that the distribution is normal and that the parameters are $N(\mu, \sigma^2)$, where $\mu$ is the population proportion parameter $\hat{p}$ and $\sigma^2$ is the variation of of the population proportion parameter. We can assume that the sample comes from a normally distributed population if:  
+1. **Independence:** The sample observations must be independent,  
+2. **Success/Failure:** There are at least 10 successes and 10 failures for dichotomous categorical variables.  
+3. **Sample Size:** The sample size must be less than 10% of the population, if drawn without replacement.  
+3. **Expected Values:** For multiple groups or for categorical variables with multiple levels (>2), the *expected* counts must be greater than five for each variable and level.   
 
 #### Interpret and Report Results
-Results were interpreted in terms of whether the null hypothesis was rejected or not as follows:
-p-value $\le \alpha$, the hypothesis is **rejected** in favor of the alternative hypothesis.
-p-value $> \alpha$, the hypothesis is **not rejected** in favor of the alternative hypothesis.
-
-#### Type I and II Error Rate
-The probability of rejecting the null hypothesis when it is true $\alpha$ is acknowledged and accepted at 5% ($\alpha = 0.05$). The probability of failing to reject the null hypothesis given $H_a$, $\beta$, is the complement of correctly rejecting the null hypothesis (power), and was obtained via the following equation:
-$$P(\hat{p} \ge c | H_a) = 1 - \beta$$
-or:
-$$P(\frac{\hat{p} - \mu_a}{\frac{\sigma}{\sqrt{n}}} \ge \frac{c - \mu_a}{\frac{\sigma}{\sqrt{n}}}) = 1 - \beta$$
-where:
-$\sigma$ = standard deviation of the difference in proportions.  
-$n$ = sample size
-$\hat{p}$ = the difference in proportions $\hat{p_1}$ and $\hat{p_2}$
-$c$ is the critical value associated with $\alpha$ and is computed as follows:
-$$z* = \frac{c-\mu_0}{\frac{\sigma}{\sqrt{n}}}$$
+Results were interpreted in terms of whether the null hypothesis was rejected or not as follows:  
+p-value $\le \alpha$, the hypothesis is **rejected** in favor of the alternative hypothesis.  
+p-value $> \alpha$, the hypothesis is **not rejected** in favor of the alternative hypothesis.  
 
 ## System and Environment
 This analysis was implemented using the 64 bit version of the R Programming Language, version 3.4.1. [@TheRFoundation2015] within the R. Studio Version 1.1.330 [@RStudioTeam2016] development environment on a Windows x64-based laptop powered by an Intel Core i7-3610QM CPU @ 2.30GHz, 2301 MHz processor with 4 Cores, 8 Logical Processors, and 16.0 GB of installed memory, running the Microsoft Windows 10 Home operating system, version	10.0.14393 Build 14393. Report writing and generation packages included knitr [@Xie2013], and kfigr [@Koohafkan2015].  Data management functionality was provided by the dplyr [Wickham2015a], reshape2 [@Rcpp2016], xtable [@Dahl2016] and data table [@Dowle2016] packages. Graphics and data visualization were powered by the ggplot2 [@Wickham2016], gridExtra [@BaptisteAuguie2016], and the stargazer [@Hlavac2015] packages.  The inference [@VinhNguyen2017] statistcal package provided functionality for extracting inferential values from a fitted model.
 
 # Results 
+This section begins with a univariate analysis of each variable, their categorical levels, sample sizes and proportions, in order to identify variables that may diverge from assumptions of independence and normality. The subsequent sections summarize the hypothesis testing for each research question.
+
 ## Univariate Analysis
-`r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` summarizes the study variables, in terms of their categorical levels, the number of complete cases range = [`r min(uni$summary$Complete)`, `r max(uni$summary$Complete)`], and the complete case rate range = [`r uni$summary$Rate[6]`, `r uni$summary$Rate[1]`]  
+The study variables, their categorical levels, numbers of complete cases, and response rates are summarized in `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`. Preprocessing left `r uni$summary$Total[1]` total possible cases and variable response rates ranged from  `r uni$summary$Rate[6]`%  (`r uni$summary$Complete[6]` cases) to `r uni$summary$Rate[1]`% (`r uni$summary$Complete[1]` cases).
 
 `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")`: Variable Summary
 ```{r univariateSummary, echo = F, message = FALSE, warning=FALSE}
@@ -207,15 +187,15 @@ knitr::kable(uni$summary) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-Next, the variables in `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` are examined in terms of:  
+Next, the variables in `r kfigr::figr(label = "univariateSummary", prefix = TRUE, link = TRUE, type="Table")` were examined in terms of:  
 * **N**: The counts for each level of the categorical variable   
 * **Minimum N**: The minimum sample size required to compute the population confidence interval with 95% confidence  
-* **Proportion**: The proportions for each level of the categorical variable  
+* **Proportion**: The proportional responses at each level of each categorical variable  
 * **Cumulative**: The cumulative proportions  
 * **Confidence Interval**: The 95% confidence interval for the population proportion at each categorical level   
 
 ### Degree
-The Degree variable characterizes the respondent's education level in terms of his or her highest degree earned. As indicated in `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$degree$data$N)` complete cases, with counts range = [`r min(uni$degree$data$N)`, `r max(uni$degree$data$N)`], and range of proportions = [`r min(uni$degree$data$Proportion)`, `r max(uni$degree$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$degree$data[,3])` to `r max(uni$degree$data[,3])`, for a total of `r sum(uni$degree$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+The Degree variable characterizes the respondents' education level in terms of highest degree earned. As indicated in `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`, there were `r sum(uni$degree$data$N)` complete cases, with counts range = [`r min(uni$degree$data$N)`, `r max(uni$degree$data$N)`], and range of proportions = [`r min(uni$degree$data$Proportion)`, `r max(uni$degree$data$Proportion)`]. Minimum required sample sizes ranged from `r min(uni$degree$data[,3])` to `r max(uni$degree$data[,3])`, for a total of `r sum(uni$degree$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
 
 `r kfigr::figr(label = "degreeData", prefix = TRUE, link = TRUE, type="Table")`: Education variable descriptive statistics
 ```{r degreeData, include=T, echo = F, results='html'}
@@ -228,10 +208,10 @@ uni$degree$barplot
 ``` 
 `r kfigr::figr(label = "degreeBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Education level proportions 
 
-As graphically depicted in `r kfigr::figr(label = "degreeBarplot", prefix = TRUE, link = TRUE, type="Figure")` high school graduates comprise a near majority of the responses (`r round(max(uni$degree$data$Proportion) * 100, 0)`%), followed by under graduates (`r round(uni$degree$data$Proportion[4] * 100, 0)`%). Those with with less than high school degrees, those with graduate degrees, and respondents with junior college degrees make up `r round(uni$degree$data$Proportion[1] * 100, 0)`%, `r round(uni$degree$data$Proportion[5] * 100, 0)`%, and `r round(uni$degree$data$Proportion[3] * 100, 0)`%, respectively.
+As graphically depicted in `r kfigr::figr(label = "degreeBarplot", prefix = TRUE, link = TRUE, type="Figure")` high school graduates comprised a near majority of the responses (`r round(max(uni$degree$data$Proportion) * 100, 0)`%), followed by under graduates (`r round(uni$degree$data$Proportion[4] * 100, 0)`%). Those with with less than high school degrees, those with graduate degrees, and respondents with junior college degrees made up `r round(uni$degree$data$Proportion[1] * 100, 0)`%, `r round(uni$degree$data$Proportion[5] * 100, 0)`%, and `r round(uni$degree$data$Proportion[3] * 100, 0)`%, respectively.
 
 ### Region
-The Region variable indicates the geographic region in which the interview was conducted. As indicated in `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$region$data$N)` complete cases, with counts range = [`r min(uni$region$data$N)`, `r max(uni$region$data$N)`], and range of proportions = [`r min(uni$region$data$Proportion)`, `r max(uni$region$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$region$data[,3])` to `r max(uni$region$data[,3])`, for a total of `r sum(uni$region$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+The Region variable indicates the geographic region in which the interview was conducted. As indicated in `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`, there were `r sum(uni$region$data$N)` complete cases, with counts range = [`r min(uni$region$data$N)`, `r max(uni$region$data$N)`], and range of proportions = [`r min(uni$region$data$Proportion)`, `r max(uni$region$data$Proportion)`]. Minimum required sample sizes ranged from `r min(uni$region$data[,3])` to `r max(uni$region$data[,3])`, for a total of `r sum(uni$region$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
 
 `r kfigr::figr(label = "regionData", prefix = TRUE, link = TRUE, type="Table")`: Region variable descriptive statistics
 ```{r regionData, include=T, echo = F, results='html'}
@@ -244,10 +224,10 @@ uni$region$barplot
 ``` 
 `r kfigr::figr(label = "regionBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Region level proportions 
 
-As graphically depicted in `r kfigr::figr(label = "regionBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the Atlantic, Midwest, Mountain and Pacific regions constitute `r round(sum(uni$region$data$Proportion[1:3]) * 100, 0)`%, `r round(sum(uni$region$data$Proportion[4:5]) * 100, 0)`%, `r round(uni$region$data$Proportion[6] * 100, 0)`%, and `r round(uni$region$data$Proportion[7] * 100, 0)`% of the sample, respectively.
+As graphically depicted in `r kfigr::figr(label = "regionBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the Atlantic, Midwest, Mountain and Pacific regions constituted `r round(sum(uni$region$data$Proportion[1:3]) * 100, 0)`%, `r round(sum(uni$region$data$Proportion[4:5]) * 100, 0)`%, `r round(uni$region$data$Proportion[6] * 100, 0)`%, and `r round(uni$region$data$Proportion[7] * 100, 0)`% of the sample, respectively.
 
 ### Political Views
-The Views variable characterizes a respondent as having either conservative, liberal or moderate political views. As indicated in `r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$views$data$N)` complete cases, with counts range = [`r min(uni$views$data$N)`, `r max(uni$views$data$N)`], and range of proportions = [`r min(uni$views$data$Proportion)`, `r max(uni$views$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$views$data[,3])` to `r max(uni$views$data[,3])`, for a total of `r sum(uni$views$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+The Views variable characterizes a respondent as having either conservative, liberal or moderate political views. As indicated in `r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`, there were `r sum(uni$views$data$N)` complete cases, with counts range = [`r min(uni$views$data$N)`, `r max(uni$views$data$N)`], and range of proportions = [`r min(uni$views$data$Proportion)`, `r max(uni$views$data$Proportion)`]. Minimum required sample sizes ranged from `r min(uni$views$data[,3])` to `r max(uni$views$data[,3])`, for a total of `r sum(uni$views$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
 
 `r kfigr::figr(label = "viewsData", prefix = TRUE, link = TRUE, type="Table")`: Views variable descriptive statistics
 ```{r viewsData, include=T, echo = F, results='html'}
@@ -263,7 +243,7 @@ uni$views$barplot
 As graphically depicted in `r kfigr::figr(label = "viewsBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the sample proportions of respondents with liberal, moderate, and conservative views were `r round(uni$views$data$Proportion[1] * 100, 0)`%, `r round(uni$views$data$Proportion[2] * 100, 0)`%, and `r round(uni$views$data$Proportion[3] * 100, 0)`%, respectively.
 
 ### Class
-As indicated in `r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$class$data$N)` complete cases, with counts range = [`r min(uni$class$data$N)`, `r max(uni$class$data$N)`], and range of proportions = [`r min(uni$class$data$Proportion)`, `r max(uni$class$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$class$data[,3])` to `r max(uni$class$data[,3])`, for a total of `r sum(uni$class$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+As indicated in `r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$class$data$N)` complete cases, with counts range = [`r min(uni$class$data$N)`, `r max(uni$class$data$N)`], and range of proportions = [`r min(uni$class$data$Proportion)`, `r max(uni$class$data$Proportion)`]. Minimum required sample sizes ranged from `r min(uni$class$data[,3])` to `r max(uni$class$data[,3])`, for a total of `r sum(uni$class$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
 
 `r kfigr::figr(label = "classData", prefix = TRUE, link = TRUE, type="Table")`: Class variable descriptive statistics
 ```{r classData, include=T, echo = F, results='html'}
@@ -279,7 +259,7 @@ uni$class$barplot
 As graphically depicted in `r kfigr::figr(label = "classBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the vast majority of respondents (`r round(sum(uni$class$data$Proportion[2:3]) * 100, 0)`%) characterized themselves as working class or middle class.  
 
 ### Opinion
-As indicated in `r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$opinion$data$N)` complete cases, with counts range = [`r min(uni$opinion$data$N)`, `r max(uni$opinion$data$N)`], and range of proportions = [`r min(uni$opinion$data$Proportion)`, `r max(uni$opinion$data$Proportion)`]. Minimum required sample sizes range from `r min(uni$opinion$data[,3])` to `r max(uni$opinion$data[,3])`, for a total of `r sum(uni$opinion$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+As indicated in `r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`, there were `r sum(uni$opinion$data$N)` complete cases, with counts range = [`r min(uni$opinion$data$N)`, `r max(uni$opinion$data$N)`], and range of proportions = [`r min(uni$opinion$data$Proportion)`, `r max(uni$opinion$data$Proportion)`]. Minimum required sample sizes ranged from `r min(uni$opinion$data[,3])` to `r max(uni$opinion$data[,3])`, for a total of `r sum(uni$opinion$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
 
 `r kfigr::figr(label = "opinionData", prefix = TRUE, link = TRUE, type="Table")`: Opinion variable descriptive statistics
 ```{r opinionData, include=T, echo = F, results='html'}
@@ -292,10 +272,10 @@ uni$opinion$barplot
 ``` 
 `r kfigr::figr(label = "opinionBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Responses by opinion  
 
-As graphically depicted in `r kfigr::figr(label = "opinionBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the vast majority of respondents (`r round(uni$opinion$data$Proportion[1] * 100, 0)`%) consider extra-marital sex as wrong. Approximately `r round(sum(uni$opinion$data$Proportion[2:3]) * 100, 0)`% of respondents consider extra-marital sex as sometimes wrong or not wrong at all.
+As graphically depicted in `r kfigr::figr(label = "opinionBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the vast majority of respondents (`r round(uni$opinion$data$Proportion[1] * 100, 0)`%) considered extra-marital sex as wrong. Approximately `r round(sum(uni$opinion$data$Proportion[2:3]) * 100, 0)`% of respondents considered extra-marital sex as sometimes wrong or not wrong at all.
 
 ### Behavior
-As indicated in `r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`, there are `r sum(uni$behavior$data$N)` complete cases, with counts range = [`r min(uni$behavior$data$N)`, `r max(uni$behavior$data$N)`], and range of proportions = [`r min(uni$behavior$data$Proportion)`, `r max(uni$behavior$data$Proportion)`]. Minimum required sample size was `r sum(uni$behavior$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
+As indicated in `r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`, there were `r sum(uni$behavior$data$N)` complete cases, with counts range = [`r min(uni$behavior$data$N)`, `r max(uni$behavior$data$N)`], and range of proportions = [`r min(uni$behavior$data$Proportion)`, `r max(uni$behavior$data$Proportion)`]. Minimum required sample size was `r sum(uni$behavior$data[,3])` observations. Since the minimum count thresholds were met at each categorical level, 95% confidence intervals for the population proportions were computed.
 
 `r kfigr::figr(label = "behaviorData", prefix = TRUE, link = TRUE, type="Table")`: Behavior variable descriptive statistics
 ```{r behaviorData, include=T, echo = F, results='html'}
@@ -308,6 +288,72 @@ uni$behavior$barplot
 ``` 
 `r kfigr::figr(label = "behaviorBarplot", prefix = TRUE, link = TRUE, type="Figure")`: Responses by behavior  
 
-As graphically depicted in `r kfigr::figr(label = "behaviorBarplot", prefix = TRUE, link = TRUE, type="Figure")`, the vast majority of respondents (`r round(uni$behavior$data$Proportion[2] * 100, 0)`%)  have not engaged in extra-marital sex. 
+As graphically depicted in `r kfigr::figr(label = "behaviorBarplot", prefix = TRUE, link = TRUE, type="Figure")`, `r round(uni$behavior$data$Proportion[1] * 100, 0)`% of respondents have engaged in extra-marital sex behavior. 
+
+The next section will evaluate the relationship between opinions and behaviors w.r.t. extra-marital conduct and the degree to which they are influenced by class, region, education and political views.
+
+## Research Question #1: Opinions and Behaviors
+This line of inquiry examines the relationship between opinions and behaviors w.r.t. extra-marital sex.
+
+### The Data
+The segmented bar chart in `r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")` strongly suggests an association between opinions and behaviors with respect to extra-maritical conduct. Just `r rq1Data$data$propDf$Pct[2]`% of those with strong negative opinions reported extra-marital activity, versus `r rq1Data$data$propDf$Pct[4]`% of those with moderate opinions, and `r rq1Data$data$propDf$Pct[6]`% of those with relatively liberal positions on the matter.
+
+```{r rq1Plot, include=T, echo = F, results='html'}
+rq1Data$plots$propBar
+```
+`r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Behavior Observed Frequencies and Proportions
+
+`r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")` and `r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")` contain the observed and expected frequencies, under the null hypothesis. The chi-squared test of association will verify the statistical significance of the differences between the observed and expected frequencies. 
+
+<div class = col2-left>
+`r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Observed Frequency Table
+```{r rq1ExpFreq, echo = F, results='html'}
+knitr::kable(rq1Data$test$obsFreq, digits = 0, align = c("r", rep("c", 3))) %>%  
+  kableExtra::add_header_above(c(" ", "Behavior" = 2, " ")) %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+</div>
+
+<div class = col2-right>
+`r kfigr::figr(label = "rq1ExpProp", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Expected Frequency Table 
+```{r rq1ExpProp, echo = F, results='html'}
+knitr::kable(rq1Data$test$expFreq, digits = 0, align = c("r", rep("c", 3))) %>%  
+  kableExtra::add_header_above(c(" ", "Behavior" = 2, " ")) %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+</div>
+
+### Hypotheses
+From this preliminary analysis, two sets of hypothesis were investigated: (1) does the segmented bar chart indicate a statistically significant association between behaviors and opinions w.r.t. extra-marital conduct, and (2) is their a significant difference in behaviors between those who considered extra-marital conduct as *sometimes wrong* and those who think that such conduct is *not wrong at all*.  
+
+#### Hypothesis 1A: Association Between Behaviors and Opinions 
+This hypothesis is formally stated as follows:  
+$H_0$: The opinions and behaviors are independent, and therefore **no** association exists between opinions and behaviors w.r.t. extra-marital conduct.   
+$H_a$: The two categorical variables are **not** independent, and therefore an association exists between opinions and behaviors w.r.t. extra-marital conduct.  
+
+#### Inference Conditions
+To evaluate the independence of opinions and behaviors, the **chi-square statistic** was selected.  The conditions necessary for performing chi-square tests of independence were evaluated as follows:  
+* **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
+* **Sample Size:** As shown in the `r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")`, the minimum threshold of five expected counts for each cell was met.  Furthermore, the sample size was less than 10% of the population of U.S. adults age 18 and over.
+* **Degrees of Freedom:** The degrees of freedom, $df$, must be at least two.  In this case, there were indeed `r rq1Data$test$table$Df` degrees of freedom.  
+Consequently, the conditions for performing a chi-square test of independence were met.  
+
+#### Results and Interpretation
+A chi-square test of independence was performed to examine the relation between opinion and behavior with respect to extra-marital conduct. `r kfigr::figr(label = "rq1X2Plot", prefix = TRUE, link = TRUE, type="Figure")` shows the chi-square distribution with the critical value, the reject region and observed statistic.  
+
+```{r rq1X2Plot, include=T, echo = F, results='html'}
+rq1Data$test$plot
+```
+`r kfigr::figr(label = "rq1X2Plot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of Association Plot
+
+`r kfigr::figr(label = "rq1X2", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Chi-Square Test of Association
+```{r echo = F, results='html'}
+knitr::kable(rq1Data$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+As indicated in `r kfigr::figr(label = "rq1X2Plot", prefix = TRUE, link = TRUE, type="Figure")` and confirmed in `r kfigr::figr(label = "rq1X2", prefix = TRUE, link = TRUE, type="Table")`, the association between these variables was significant, X2 (`r rq1Data$test$table$Df`, $N$ = `r nrow(rq1Data$data$data)`) = `r round(rq1Data$test$table$X2_Observed, 0)`, $p$ = `r round(rq1Data$test$table$p_Value,3)`. **The data support an association between opinions and behaviors around extra-marital conduct.** 
+
+
 
 # References

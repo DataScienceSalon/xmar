@@ -19,32 +19,13 @@
 plotBars <- function(data, target, group) {
 
   #---------------------------------------------------------------------------#
-  #                               Prepare Data                                #
-  #---------------------------------------------------------------------------#
-  # Frequency and Proportion Tables
-  freqTbl <- ftable(data, exclude = c(NA, "NA"))
-  propTbl <- ftable(prop.table(freqTbl, 2), exclude = c(NA, "NA"))
-
-  # Prepare frequency data frame for plotting
-  freqDf <- as.data.frame(freqTbl) %>% arrange(Group, desc(Target)) %>%
-    group_by(Group) %>% mutate(cumFreq = cumsum(Freq),
-                               pos = cumFreq - 0.5 * Freq)
-
-  # Prepare proportion data frame for plotting
-  propDf <- as.data.frame(propTbl) %>% arrange(Group, desc(Target)) %>%
-    group_by(Group) %>% mutate(pct = round(Freq * 100, 0),
-                               cumPct = cumsum(pct),
-                               pos = cumPct - 0.5 * pct)
-
-
-  #---------------------------------------------------------------------------#
   #                               Create Plots                                #
   #---------------------------------------------------------------------------#
   # Frequency Bar Plot
   freqBar <- ggplot2::ggplot() +
-    ggplot2::geom_bar(ggplot2::aes(x = Group, y = Freq, fill = Target),
-                      data = freqDf, stat = 'identity') +
-    ggplot2::geom_text(data = freqDf, ggplot2::aes(x = Group, y = pos,
+    ggplot2::geom_bar(ggplot2::aes(x = Behavior, y = Freq, fill = Opinions),
+                      data = data, stat = 'identity') +
+    ggplot2::geom_text(data = data, ggplot2::aes(x = Behavior, y = pos,
                                                    label = Freq),
                        colour="black", family="Tahoma", size=4) +
     ggplot2::theme_minimal() +
@@ -57,10 +38,10 @@ plotBars <- function(data, target, group) {
 
   # Proportion Bar Plot
   propBar <- ggplot2::ggplot() +
-    ggplot2::geom_bar(ggplot2::aes(x = Group, y = pct, fill = Target),
-                      data = propDf, stat = 'identity') +
-    ggplot2::geom_text(data = propDf,
-                       ggplot2::aes(x = Group, y = pos, label = paste0(pct,"%")),
+    ggplot2::geom_bar(ggplot2::aes(x = group, y = pct, fill = target),
+                      data = data$propDf, stat = 'identity') +
+    ggplot2::geom_text(data = data$propDf,
+                       ggplot2::aes(x = group, y = pos, label = paste0(pct,"%")),
                        colour="black", family="Tahoma", size=4) +
     ggplot2::theme_minimal() +
     ggplot2::theme(legend.position="bottom",

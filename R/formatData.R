@@ -21,10 +21,9 @@ formatData <- function(data, target, group) {
   #                               Prepare Data                                #
   #---------------------------------------------------------------------------#
   # Frequency and Proportion Tables
-  table <- table(data$Target, data$Group, dnn = c(target, group))
-  freqTbl <- ftable(data, exclude = c(NA, "NA"),  dnn = c(target, group))
-  propTbl <- ftable(prop.table(freqTbl, 2), exclude = c(NA, "NA"),
-                    dnn = c(target, group))
+  tbl <- table(data$Target, data$Group, dnn = c(target, group))
+  freqTbl <- ftable(data, exclude = c(NA, "NA"))
+  propTbl <- ftable(prop.table(freqTbl), exclude = c(NA, "NA"))
 
   # Prepare frequency data frame for plotting
   freqDf <- as.data.frame(freqTbl) %>% arrange(Group, desc(Target)) %>%
@@ -36,9 +35,21 @@ formatData <- function(data, target, group) {
     group_by(Group) %>% mutate(pct = round(Freq * 100, 0),
                                cumPct = cumsum(pct),
                                pos = cumPct - 0.5 * pct)
+
+  # Rename Variables
+  freqTbl <- ftable(tbl, exclude = c(NA, "NA"))
+  propTbl <- ftable(prop.table(freqTbl), exclude = c(NA, "NA"))
+  names(data)[names(data) == "Target"] <- target
+  names(data)[names(data) == "Group"] <- group
+  names(freqDf)[names(freqDf) == "Target"] <- target
+  names(freqDf)[names(freqDf) == "Group"] <- group
+  names(propDf)[names(propDf) == "Target"] <- target
+  names(propDf)[names(propDf) == "Group"] <- group
+
+
   dat <- list(
     data = data,
-    table = table,
+    table = tbl,
     freqTbl = freqTbl,
     freqDf = freqDf,
     propTbl = propTbl,

@@ -10,7 +10,7 @@ Description: Explores sexual behavior as it has, or has not evolved over the pas
     education and geographic region.
 License: MIT
 Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 Depends:
     R (>= 3.4.1),
     data.table,
@@ -26,6 +26,7 @@ Imports:
     kableExtra,
     kfigr,
     pastecs,
+    printr,
     pwr,
     RColorBrewer,
     stargazer,

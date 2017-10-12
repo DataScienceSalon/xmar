@@ -4,10 +4,10 @@
 \alias{X2}
 \title{X2}
 \usage{
-X2(table, target, group, p = 0.05)
+X2(x2Table, target, group, p = 0.05)
 }
 \arguments{
-\item{table}{Contingency table object containing observed values for chi-square hypothesis test}
+\item{x2Table}{Contingency table object containing observed values for chi-square hypothesis test}
 
 \item{target}{Character string indicating the name of target or study variable}
 
