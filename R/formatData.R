@@ -21,39 +21,22 @@ formatData <- function(data, target, group) {
   #                               Prepare Data                                #
   #---------------------------------------------------------------------------#
   # Frequency and Proportion Tables
-  tbl <- table(data$Target, data$Group, dnn = c(target, group))
+  tbl <- table(data$Target, data$Group, exclude = "NA")
   freqTbl <- ftable(data, exclude = c(NA, "NA"))
-  propTbl <- ftable(prop.table(freqTbl), exclude = c(NA, "NA"))
 
-  # Prepare frequency data frame for plotting
-  freqDf <- as.data.frame(freqTbl) %>% arrange(Group, desc(Target)) %>%
+  df <- as.data.frame(freqTbl) %>% arrange(Group, desc(Target)) %>%
     group_by(Group) %>% mutate(cumFreq = cumsum(Freq),
-                               pos = cumFreq - 0.5 * Freq)
+                                 pos = cumFreq - 0.5 * Freq)
 
-  # Prepare proportion data frame for plotting
-  propDf <- as.data.frame(propTbl) %>% arrange(Group, desc(Target)) %>%
-    group_by(Group) %>% mutate(pct = round(Freq * 100, 0),
-                               cumPct = cumsum(pct),
-                               pos = cumPct - 0.5 * pct)
+  df <- df %>% group_by(Group) %>% mutate(Ttl = sum(Freq))
+  df <- df %>% mutate(Pct = round(Freq / Ttl * 100, 0))
+  df <- df %>% group_by(Group) %>%
+    mutate(cumPct = cumsum(Pct),
+           pos = cumPct - 0.5 * Pct)
 
-  # Rename Variables
-  freqTbl <- ftable(tbl, exclude = c(NA, "NA"))
-  propTbl <- ftable(prop.table(freqTbl), exclude = c(NA, "NA"))
-  names(data)[names(data) == "Target"] <- target
-  names(data)[names(data) == "Group"] <- group
-  names(freqDf)[names(freqDf) == "Target"] <- target
-  names(freqDf)[names(freqDf) == "Group"] <- group
-  names(propDf)[names(propDf) == "Target"] <- target
-  names(propDf)[names(propDf) == "Group"] <- group
-
-
-  dat <- list(
-    data = data,
+  data = list(
     table = tbl,
-    freqTbl = freqTbl,
-    freqDf = freqDf,
-    propTbl = propTbl,
-    propDf = propDf
+    df = df
   )
-  return(dat)
+  return(data)
 }

@@ -19,41 +19,23 @@
 plotBars <- function(data, target, group) {
 
   #---------------------------------------------------------------------------#
-  #                               Create Plots                                #
+  #                                Barplot                                    #
   #---------------------------------------------------------------------------#
-  # Frequency Bar Plot
-  freqBar <- ggplot2::ggplot() +
-    ggplot2::geom_bar(ggplot2::aes(x = Behavior, y = Freq, fill = Opinions),
-                      data = data, stat = 'identity') +
-    ggplot2::geom_text(data = data, ggplot2::aes(x = Behavior, y = pos,
-                                                   label = Freq),
-                       colour="black", family="Tahoma", size=4) +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(legend.position="bottom",
-                   text=ggplot2::element_text(family="Open Sans")) +
-    ggplot2::scale_fill_brewer(palette = 'Greens', name = target) +
-    ggplot2::labs(title = paste(target, "by", group, "(Frequencies)"),
-                  x = group,
-                  y = target)
-
   # Proportion Bar Plot
-  propBar <- ggplot2::ggplot() +
-    ggplot2::geom_bar(ggplot2::aes(x = group, y = pct, fill = target),
-                      data = data$propDf, stat = 'identity') +
-    ggplot2::geom_text(data = data$propDf,
-                       ggplot2::aes(x = group, y = pos, label = paste0(pct,"%")),
-                       colour="black", family="Tahoma", size=4) +
-    ggplot2::theme_minimal() +
+  plotBar <- ggplot2::ggplot() +
+    ggplot2::geom_bar(ggplot2::aes(x = Group, y = Pct, fill = Target),
+                      data = data, stat = 'identity') +
+    ggplot2::geom_text(data = data,
+                       ggplot2::aes(x = Group, y = pos,
+                                    label = paste0(Freq, " (",Pct,"%)")),
+                       colour="black", family="Tahoma", size = 8) +
+    ggplot2::theme_minimal(base_size = 24) +
     ggplot2::theme(legend.position="bottom",
                    text=ggplot2::element_text(family="Open Sans")) +
     ggplot2::scale_fill_brewer(palette = 'Greens', name = target) +
-    ggplot2::labs(title = paste(target, "by", group, "(Proportions)"),
+    ggplot2::labs(title = paste(target, "By", group),
                   x = group,
                   y = target)
 
-  plotBars <- list(
-    freqBar = freqBar,
-    propBar = propBar
-  )
-  return(plotBars)
+  return(plotBar)
 }

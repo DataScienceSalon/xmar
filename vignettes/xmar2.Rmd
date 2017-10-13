@@ -45,18 +45,31 @@ xmar <- preprocess(GSS)
 uni <- univariate(xmar)
 ```
 
-```{r rq1, echo = F, message = FALSE, warning=FALSE}
-rq1Data <- rq1(xmar)
+```{r rq1a, echo = F, message = FALSE, warning=FALSE}
+rq1aData <- rq1a(xmar)
 ```
+
+```{r rq1b, echo = F, message = FALSE, warning=FALSE}
+rq1bData <- rq1b(rq1aData)
+```
+
+```{r rq2, echo = F, message = FALSE, warning=FALSE}
+rq2Data <- rq2(xmar)
+```
+
+```{r rq3, echo = F, message = FALSE, warning=FALSE}
+rq3Data <- rq3(xmar)
+```
+
 
 # Abstract
 # Introduction
 ## Background Information
 ## Research Questions
 Three research questions have been devised to examine the relationship between opinion and behavior with respect to extra-marital sex, and the degree to which they vary by select demographic factors. Concretely, the following three research questions are presented, analyzed and discussed:  
-1. Is there an association between opinion and behavior with respect to extra-marital sex in the United States?  
-2. Is there an association between opinion and geographic region, class, political view, and education level in the United States?  
-3. Is there an association between behavior and geographic region, class, political view, and education level in teh United States?  
+1.  Is there an association between opinion and behavior with respect to extra-marital sex in the United States?  
+2.  Is there an association between opinion and geographic region, class, political view, and education level in the United States?  
+3.  Is there an association between behavior and geographic region, class, political view, and education level in teh United States?  
 
 ## Document Organization
 The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the univariate and multivariate analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
@@ -296,28 +309,28 @@ The next section will evaluate the relationship between opinions and behaviors w
 This line of inquiry examines the relationship between opinions and behaviors w.r.t. extra-marital sex.
 
 ### The Data
-The segmented bar chart in `r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")` strongly suggests an association between opinions and behaviors with respect to extra-maritical conduct. Just `r rq1Data$data$propDf$Pct[2]`% of those with strong negative opinions reported extra-marital activity, versus `r rq1Data$data$propDf$Pct[4]`% of those with moderate opinions, and `r rq1Data$data$propDf$Pct[6]`% of those with relatively liberal positions on the matter.
+The segmented bar chart in `r kfigr::figr(label = "rq1aPlot", prefix = TRUE, link = TRUE, type="Figure")` strongly suggests an association between opinions and behaviors with respect to extra-maritical conduct. Just `r rq1aData$data$propDf$Pct[2]`% of those with strong negative opinions reported extra-marital activity, versus `r rq1aData$data$propDf$Pct[4]`% of those with moderate opinions, and `r rq1aData$data$propDf$Pct[6]`% of those with relatively liberal positions on the matter.
 
-```{r rq1Plot, include=T, echo = F, results='html'}
-rq1Data$plots$propBar
+```{r rq1aPlot, include=T, echo = F, results='html'}
+rq1aData$plots$propBar
 ```
-`r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Behavior Observed Frequencies and Proportions
+`r kfigr::figr(label = "rq1aPlot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Behavior Observed Frequencies and Proportions
 
-`r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")` and `r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")` contain the observed and expected frequencies, under the null hypothesis. The chi-squared test of association will verify the statistical significance of the differences between the observed and expected frequencies. 
+`r kfigr::figr(label = "rq1aExpFreq", prefix = TRUE, link = TRUE, type="Table")` and `r kfigr::figr(label = "rq1aExpProp", prefix = TRUE, link = TRUE, type="Table")` contain the observed and expected frequencies, under the null hypothesis. The chi-squared test of association below verifies the statistical significance of the differences between the observed and expected frequencies. 
 
 <div class = col2-left>
-`r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Observed Frequency Table
-```{r rq1ExpFreq, echo = F, results='html'}
-knitr::kable(rq1Data$test$obsFreq, digits = 0, align = c("r", rep("c", 3))) %>%  
+`r kfigr::figr(label = "rq1aExpFreq", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Observed Frequency Table
+```{r rq1aExpFreq, echo = F, results='html'}
+knitr::kable(rq1aData$test$obsFreq, digits = 0, align = c("r", rep("c", 3))) %>%  
   kableExtra::add_header_above(c(" ", "Behavior" = 2, " ")) %>%
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 </div>
 
 <div class = col2-right>
-`r kfigr::figr(label = "rq1ExpProp", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Expected Frequency Table 
-```{r rq1ExpProp, echo = F, results='html'}
-knitr::kable(rq1Data$test$expFreq, digits = 0, align = c("r", rep("c", 3))) %>%  
+`r kfigr::figr(label = "rq1aExpProp", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Expected Frequency Table 
+```{r rq1aExpProp, echo = F, results='html'}
+knitr::kable(rq1aData$test$expFreq, digits = 0, align = c("r", rep("c", 3))) %>%  
   kableExtra::add_header_above(c(" ", "Behavior" = 2, " ")) %>%
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
@@ -327,32 +340,297 @@ knitr::kable(rq1Data$test$expFreq, digits = 0, align = c("r", rep("c", 3))) %>%
 From this preliminary analysis, two sets of hypothesis were investigated: (1) does the segmented bar chart indicate a statistically significant association between behaviors and opinions w.r.t. extra-marital conduct, and (2) is their a significant difference in behaviors between those who considered extra-marital conduct as *sometimes wrong* and those who think that such conduct is *not wrong at all*.  
 
 #### Hypothesis 1A: Association Between Behaviors and Opinions 
-This hypothesis is formally stated as follows:  
+The hypotheses are formally stated as follows:  
 $H_0$: The opinions and behaviors are independent, and therefore **no** association exists between opinions and behaviors w.r.t. extra-marital conduct.   
 $H_a$: The two categorical variables are **not** independent, and therefore an association exists between opinions and behaviors w.r.t. extra-marital conduct.  
 
+To evaluate the independence of opinions and behaviors, the **chi-square statistic** was selected. 
+
 #### Inference Conditions
-To evaluate the independence of opinions and behaviors, the **chi-square statistic** was selected.  The conditions necessary for performing chi-square tests of independence were evaluated as follows:  
+The conditions necessary for performing chi-square tests of independence were evaluated as follows:  
 * **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
-* **Sample Size:** As shown in the `r kfigr::figr(label = "rq1ExpFreq", prefix = TRUE, link = TRUE, type="Table")`, the minimum threshold of five expected counts for each cell was met.  Furthermore, the sample size was less than 10% of the population of U.S. adults age 18 and over.
-* **Degrees of Freedom:** The degrees of freedom, $df$, must be at least two.  In this case, there were indeed `r rq1Data$test$table$Df` degrees of freedom.  
+* **Sample Size:** As shown in the `r kfigr::figr(label = "rq1aExpFreq", prefix = TRUE, link = TRUE, type="Table")`, the minimum threshold of five expected counts for each cell was met.  Furthermore, the sample size was less than 10% of the population of U.S. adults age 18 and over.
+* **Degrees of Freedom:** The degrees of freedom, $df$, must be at least two.  In this case, there were indeed `r rq1aData$test$table$Df` degrees of freedom.  
 Consequently, the conditions for performing a chi-square test of independence were met.  
 
-#### Results and Interpretation
-A chi-square test of independence was performed to examine the relation between opinion and behavior with respect to extra-marital conduct. `r kfigr::figr(label = "rq1X2Plot", prefix = TRUE, link = TRUE, type="Figure")` shows the chi-square distribution with the critical value, the reject region and observed statistic.  
+#### Test, Results and Interpretation
+A chi-square test of independence was performed to examine the relation between opinion and behavior with respect to extra-marital conduct. `r kfigr::figr(label = "rq1aX2aPlot", prefix = TRUE, link = TRUE, type="Figure")` shows the chi-square distribution with the critical value, the reject region and observed statistic.  
 
-```{r rq1X2Plot, include=T, echo = F, results='html'}
-rq1Data$test$plot
+```{r rq1aX2aPlot, include=T, echo = F, results='html'}
+rq1aData$test$plot
 ```
-`r kfigr::figr(label = "rq1X2Plot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Test of Association Plot
+`r kfigr::figr(label = "rq1aX2aPlot", prefix = TRUE, link = TRUE, type="Figure")`: Chi-Square Distribution
 
-`r kfigr::figr(label = "rq1X2", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Chi-Square Test of Association
-```{r echo = F, results='html'}
-knitr::kable(rq1Data$test$table) %>%  
+`r kfigr::figr(label = "rq1aX2a", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs. Behavior Chi-Square Test of Association
+```{r rq1aX2a, echo = F, results='html'}
+knitr::kable(rq1aData$test$table) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-As indicated in `r kfigr::figr(label = "rq1X2Plot", prefix = TRUE, link = TRUE, type="Figure")` and confirmed in `r kfigr::figr(label = "rq1X2", prefix = TRUE, link = TRUE, type="Table")`, the association between these variables was significant, X2 (`r rq1Data$test$table$Df`, $N$ = `r nrow(rq1Data$data$data)`) = `r round(rq1Data$test$table$X2_Observed, 0)`, $p$ = `r round(rq1Data$test$table$p_Value,3)`. **The data support an association between opinions and behaviors around extra-marital conduct.** 
+As indicated in `r kfigr::figr(label = "rq1aX2aPlot", prefix = TRUE, link = TRUE, type="Figure")` and confirmed in `r kfigr::figr(label = "rq1aX2a", prefix = TRUE, link = TRUE, type="Table")`, the association between these variables was significant, X2a (df = `r rq1aData$test$table$Df`, N = `r nrow(rq1aData$data$data)`) = `r round(rq1aData$test$table$X2a_Observed, 0)`, and $p \approx$ `r round(rq1aData$test$table$p_Value,3)`. As such, the $H_0$ is rejected in favor of $H_a$. **The data support an association between opinions and behaviors around extra-marital conduct.** 
+
+#### Hypothesis 1B: Behaviors by Opinion 
+Of particular interest was the statistical significance of the difference in behaviors between those who think extra-marital conduct is *sometimes wrong* and those who judged it *not wrong at all*.  
+
+Let:  
+$p_1$ indicate the proportion of the population that have engaged in extra-marital conduct and believe such conduct to be *sometimes wrong*. and   
+$p_2$ indicate the proportion of the population that have engaged in extra-marital conduct and believe such conduct to be *not wrong at all*.
+
+The hypotheses are formally stated as follows:  
+$H_0$: $p_1 = p_2$   
+$H_a$: $p_1 \neq p_2$   
+
+For this set of hypotheses, both the z statistic and chi-square statistic were used to evaluate the equality of the two proportions. 
+
+#### Inference Conditions
+The conditions necessary for performing two-sample z-tests, and two-proportion chi-square tests were evaluated as follows:  
+* **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
+* **Success/Failure:** As shown in the `r kfigr::figr(label = "rq1aPlot", prefix = TRUE, link = TRUE, type="Figure")`, the minimum threshold of ten successes / failures per group and 5 counts per cell were met.
+* **Sample Size:** The sample size was less than 10% of the population of U.S. adults age 18 and over.
+
+Consequently, the conditions for performing the two-sample z-test and the two-proportion chi-square test were met.
+
+#### Test, Results and Interpretation
+As indicated in `r kfigr::figr(label = "rq1aPlot", prefix = TRUE, link = TRUE, type="Figure")`, `r rq1aData$data$propDf$Pct[4]`% of those who considered extra-marital conduct *sometimes wrong* engaged in extra-marital activities; whereas, `r rq1aData$data$propDf$Pct[6]`% of those who thought such conduct was *not wrong at all* engaged in such activites. Two-sample z-test for equality of proportions and a chi-square test for equality of proportions were conducted to determine the difference in the proportions of adults who engaged in extra-marital conduct between the two-groups (`r round((rq1aData$data$propDf$Pct[4] - rq1aData$data$propDf$Pct[6]) / 100, 3)`) was significant. The results of z-test (`r kfigr::figr(label = "rq1bZTest", prefix = TRUE, link = TRUE, type="Table")`) indicated that the difference in the proportions between the two groups was not significant (Z = `r round(rq1bData$z$Z.Score, 2)`, p-value =  `r round(rq1bData$z$p.value, 2)`).
+
+`r kfigr::figr(label = "rq1bZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-Sample Proportion Test
+```{r rq1bZTest, echo = F, results='html'}
+knitr::kable(rq1bData$z) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+Similarly the chi-square test for equality of proportions (`r kfigr::figr(label = "rq1bX2Test", prefix = TRUE, link = TRUE, type="Table")`) evidenced the statistical equality of the proportions ($X^2$ = `r round(rq1bData$x2$X2, 3)`, p-value =  `r round(rq1bData$x2$p.value, 2)`).
+
+As a consequence of the high p-values of both tests, $H_0$ is not rejected.  The data does not support a difference in behavior between the two groups.
+
+`r kfigr::figr(label = "rq1bX2Test", prefix = TRUE, link = TRUE, type="Table")`: Two-Sample Chi-Square Test
+```{r rq1bX2Test, echo = F, results='html'}
+knitr::kable(rq1bData$x2) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+## Research Question #2: Opinions and Demographics
+This question investigates the relationship between opinions with respect to extra-marital conduct and geographic region, class, education and political view.
+
+### Research Question #2a: Opinions and Geographics
+
+#### Data
+
+```{r rq2aData, include=T, echo = F, results='html'}
+rq2Data$region$plots
+```
+`r kfigr::figr(label = "rq2aData", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Region Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq2aTestPlot, include=T, echo = F, results='html'}
+rq2Data$region$test$plot
+```
+`r kfigr::figr(label = "rq2aTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Region Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq2aTestData", prefix = TRUE, link = TRUE, type="Table")`: Opinions By Region Test of Association Plot
+```{r rq2aTestData, echo = F, results='html'}
+knitr::kable(rq2Data$region$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+
+### Research Question #2b: Opinions and Class
+
+#### Data
+
+```{r rq2bData, include=T, echo = F, results='html'}
+rq2Data$class$plots
+```
+`r kfigr::figr(label = "rq2bData", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Class Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq2bTestPlot, include=T, echo = F, results='html'}
+rq2Data$class$test$plot
+```
+`r kfigr::figr(label = "rq2bTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Class Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq2bTestData", prefix = TRUE, link = TRUE, type="Table")`: Opinions By Class Test of Association Plot
+```{r rq2bTestData, echo = F, results='html'}
+knitr::kable(rq2Data$class$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+
+### Research Question #2c: Opinions and Education
+
+
+#### Data
+
+```{r rq2cData, include=T, echo = F, results='html'}
+rq2Data$education$plots
+```
+`r kfigr::figr(label = "rq2cData", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Education Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq2cTestPlot, include=T, echo = F, results='html'}
+rq2Data$education$test$plot
+```
+`r kfigr::figr(label = "rq2cTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Education Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq2cTestData", prefix = TRUE, link = TRUE, type="Table")`: Opinions By Education Test of Association Plot
+```{r rq2cTestData, echo = F, results='html'}
+knitr::kable(rq2Data$education$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+### Research Question #2d: Opinions and Political Views
+
+
+#### Data
+
+```{r rq2dData, include=T, echo = F, results='html'}
+rq2Data$view$plots
+```
+`r kfigr::figr(label = "rq2dData", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs View Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq2dTestPlot, include=T, echo = F, results='html'}
+rq2Data$view$test$plot
+```
+`r kfigr::figr(label = "rq2dTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs Political View Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq2dTestData", prefix = TRUE, link = TRUE, type="Table")`: Opinions By Political View Test of Association Plot
+```{r rq2dTestData, echo = F, results='html'}
+knitr::kable(rq2Data$view$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+
+## Research Question #3: Behaviors and Demographics
+This question investigates the relationship between behaviors with respect to extra-marital conduct and geographic region, class, education and political view.
+
+### Research Question #3a: Behaviors and Geographics
+
+#### Data
+
+```{r rq3aData, include=T, echo = F, results='html'}
+rq3Data$region$plots
+```
+`r kfigr::figr(label = "rq3aData", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs Region Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq3aTestPlot, include=T, echo = F, results='html'}
+rq3Data$region$test$plot
+```
+`r kfigr::figr(label = "rq3aTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs Region Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq3aTestData", prefix = TRUE, link = TRUE, type="Table")`: Behaviors By Region Test of Association Plot
+```{r rq3aTestData, echo = F, results='html'}
+knitr::kable(rq3Data$region$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+
+### Research Question #3b: Behaviors and Class
+
+#### Data
+
+```{r rq3bData, include=T, echo = F, results='html'}
+rq3Data$class$plots
+```
+`r kfigr::figr(label = "rq3bData", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs Class Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq3bTestPlot, include=T, echo = F, results='html'}
+rq3Data$class$test$plot
+```
+`r kfigr::figr(label = "rq3bTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs Class Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq3bTestData", prefix = TRUE, link = TRUE, type="Table")`: Behaviors By Class Test of Association Plot
+```{r rq3bTestData, echo = F, results='html'}
+knitr::kable(rq3Data$class$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+
+### Research Question #3c: Behaviors and Education
+
+
+#### Data
+
+```{r rq3cData, include=T, echo = F, results='html'}
+rq3Data$education$plots
+```
+`r kfigr::figr(label = "rq3cData", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs Education Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq3cTestPlot, include=T, echo = F, results='html'}
+rq3Data$education$test$plot
+```
+`r kfigr::figr(label = "rq3cTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs Education Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq3cTestData", prefix = TRUE, link = TRUE, type="Table")`: Behaviors By Education Test of Association Plot
+```{r rq3cTestData, echo = F, results='html'}
+knitr::kable(rq3Data$education$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+### Research Question #3d: Behaviors and Political Views
+
+
+#### Data
+
+```{r rq3dData, include=T, echo = F, results='html'}
+rq3Data$view$plots
+```
+`r kfigr::figr(label = "rq3dData", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs View Observed Frequencies and Proportions
+
+#### Hypotheses
+
+#### Inference Conditions
+
+#### Test, Results and Interpretation
+```{r rq3dTestPlot, include=T, echo = F, results='html'}
+rq3Data$view$test$plot
+```
+`r kfigr::figr(label = "rq3dTestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Behavior vs Political View Test of Association Proportions
+
+
+`r kfigr::figr(label = "rq3dTestData", prefix = TRUE, link = TRUE, type="Table")`: Behaviors By Political View Test of Association Plot
+```{r rq3dTestData, echo = F, results='html'}
+knitr::kable(rq3Data$view$test$table) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
 
 
 

@@ -18,9 +18,10 @@ formatData(data, target, group)
 \code{formatData} Render frequency and proportion data
 }
 \seealso{
-Other xmar functions: \code{\link{X2}},
+Other xmar functions: \code{\link{X2a}}, \code{\link{X2}},
   \code{\link{plotBars}}, \code{\link{preprocess}},
-  \code{\link{rq1}}, \code{\link{rq2}}, \code{\link{rq3}},
+  \code{\link{rq1a}}, \code{\link{rq1b}},
+  \code{\link{rq2}}, \code{\link{rq3}},
   \code{\link{sampleSize}}, \code{\link{univariate}}
 }
 \author{

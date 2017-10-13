@@ -11,10 +11,10 @@ sampleSize(xmar)
 upon the number of levels in each grouping variable.
 }
 \seealso{
-Other xmar functions: \code{\link{X2}},
+Other xmar functions: \code{\link{X2a}}, \code{\link{X2}},
   \code{\link{formatData}}, \code{\link{plotBars}},
-  \code{\link{preprocess}}, \code{\link{rq1}},
-  \code{\link{rq2}}, \code{\link{rq3}},
+  \code{\link{preprocess}}, \code{\link{rq1a}},
+  \code{\link{rq1b}}, \code{\link{rq2}}, \code{\link{rq3}},
   \code{\link{univariate}}
 }
 \author{

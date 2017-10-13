@@ -24,31 +24,7 @@ rq2 <- function(xmar) {
 
     # Format data, render bar plots, and conduct hypothesis test
     data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
-    test <- X2(data$table, target = target, group = group)
-
-    results = list(
-      data = data,
-      plots = plots,
-      test = test
-    )
-    return(results)
-  }
-
-  rq2Views <- function(xmar) {
-    #Set Constants
-    target = "Opinions"
-    group = "Political Views"
-
-    # Obtain data
-    x <- xmar %>% select(Opinion, Views) %>% filter(Opinion != "NA" & Views != "NA")
-    d <- data.frame(Target = factor(x$Opinion),
-                    Group = factor(x$Views))
-
-
-    # Format data, render bar plots, and conduct hypothesis test
-    data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
     results = list(
@@ -69,10 +45,9 @@ rq2 <- function(xmar) {
     d <- data.frame(Target = factor(x$Opinion),
                     Group = factor(x$Class))
 
-
     # Format data, render bar plots, and conduct hypothesis test
     data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
     results = list(
@@ -83,20 +58,19 @@ rq2 <- function(xmar) {
     return(results)
   }
 
-  rq2Degree <- function(xmar) {
+  rq2Education <- function(xmar) {
     #Set Constants
     target = "Opinions"
-    group = "Degree"
+    group = "Education"
 
     # Obtain data
     x <- xmar %>% select(Opinion, Degree) %>% filter(Opinion != "NA" & Degree != "NA")
     d <- data.frame(Target = factor(x$Opinion),
                     Group = factor(x$Degree))
 
-
     # Format data, render bar plots, and conduct hypothesis test
     data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
     results = list(
@@ -107,15 +81,42 @@ rq2 <- function(xmar) {
     return(results)
   }
 
-  region <- rq2Region(xmar)
-  views <- rq2Views(xmar)
-  class <- rq2Class(xmar)
-  degree <- rq2Degree(xmar)
+  rq2View <- function(xmar) {
+    #Set Constants
+    target = "Opinions"
+    group = "Political View"
 
-  results = list(
+    # Obtain data
+    x <- xmar %>% select(Opinion, Views) %>% filter(Opinion != "NA" & Views != "NA")
+    d <- data.frame(Target = factor(x$Opinion),
+                    Group = factor(x$Views))
+
+    # Format data, render bar plots, and conduct hypothesis test
+    data <- formatData(d, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
+    test <- X2(data$table, target = target, group = group)
+
+    results = list(
+      data = data,
+      plots = plots,
+      test = test
+    )
+    return(results)
+  }
+
+
+
+  region <- rq2Region(xmar)
+  class  <- rq2Class(xmar)
+  education  <- rq2Education(xmar)
+  view  <- rq2View(xmar)
+
+  results <- list(
     region = region,
-    views = views,
     class = class,
-    degree = degree
+    education = education,
+    view = view
   )
+
+  return(results)
 }

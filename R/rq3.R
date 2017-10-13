@@ -3,7 +3,7 @@
 #==============================================================================#
 #' rq3
 #'
-#' \code{rq3} Performs analysis for research question 2: Are Behaviors associated
+#' \code{rq3} Performs analysis for research question 2: Are opinions associated
 #' with region, political view, class, or education.
 #'
 #' @author John James, \email{jjames@@datasciencesalon.org}
@@ -14,7 +14,7 @@ rq3 <- function(xmar) {
 
   rq3Region <- function(xmar) {
     #Set Constants
-    target = "Behaviors"
+    target = "Behavior"
     group = "Region"
 
     # Obtain data
@@ -24,31 +24,7 @@ rq3 <- function(xmar) {
 
     # Format data, render bar plots, and conduct hypothesis test
     data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
-    test <- X2(data$table, target = target, group = group)
-
-    results = list(
-      data = data,
-      plots = plots,
-      test = test
-    )
-    return(results)
-  }
-
-  rq3Views <- function(xmar) {
-    #Set Constants
-    target = "Behaviors"
-    group = "Political Views"
-
-    # Obtain data
-    x <- xmar %>% select(Behavior, Views) %>% filter(Behavior != "NA" & Views != "NA")
-    d <- data.frame(Target = factor(x$Behavior),
-                    Group = factor(x$Views))
-
-
-    # Format data, render bar plots, and conduct hypothesis test
-    data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
     results = list(
@@ -61,7 +37,7 @@ rq3 <- function(xmar) {
 
   rq3Class <- function(xmar) {
     #Set Constants
-    target = "Behaviors"
+    target = "Behavior"
     group = "Class"
 
     # Obtain data
@@ -69,10 +45,9 @@ rq3 <- function(xmar) {
     d <- data.frame(Target = factor(x$Behavior),
                     Group = factor(x$Class))
 
-
     # Format data, render bar plots, and conduct hypothesis test
     data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
     results = list(
@@ -83,20 +58,19 @@ rq3 <- function(xmar) {
     return(results)
   }
 
-  rq3Degree <- function(xmar) {
+  rq3Education <- function(xmar) {
     #Set Constants
-    target = "Behaviors"
-    group = "Degree"
+    target = "Behavior"
+    group = "Education"
 
     # Obtain data
     x <- xmar %>% select(Behavior, Degree) %>% filter(Behavior != "NA" & Degree != "NA")
     d <- data.frame(Target = factor(x$Behavior),
                     Group = factor(x$Degree))
 
-
     # Format data, render bar plots, and conduct hypothesis test
     data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$data, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
     test <- X2(data$table, target = target, group = group)
 
     results = list(
@@ -107,15 +81,42 @@ rq3 <- function(xmar) {
     return(results)
   }
 
-  region <- rq3Region(xmar)
-  views <- rq3Views(xmar)
-  class <- rq3Class(xmar)
-  degree <- rq3Degree(xmar)
+  rq3View <- function(xmar) {
+    #Set Constants
+    target = "Behavior"
+    group = "Political View"
 
-  results = list(
+    # Obtain data
+    x <- xmar %>% select(Behavior, Views) %>% filter(Behavior != "NA" & Views != "NA")
+    d <- data.frame(Target = factor(x$Behavior),
+                    Group = factor(x$Views))
+
+    # Format data, render bar plots, and conduct hypothesis test
+    data <- formatData(d, target = target, group = group)
+    plots <- plotBars(data$df, target = target, group = group)
+    test <- X2(data$table, target = target, group = group)
+
+    results = list(
+      data = data,
+      plots = plots,
+      test = test
+    )
+    return(results)
+  }
+
+
+
+  region <- rq3Region(xmar)
+  class  <- rq3Class(xmar)
+  education  <- rq3Education(xmar)
+  view  <- rq3View(xmar)
+
+  results <- list(
     region = region,
-    views = views,
     class = class,
-    degree = degree
+    education = education,
+    view = view
   )
+
+  return(results)
 }

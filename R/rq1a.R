@@ -1,16 +1,16 @@
 #==============================================================================#
-#                                    rq1                                       #
+#                                    rq1a                                      #
 #==============================================================================#
-#' rq1
+#' rq1a
 #'
-#' \code{rq1} Performs analysis for research question 1: Are opinions about
+#' \code{rq1a} Performs analysis for research question 1a: Are opinions about
 #' and behaviors in extra-marital sex associated.
 #'
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #' @family xmar functions
 #' @export
 #'
-rq1 <- function(xmar) {
+rq1a <- function(xmar) {
 
   #---------------------------------------------------------------------------#
   #                             Format Data                                   #
@@ -69,10 +69,11 @@ rq1 <- function(xmar) {
   #                         Hypothesis Testing                                #
   #---------------------------------------------------------------------------#
 
-  x2test <- X2(tbl, target = "Behavior", group = "Opinion")
+  x2atest <- X2a(tbl, target = "Behavior", group = "Opinion")
 
   results = list(
     data = list(
+      data = d,
       freqDf = freqDf,
       propDf = propDf
       ),
@@ -80,7 +81,7 @@ rq1 <- function(xmar) {
       freqBar = freqBar,
       propBar = propBar
       ),
-    test = x2test
+    test = x2atest
   )
   return(results)
 }

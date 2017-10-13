@@ -9,7 +9,7 @@
 #'
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #'
-#' @param x2Table Contingency table object containing observed values for chi-square hypothesis test
+#' @param data Contingency table object containing observed values for chi-square hypothesis test
 #' @param target Character string indicating the name of target or study variable
 #' @param group Character string indicating the name of grouping variable
 #' @param p Alpha .the probability of a type 1 error
@@ -17,12 +17,12 @@
 #' @family xmar functions
 #' @export
 #'
-X2 <- function(x2Table, target, group, p = 0.05) {
+X2 <- function(data, target, group, p = 0.05) {
 
-  x2 <- chisq.test(x2Table)
+  x2 <- chisq.test(data)
 
   # Extract Chisq Data
-  df   <-x2$parameter
+  df <- x2$parameter
   criticalVal <- qchisq(p, df, lower.tail = F)
 
   # Create Table
@@ -33,7 +33,8 @@ X2 <- function(x2Table, target, group, p = 0.05) {
                       X2_Critical = qchisq(p, df, lower.tail = F),
                       X2_Observed = x2$statistic,
                       p_Value = x2$p.value,
-                      Decision = ifelse(x2$p.value >= p,"Fail to Reject", "Reject"))
+                      Decision = ifelse(x2$p.value >= p,"Fail to Reject", "Reject"),
+                      row.names = NULL)
 
   # Format Plot Data
   gg   <- data.frame(x=seq(0,1.2 * x2$statistic,0.1))
@@ -75,53 +76,12 @@ X2 <- function(x2Table, target, group, p = 0.05) {
                        colour="black",size = 8) +
     ggplot2::geom_segment(ggplot2::aes(x = observedx1, y = observedy1, xend = observedx2, yend = observedy2)) +
     ggplot2::geom_segment(ggplot2::aes(x = rejectx1, y = rejecty1, xend = rejectx2, yend = rejecty2)) +
-    ggplot2::labs(title = paste("Chi-square Test of Independence of", target, "and", group),
-                  x = "X2",
+    ggplot2::labs(title = paste("Chi-square Test of Independence of", target, "and", group),                  x = "X2",
                   y = "Probability")
-
-  # Format Contingency Observed Tables
-  d <- as.data.frame(ftable(x2$observed))
-  d1 <- d$Opinion[1:3]
-  d2 <- d$Freq[1:3]
-  d3 <- d$Freq[4:6]
-  dfof <- data.frame(Opinion = d1,
-                   Yes = d2,
-                   No = d3,
-                   Total = d2 + d3)
-  dTtl <- data.frame(Opinion = "Total",
-                   Yes = sum(d2),
-                   No = sum(d3),
-                   Total = sum(dfof$Total))
-  dfof <- rbind(dfof, dTtl)
-  dfop <- dfof %>% mutate(Yes = round(Yes / Total, 2),
-                          No = round(No / Total, 2),
-                          Total = 1)
-
-  # Format Contingency Expected Tables
-  d <- as.data.frame(ftable(x2$expected))
-  d1 <- d$Opinion[1:3]
-  d2 <- d$Freq[1:3]
-  d3 <- d$Freq[4:6]
-  dfef <- data.frame(Opinion = d1,
-                     Yes = d2,
-                     No = d3,
-                     Total = d2 + d3)
-  dTtl <- data.frame(Opinion = "Total",
-                     Yes = sum(d2),
-                     No = sum(d3),
-                     Total = sum(dfef$Total))
-  dfef <- rbind(dfef, dTtl)
-  dfep <- dfef %>% mutate(Yes = round(Yes / Total, 2),
-                          No = round(No / Total, 2),
-                          Total = 1)
 
 
   x2 <- list(
     table = table,
-    obsFreq = dfof,
-    obsProp = dfop,
-    expFreq = dfef,
-    expProp = dfep,
     plot = plot
   )
   return(x2)
