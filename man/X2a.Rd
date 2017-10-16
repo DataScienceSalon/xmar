@@ -23,9 +23,8 @@ chi-square distribution with reject region and observed test statistic.
 \seealso{
 Other xmar functions: \code{\link{X2}},
   \code{\link{formatData}}, \code{\link{plotBars}},
-  \code{\link{preprocess}}, \code{\link{rq1a}},
-  \code{\link{rq1b}}, \code{\link{rq2}}, \code{\link{rq3}},
-  \code{\link{sampleSize}}, \code{\link{univariate}}
+  \code{\link{preprocess}}, \code{\link{rqa}},
+  \code{\link{univariate}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

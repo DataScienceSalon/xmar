@@ -1,16 +1,5 @@
 Variable,Description,Type,Subtype,Source
 YEAR,GSS Year for This Respondent,Categorical,Discrete,GSS
-ID,Respondent Id Number,Categorical,Discrete,GSS
 AGE,Age of Respondent,Quantitative,Discrete,GSS
-DEGREE,Respondent's Highest Degree Earned,Categorical,Ordinal,GSS
-REGION,Region of Interview,Categorical,Discrete,GSS
-POLVIEWS,Think of Self as Conservative or Liberal,Categorical,Discrete,GSS
-CLASS_,Subject Class Identification,Categorical,Ordinal,GSS
-XMARSEX,Opinion About Sex with Person Other Than Spouse,Categorical,Ordinal,GSS
-EVSTRAY,Have Sex with Other Than Spouse While Married,Categorical,Dichotomous,GSS
-Region,Seven level REGION factor variable,Categorical,Discrete,Derived
-Degree,Five level DEGREE factor variable,Categorical,Ordinal,Derived
-Views,Three level POLVIEWS factor variable,Categorical,Discrete,Derived
-Class ,Four level CLASS_ factor variable,Categorical,Ordinal,Derived
-Attitude,Three level XMARSEX factor variable,Categorical,Ordinal,Derived
-Stray,Two level EVSTRAY factor variable,Categorical,Dichotomous,Derived
+SEX,Gender of Respondent,Categorical,Discrete,GSS
+XMARSEX,Opinion w.r.t. Extra-Marital Sex,Categorical,Discrete,GSS

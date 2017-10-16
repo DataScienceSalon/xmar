@@ -8,330 +8,97 @@
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #' @family xmar functions
 #' @export
-#'
 univariate <- function(xmar) {
 
-  me <- 0.05
-  alpha <- 0.05
-  z <- (1-alpha/2)
+  analyze <- function(data, var) {
 
-  analyzeDegree <- function(xmar) {
+    me <- 0.05
+    alpha <- 0.05
+    z <- (1-alpha/2)
 
-    data <- xmar %>% group_by(Degree) %>%
-      filter(Degree != "NA") %>%
-      summarize(N = n()) %>%
-      mutate(`Minimum N` =
-               round(qnorm(z) * (N / sum(N) * (1 - (N / sum(N)))) / me^2, 0),
-             Proportion = round(N / sum(N), 2),
+    stats <- data %>%
+      mutate(Level = data[,1],
+             `Minimum N` = round(p * (1-p) / (me / qnorm(z))^2, 0),
+             N = N,
+             Proportion = round(p, 2),
              Cumulative = round(cumsum(Proportion), 2),
              `Confidence Interval (95%)` =
                paste0("[",
                       round(Proportion -
                               (qnorm(z) *
                                  sqrt(Proportion * (1 - Proportion) / N)),3),
-                      ",    ",
+                      ", ",
                       round(Proportion +
                               (qnorm(z) *
                                  sqrt(Proportion * (1 - Proportion) / N)),3),
-                      "]"))
-    data$Degree <- factor(data$Degree)
+                      "]"),
+             pos = N / 2)
 
-
-    stats <- xmar %>% summarise(
-      Variable = "DEGREE",
-      Description = "Highest education degree attained",
-      Levels = length(levels(xmar$Degree)),
-      Complete = nrow(subset(xmar, xmar$Degree != "NA")),
-      NAs = nrow(subset(xmar, xmar$Degree == "NA")),
-      Total = n(),
-      Rate = paste0(round(Complete / Total * 100, 0), "%")
-    )
-
-    # Bar Plot
-    barplot <- ggplot2::ggplot(data = data,
-                               ggplot2::aes(x = Degree, y = Proportion, fill = Degree)) +
+    barplot <- ggplot2::ggplot(data = stats,
+                               ggplot2::aes(x = Level, y = N, fill = Level)) +
       ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 24) +
+      ggplot2::geom_text(
+        data = stats,
+        ggplot2::aes(x = Level, y = pos,
+                     label = paste0(N, " (",round(Proportion * 100, 0),"%)")),
+        colour="black", family="Tahoma", size = 8) +
       ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
                      axis.title.x = ggplot2::element_blank(),
                      axis.ticks.x = ggplot2::element_blank(),
                      legend.position = "none") +
       ggplot2::scale_fill_brewer(palette = 'Greens') +
-      ggplot2::ggtitle('Proportion of Responses by Education Level')
+      ggplot2::ggtitle(paste('Frequency and Proportion of Responses by', var))
+
+    stats <- stats %>% select(Level, `Minimum N`, N, Proportion, Cumulative,
+                              `Confidence Interval (95%)`)
 
     analysis <- list(
-      data = data,
       stats = stats,
-      barplot = barplot
+      plot = barplot
     )
+
     return(analysis)
   }
 
+  # Format Data
+  opinion <- as.data.frame(xmar %>% select(Opinion) %>% group_by(Opinion) %>%
+                           summarize(N = n()) %>%
+                           mutate(p = N/ sum(N)), row.names = NULL)
 
-  analyzeRegion <- function(xmar) {
+  years <- as.data.frame(xmar %>% select(Years) %>% group_by(Years) %>%
+                           summarize(N = n()) %>%
+                           mutate(p = N/ sum(N)), row.names = NULL)
+  age <- as.data.frame(xmar %>% select(AgeGroup) %>% group_by(AgeGroup) %>%
+                         summarize(N = n()) %>%
+                         mutate(p = N/ sum(N)), row.names = NULL)
+  gender <- as.data.frame(xmar %>% select(Gender) %>% group_by(Gender) %>%
+                            summarize(N = n()) %>%
+                            mutate(p = N/ sum(N)), row.names = NULL)
+  maleAge <- as.data.frame(xmar %>% filter(Gender == "Male") %>%
+                             group_by(GenderAge) %>%
+                             summarize(N = n()) %>%
+                             mutate(p = N/ sum(N)), row.names = NULL)
+  femaleAge <- as.data.frame(xmar %>% filter(Gender == "Female") %>%
+                             group_by(GenderAge) %>%
+                             summarize(N = n()) %>%
+                             mutate(p = N/ sum(N)), row.names = NULL)
 
-    data <- xmar %>% group_by(Region) %>%
-      filter(Region != "NA") %>%
-      summarize(N = n()) %>%
-      mutate(`Minimum N` =
-               round(qnorm(z) * (N / sum(N) * (1 - (N / sum(N)))) / me^2, 0),
-             Proportion = round(N / sum(N), 2),
-             Cumulative = round(cumsum(Proportion), 2),
-             `Confidence Interval (95%)` =
-               paste0("[",
-                      round(Proportion -
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      ",    ",
-                      round(Proportion +
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      "]"))
-    data$Region <- factor(data$Region)
+  # Conduct Analysis
+  opinion <- analyze(opinion, "Opinion")
+  years <- analyze(years, "Years")
+  age <- analyze(age, "Age Group")
+  gender <- analyze(gender, "Gender")
+  maleAge <- analyze(maleAge, "Males and Age Group")
+  femaleAge <- analyze(femaleAge, "Females and Age Group")
 
-    stats <- xmar %>% summarise(
-      Variable = "REGION",
-      Description = "Region of GSS interview",
-      Levels = length(levels(xmar$Region)),
-      Complete = nrow(subset(xmar, xmar$Region != "NA")),
-      NAs = nrow(subset(xmar, xmar$Region == "NA")),
-      Total = n(),
-      Rate = paste0(round(Complete / Total * 100, 0), "%")
-    )
-
-    barplot <- ggplot2::ggplot(data = data,
-                               ggplot2::aes(x = Region, y = Proportion, fill = Region)) +
-      ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 24) +
-      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
-                     axis.title.x = ggplot2::element_blank(),
-                     axis.ticks.x = ggplot2::element_blank(),
-                     legend.position = "none") +
-      ggplot2::scale_fill_brewer(palette = 'Greens') +
-      ggplot2::ggtitle('Proportion of Responses by Region')
-
-    analysis <- list(
-      data = data,
-      stats = stats,
-      barplot = barplot
-    )
-    return(analysis)
-  }
-
-  analyzeViews <- function(xmar) {
-
-    data <- xmar %>% group_by(Views) %>%
-      filter(Views != "NA") %>%
-      summarize(N = n()) %>%
-      mutate(`Minimum N` =
-               round(qnorm(z) * (N / sum(N) * (1 - (N / sum(N)))) / me^2, 0),
-             Proportion = round(N / sum(N), 2),
-             Cumulative = round(cumsum(Proportion), 2),
-             `Confidence Interval (95%)` =
-               paste0("[",
-                      round(Proportion -
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      ",    ",
-                      round(Proportion +
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      "]"))
-    data$Views <- factor(data$Views)
-
-    stats <- xmar %>% summarise(
-      Variable = "POLVIEWS",
-      Description = "Political view: liberal, moderate or conservative",
-      Levels = length(levels(xmar$Views)),
-      Complete = nrow(subset(xmar, xmar$Views != "NA")),
-      NAs = nrow(subset(xmar, xmar$Views == "NA")),
-      Total = n(),
-      Rate = paste0(round(Complete / Total * 100, 0), "%")
-    )
-
-    barplot <- ggplot2::ggplot(data = data,
-                               ggplot2::aes(x = Views, y = Proportion, fill = Views)) +
-      ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 24) +
-      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
-                     axis.title.x = ggplot2::element_blank(),
-                     axis.ticks.x = ggplot2::element_blank(),
-                     legend.position = "none") +
-      ggplot2::scale_fill_brewer(palette = 'Greens') +
-      ggplot2::ggtitle('Proportion of Responses by Political View')
-
-    analysis <- list(
-      data = data,
-      stats = stats,
-      barplot = barplot
-    )
-    return(analysis)
-  }
-
-  analyzeClass <- function(xmar) {
-
-    data <- xmar %>% group_by(Class) %>%
-      filter(Class != "NA") %>%
-      summarize(N = n()) %>%
-      mutate(`Minimum N` =
-               round(qnorm(z) * (N / sum(N) * (1 - (N / sum(N)))) / me^2, 0),
-             Proportion = round(N / sum(N), 2),
-             Cumulative = round(cumsum(Proportion), 2),
-             `Confidence Interval (95%)` =
-               paste0("[",
-                      round(Proportion -
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      ",    ",
-                      round(Proportion +
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      "]"))
-    data$Class <- factor(data$Class)
-
-    stats <- xmar %>% summarise(
-      Variable = "CLASS_",
-      Description = "Subjective socio-demographic class",
-      Levels = length(levels(xmar$Class)),
-      Complete = nrow(subset(xmar, xmar$Class != "NA")),
-      NAs = nrow(subset(xmar, xmar$Class == "NA")),
-      Total = n(),
-      Rate = paste0(round(Complete / Total * 100, 0), "%")
-    )
-
-    barplot <- ggplot2::ggplot(data = data,
-                               ggplot2::aes(x = Class, y = Proportion, fill = Class)) +
-      ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 24) +
-      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
-                     axis.title.x = ggplot2::element_blank(),
-                     axis.ticks.x = ggplot2::element_blank(),
-                     legend.position = "none") +
-      ggplot2::scale_fill_brewer(palette = 'Greens') +
-      ggplot2::ggtitle('Proportion of Responses by Education Level')
-
-    analysis <- list(
-      data = data,
-      stats = stats,
-      barplot = barplot
-    )
-    return(analysis)
-  }
-
-  analyzeOpinions <- function(xmar) {
-
-    data <- xmar %>% group_by(Opinion) %>%
-      filter(Opinion != "NA") %>%
-      summarize(N = n()) %>%
-      mutate(`Minimum N` =
-               round(qnorm(z) * (N / sum(N) * (1 - (N / sum(N)))) / me^2, 0),
-             Proportion = round(N / sum(N), 2),
-             Cumulative = round(cumsum(Proportion), 2),
-             `Confidence Interval (95%)` =
-               paste0("[",
-                      round(Proportion -
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      ",    ",
-                      round(Proportion +
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      "]"))
-    data$Opinion <- factor(data$Opinion)
-
-    stats <- xmar %>% summarise(
-      Variable = "XMARSEX",
-      Description = "Opinions regarding extra-marital sex",
-      Levels = length(levels(xmar$Opinion)),
-      Complete = nrow(subset(xmar, xmar$Opinion != "NA")),
-      NAs = nrow(subset(xmar, xmar$Opinion == "NA")),
-      Total = n(),
-      Rate = paste0(round(Complete / Total * 100, 0), "%")
-    )
-
-    barplot <- ggplot2::ggplot(data = data,
-                               ggplot2::aes(x = Opinion, y = Proportion, fill = Opinion)) +
-      ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 24) +
-      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
-                     axis.title.x = ggplot2::element_blank(),
-                     axis.ticks.x = ggplot2::element_blank(),
-                     legend.position = "none") +
-      ggplot2::scale_fill_brewer(palette = 'Greens') +
-      ggplot2::ggtitle('Proportion of Responses by Opinion')
-
-    analysis <- list(
-      data = data,
-      stats = stats,
-      barplot = barplot
-    )
-    return(analysis)
-  }
-
-  analyzeBehaviors <- function(xmar) {
-
-    data <- xmar %>% group_by(Behavior) %>%
-      filter(Behavior != "NA") %>%
-      summarize(N = n()) %>%
-      mutate(`Minimum N` =
-               round(qnorm(z) * (N / sum(N) * (1 - (N / sum(N)))) / me^2, 0),
-             Proportion = round(N / sum(N), 2),
-             Cumulative = round(cumsum(Proportion), 2),
-             `Confidence Interval (95%)` =
-               paste0("[",
-                      round(Proportion -
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      ",    ",
-                      round(Proportion +
-                              (qnorm(z) *
-                                 sqrt(Proportion * (1 - Proportion) / N)),3),
-                      "]"))
-    data$Behavior <- factor(data$Behavior)
-
-    stats <- xmar %>% summarise(
-      Variable = "EVSTRAY",
-      Description = "Has the respondent ever had extra-marital sex",
-      Levels = length(levels(xmar$Behavior)),
-      Complete = nrow(subset(xmar, xmar$Behavior != "NA")),
-      NAs = nrow(subset(xmar, xmar$Behavior == "NA")),
-      Total = n(),
-      Rate = paste0(round(Complete / Total * 100, 0), "%")
-    )
-
-    barplot <- ggplot2::ggplot(data = data,
-                               ggplot2::aes(x = Behavior, y = Proportion, fill = Behavior)) +
-      ggplot2::geom_bar(stat='identity') + ggplot2::theme_minimal(base_size = 24) +
-      ggplot2::theme(text = ggplot2::element_text(family="Open Sans"),
-                     axis.title.x = ggplot2::element_blank(),
-                     axis.ticks.x = ggplot2::element_blank(),
-                     legend.position = "none") +
-      ggplot2::scale_fill_brewer(palette = 'Greens') +
-      ggplot2::ggtitle('Proportion of Responses by Behavior')
-
-    analysis <- list(
-      data = data,
-      stats = stats,
-      barplot = barplot
-    )
-    return(analysis)
-  }
-
-  # Compile Results
-  degree <- analyzeDegree(xmar)
-  region <- analyzeRegion(xmar)
-  views <- analyzeViews(xmar)
-  class <- analyzeClass(xmar)
-  opinion <- analyzeOpinions(xmar)
-  behavior <- analyzeBehaviors(xmar)
-  summary <- rbind(degree$stats, region$stats, views$stats, class$stats,
-                   opinion$stats, behavior$stats)
-
-  # Return results
-  univariate <- list(
-    summary = summary,
-    degree = degree,
-    region = region,
-    views = views,
-    class = class,
+  # Return analysis
+  analysis <- list(
     opinion = opinion,
-    behavior = behavior
-  )
-
-  return(univariate)
+    years = years,
+    age = age,
+    gender = gender,
+    maleAge = maleAge,
+    femaleAge = femaleAge
+    )
+  return(analysis)
 }
