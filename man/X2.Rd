@@ -4,14 +4,14 @@
 \alias{X2}
 \title{X2}
 \usage{
-X2(x2Table, target, group, p = 0.05)
+X2(x2Table, y, x, p = 0.05)
 }
 \arguments{
 \item{x2Table}{Contingency table object containing observed values for chi-square hypothesis test}
 
-\item{target}{Character string indicating the name of target or study variable}
+\item{y}{Character string indicating the name of the respnse variable}
 
-\item{group}{Character string indicating the name of grouping variable}
+\item{x}{Character string indicating the name of the explanatory variable}
 
 \item{p}{Alpha .the probability of a type 1 error}
 }
@@ -21,10 +21,10 @@ and renders a data frame containing the results and a plot showing the
 chi-square distribution with reject region and observed test statistic.
 }
 \seealso{
-Other xmar functions: \code{\link{X2a}},
-  \code{\link{formatData}}, \code{\link{plotBars}},
-  \code{\link{preprocess}}, \code{\link{rqa}},
-  \code{\link{univariate}}
+Other xmar functions: \code{\link{formatData}},
+  \code{\link{plotBars}}, \code{\link{preprocess}},
+  \code{\link{rqa}}, \code{\link{univariate}},
+  \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

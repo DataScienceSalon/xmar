@@ -33,7 +33,7 @@ X2 <- function(x2Table, y, x, p = 0.05) {
                       Df = x2$parameter,
                       X2_Critical = qchisq(p, df, lower.tail = F),
                       X2_Observed = x2$statistic,
-                      p_Value = x2$p.value,
+                      p_Value = ifelse(x2$p.value < 0.05, "p < 0.05", round(x2$p.value, 2)),
                       Decision = ifelse(x2$p.value >= p,"Fail to Reject", "Reject"),
                       row.names = NULL)
 

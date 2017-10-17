@@ -4,23 +4,27 @@
 \alias{formatData}
 \title{formatData}
 \usage{
-formatData(data, target, group)
+formatData(data, y, x)
 }
 \arguments{
 \item{data}{Data frame containing proportions comprised of two columns: 'target' and 'group'.
 'target' represents the proportions for the target variable and 'group' is the name of the grouping variable}
 
-\item{target}{Character string indicating the name of the target variable}
+\item{y}{Character string indicating the name of the response variable}
 
-\item{group}{Character string indicating the name of the grouping variable}
+\item{x}{Character string indicating the name of the explanatory variable}
+}
+\value{
+List containing a contingency table and a data frame of descriptive statistics
 }
 \description{
 \code{formatData} Render frequency and proportion data
 }
 \seealso{
-Other xmar functions: \code{\link{X2a}}, \code{\link{X2}},
+Other xmar functions: \code{\link{X2}},
   \code{\link{plotBars}}, \code{\link{preprocess}},
-  \code{\link{rqa}}, \code{\link{univariate}}
+  \code{\link{rqa}}, \code{\link{univariate}},
+  \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

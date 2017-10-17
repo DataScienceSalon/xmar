@@ -16,33 +16,37 @@
 rqa <- function(xmar) {
 
   # Performs analysis for each reserach question
-  rqaAge <- function(xmar) {
-    #Set Constants
-    target = "Opinion"
-    group = "Age Group"
-
-    # Obtain data
-    x <- xmar %>% select(Opinion, AgeGroup)
-    d <- data.frame(Target = factor(x$Opinion),
-                    Group = factor(x$AgeGroup))
+  analyze <- function(d, y, x, alt = "two.sided") {
 
     # Format data, render bar plots, and conduct hypothesis test
-    data <- formatData(d, target = target, group = group)
-    plots <- plotBars(data$df, target = target, group = group)
-    x2Test <- X2(data$table, target = target, group = group)
+    data <- formatData(d, y = y, x = x)
+    plots <- plotBars(data$df, y = y, x = x)
+    x2Test <- X2(data$table, y = y, x = x)
+    zTest <- zTest(data$df, y, x, alternative = alt)
 
 
     results = list(
       data = data,
       plots = plots,
-      x2Test = x2Test
+      x2Test = x2Test,
+      zTest = zTest
     )
     return(results)
   }
-  age <- rqaAge(xmar)
+  age <- analyze(d = (xmar %>% select(Opinion, AgeGroup)),
+                y = "Opinion", x = "Age Group",
+                alt = "greater")
+  gender <- analyze(d = (xmar %>% select(Opinion, Gender)),
+                   y = "Opinion", x = "Gender",
+                   alt = "two.sided")
+  genderAge <- analyze(d = (xmar %>% select(Opinion, GenderAge)),
+                       y = "Opinion", x = "Gender and Age Group",
+                       alt = "greater")
 
   analysis = list(
-    age = age
+    age = age,
+    gender = gender,
+    genderAge = genderAge
   )
   return(analysis)
 }

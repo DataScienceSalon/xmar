@@ -10,9 +10,10 @@ preprocess(GSS)
 \code{preprocess} Creates additional variables required for analysis.
 }
 \seealso{
-Other xmar functions: \code{\link{X2a}}, \code{\link{X2}},
+Other xmar functions: \code{\link{X2}},
   \code{\link{formatData}}, \code{\link{plotBars}},
-  \code{\link{rqa}}, \code{\link{univariate}}
+  \code{\link{rqa}}, \code{\link{univariate}},
+  \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

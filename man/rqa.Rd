@@ -6,14 +6,22 @@
 \usage{
 rqa(xmar)
 }
+\arguments{
+\item{xmar}{Data frame containing the study data}
+}
+\value{
+list containing the results of hypothesis tests forresearch question
+group a
+}
 \description{
 \code{results} Performs the analysis for research question group a, which
 includes reearch questions 1-3.
 }
 \seealso{
-Other xmar functions: \code{\link{X2a}}, \code{\link{X2}},
+Other xmar functions: \code{\link{X2}},
   \code{\link{formatData}}, \code{\link{plotBars}},
-  \code{\link{preprocess}}, \code{\link{univariate}}
+  \code{\link{preprocess}}, \code{\link{univariate}},
+  \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}
