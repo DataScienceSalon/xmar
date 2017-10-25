@@ -7,10 +7,9 @@
 #'
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #'
-#' @param data Data frame containing proportions comprised of two columns: 'target' and 'group'.
-#' 'target' represents the proportions for the target variable and 'group' is the name of the grouping variable
-#' @param y Character string indicating the name of the response variable
-#' @param x Character string indicating the name of the explanatory variable
+#' @param data Data frame containing two columns, the values for the response and explanatory variables
+#' @param y Character string indicating the description of the response variable
+#' @param x Character string indicating the description of the explanatory variable
 #'
 #' @return List containing a contingency table and a data frame of descriptive statistics
 #'
@@ -22,23 +21,43 @@ formatData <- function(data, y, x) {
   #---------------------------------------------------------------------------#
   #                               Prepare Data                                #
   #---------------------------------------------------------------------------#
-  # Frequency and Proportion Tables
-  tbl <- table(data[[1]], data[[2]], exclude = "NA")
-  freqDf <- as.data.frame(ftable(data, exclude = c(NA, "NA")))
 
-  df <- as.data.frame(freqDf %>% arrange(.[[2]], desc(.[[1]])) %>%
-    group_by(.[[2]]) %>% mutate(cumFreq = cumsum(Freq),
-                                pos = cumFreq - 0.5 * Freq,
-                                Ttl = sum(Freq),
-                                Prop = Freq / Ttl,
-                                Pct = round(Freq / Ttl * 100, 0),
-                                cumPct = cumsum(Pct),
-                                pos = cumPct - 0.5 * Pct)) %>%
-    select(.[[1]],  Freq, cumFreq, pos, Ttl, Prop, Pct, cumPct)
+  x2Table <- table(data[[1]], data[[2]])
+  x2 <- chisq.test(x2Table)
+
+
+  # Observed Frequency Data
+  obsDf <- as.data.frame(ftable(data, exclude = c(NA, "NA")))
+  expDf <- melt(round(x2$expected, 0))
+  names(expDf) <- names(obsDf)
+  obsDf$Opinion <- factor(obsDf$Opinion, levels = c("Traditional", "Non-Traditional"))
+  expDf$Opinion <- factor(expDf$Opinion, levels = c("Traditional", "Non-Traditional"))
+
+
+  observed <- as.data.frame(obsDf %>% arrange(.[[2]], desc(.[[1]])) %>%
+    mutate(cumFreq = cumsum(Freq),
+           pos = Freq - (0.5 * Freq),
+           Ttl = sum(Freq),
+           Prop = Freq / Ttl,
+           Pct = round(Freq / Ttl * 100, 0),
+           cumPct = cumsum(Pct)) %>%
+    select((.[[1]]), Opinion, Freq,
+           cumFreq, pos, Ttl, Prop, Pct, cumPct))
+
+  expected <- as.data.frame(expDf %>% arrange(.[[2]], desc(.[[1]])) %>%
+    mutate(cumFreq = cumsum(Freq),
+           pos = Freq - (0.5 * Freq),
+           Ttl = sum(Freq),
+           Prop = Freq / Ttl,
+           Pct = round(Freq / Ttl * 100, 0),
+           cumPct = cumsum(Pct)) %>%
+    select((.[[1]]), Opinion, Freq,
+           cumFreq, pos, Ttl, Prop, Pct, cumPct))
 
   data = list(
-    table = tbl,
-    df = df
+    raw = data,
+    observed = observed,
+    expected = expected
   )
   return(data)
 }

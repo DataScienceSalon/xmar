@@ -21,8 +21,8 @@ preprocess <- function(GSS) {
       Gender = ifelse(SEX == 1, "Male",
                       ifelse(SEX == 2, "Female", "NA")),
       GenderAge = paste(Gender, AgeGroup),
-      Opinion = ifelse(XMARSEX %in% c(1,2), "Conservative",
-                        ifelse(XMARSEX  %in%  c(3,4), "Liberal", "NA"))) %>%
+      Opinion = ifelse(XMARSEX %in% c(1,2), "Traditional",
+                        ifelse(XMARSEX  %in%  c(3,4), "Non-Traditional", "NA"))) %>%
     dplyr::select(Years, AgeGroup, Gender, GenderAge, Opinion)
 
   # Filter NA values
@@ -41,7 +41,7 @@ preprocess <- function(GSS) {
                                       "Male 65+",
                                       "Female 15-24", "Female 25-44", "Female 45-64",
                                       "Female 65+"))
-  xmar$Opinion <- factor(xmar$Opinion, levels = c("Conservative", "Liberal"))
+  xmar$Opinion <- factor(xmar$Opinion, levels = c("Traditional", "Non-Traditional"))
 
   return(xmar)
 }

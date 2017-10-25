@@ -11,9 +11,9 @@ univariate(xmar)
 }
 \seealso{
 Other xmar functions: \code{\link{X2}},
-  \code{\link{formatData}}, \code{\link{plotBars}},
-  \code{\link{preprocess}}, \code{\link{rqa}},
-  \code{\link{zTest}}
+  \code{\link{analyze}}, \code{\link{formatData}},
+  \code{\link{plotBars}}, \code{\link{preprocess}},
+  \code{\link{propTest}}, \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

@@ -23,7 +23,7 @@ plotBars <- function(data, y, x) {
   #---------------------------------------------------------------------------#
   # Proportion Bar Plot
   plotBar <- ggplot2::ggplot() +
-    ggplot2::geom_bar(ggplot2::aes(x = data[[1]], y = Pct, fill = data[[2]]),
+    ggplot2::geom_bar(ggplot2::aes(x = data[[1]], y = Freq, fill = data[[2]]),
                       data = data, stat = 'identity') +
     ggplot2::geom_text(data = data,
                        ggplot2::aes(x = data[[1]], y = pos,

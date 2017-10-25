@@ -1,5 +1,5 @@
 #==============================================================================#
-#                                     X2                                      #
+#                                     X2                                       #
 #==============================================================================#
 #' X2
 #'
@@ -9,21 +9,24 @@
 #'
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #'
-#' @param x2Table Contingency table object containing observed values for chi-square hypothesis test
-#' @param y Character string indicating the name of the respnse variable
+#' @param data Data to be analyzed with response variable as first variable.
+#' @param y Character string indicating the name of the response variable
 #' @param x Character string indicating the name of the explanatory variable
-#' @param p Alpha .the probability of a type 1 error
+#' @param conf Level of confidence between 0 and 1
+#' @param alpha The probability of a type 1 error between 0 and 1
 #'
 #' @family xmar functions
 #' @export
 #'
-X2 <- function(x2Table, y, x, p = 0.05) {
+X2 <- function(data, y, x, conf = 0.95, alpha = 0.05) {
+
+  x2Table <- table(data[[1]], data[[2]])
 
   x2 <- chisq.test(x2Table)
 
   # Extract Chisq Data
   df <- x2$parameter
-  criticalVal <- qchisq(p, df, lower.tail = F)
+  criticalVal <- qchisq(alpha, df, lower.tail = F)
 
   # Create Table
   table <- data.frame(Test = "Chi-square Test of Independence",
@@ -31,10 +34,10 @@ X2 <- function(x2Table, y, x, p = 0.05) {
                       Group = x,
                       N = sum(x2Table),
                       Df = x2$parameter,
-                      X2_Critical = qchisq(p, df, lower.tail = F),
+                      X2_Critical = qchisq(alpha, df, lower.tail = F),
                       X2_Observed = x2$statistic,
                       p_Value = ifelse(x2$p.value < 0.05, "p < 0.05", round(x2$p.value, 2)),
-                      Decision = ifelse(x2$p.value >= p,"Fail to Reject", "Reject"),
+                      Decision = ifelse(x2$p.value >= alpha,"Fail to Reject", "Reject"),
                       row.names = NULL)
 
   # Format Plot Data
@@ -86,14 +89,30 @@ X2 <- function(x2Table, y, x, p = 0.05) {
                   x = "X2",
                   y = "Probability")
 
+  # Format Statements
   stmt <- list()
-  stmt1 <-
+  stmt$type <- paste0("This was a two-proportion chi-square test of the null hypothesis that ", y, " and ",
+                      x, "are independent")
+
+  if (x2$p.value < (alpha)) {
+    stmt$conclude <- paste0("Therefore, the null hypothesis was rejected in favor of the alternative hypothesis, with ",
+                            conf * 100, "% confidence, that ", y, " and ", x, " are NOT independent.")
+  } else {
+    stmt$conclude <- paste0("Therefore, the null hypothesis was not rejected; consequently, one concludes, with ",
+                            conf * 100, "% confidence, that ", y, " and ", x, " ARE independent.")
+  }
+
+  stmt$detail <- paste0("the observed sum of the squared differences was ", x2$statistic,
+                        " as such, the probability of encountering a sum of the squared differences",
+                        " this extreme (p-value) is ", table$p_Value, ". ")
+
 
   x2 <- list(
     table = table,
     obsFreq = ftable(x2$observed),
     expFreq = round(ftable(x2$expected),0),
-    plot = plot
+    plot = plot,
+    stmt = stmt
   )
   return(x2)
 }

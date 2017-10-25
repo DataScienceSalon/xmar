@@ -4,16 +4,18 @@
 \alias{X2}
 \title{X2}
 \usage{
-X2(x2Table, y, x, p = 0.05)
+X2(data, y, x, conf = 0.95, alpha = 0.05)
 }
 \arguments{
-\item{x2Table}{Contingency table object containing observed values for chi-square hypothesis test}
+\item{data}{Data to be analyzed with response variable as first variable.}
 
 \item{y}{Character string indicating the name of the respnse variable}
 
 \item{x}{Character string indicating the name of the explanatory variable}
 
-\item{p}{Alpha .the probability of a type 1 error}
+\item{conf}{Level of confidence between 0 and 1}
+
+\item{alpha}{The probability of a type 1 error between 0 and 1}
 }
 \description{
 \code{X2} Conducts a chi-square test of independency on a contingency table
@@ -21,10 +23,10 @@ and renders a data frame containing the results and a plot showing the
 chi-square distribution with reject region and observed test statistic.
 }
 \seealso{
-Other xmar functions: \code{\link{formatData}},
-  \code{\link{plotBars}}, \code{\link{preprocess}},
-  \code{\link{rqa}}, \code{\link{univariate}},
-  \code{\link{zTest}}
+Other xmar functions: \code{\link{analyze}},
+  \code{\link{formatData}}, \code{\link{plotBars}},
+  \code{\link{preprocess}}, \code{\link{propTest}},
+  \code{\link{univariate}}, \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}
