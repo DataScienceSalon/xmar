@@ -46,8 +46,8 @@ propTest <- function(data, xOrder = NULL, alternative = "two.sided",
   }
   success <- factorLevels[[1]]
 
-  p <- data$observed %>% filter(.[[1]] == success) %>% select(Prop)
-  n <- data$observed %>% filter(.[[1]] == success) %>% select(Ttl)
+  p <- data$observed %>% filter(.[[2]] == success) %>% select(Prop)
+  n <- data$observed %>% filter(.[[2]] == success) %>% select(Ttl)
 
   # Create the iteration vector
   groups <- lapply(seq_along(xOrder[1:length(xOrder)-1]), function(g) {
@@ -81,20 +81,18 @@ propTest <- function(data, xOrder = NULL, alternative = "two.sided",
 
     # Format Data Frame
     df$Group <- groups[[g]]$pair
-    df$n1 <- groups[[g]]$n1
+    df$f1 <- groups[[g]]$np1
     df$p1 <- as.numeric(ifelse(t$estimate[1] < 0.001, round(t$estimate[1], 4),
                     ifelse(t$estimate[1] < 0.1, round(t$estimate[1], 3),
                            ifelse(t$estimate[1] < 10, round(t$estimate[1], 2),
                                   ifelse(t$estimate[1] < 100, round(t$estimate[1], 1),
                                          round(t$estimate[1], 0))))))
-    df$np1 <- groups[[g]]$np1
-    df$n2 <- groups[[g]]$n2
+    df$f2 <- groups[[g]]$np2
     df$p2 <- as.numeric(ifelse(t$estimate[2] < 0.001, round(t$estimate[2], 4),
                     ifelse(t$estimate[2] < 0.1, round(t$estimate[2], 3),
                            ifelse(t$estimate[2] < 10, round(t$estimate[2], 2),
                                   ifelse(t$estimate[2] < 100, round(t$estimate[2], 1),
                                          round(t$estimate[2], 0))))))
-    df$np2 <- groups[[g]]$np2
     df$Null <- "p1 - p2 = 0"
     df$Alt <- ifelse(alternative == "two.sided", "p1 - p2 <> 0",
                          ifelse(alternative == "less", "p1 - p2 < 0",
@@ -109,21 +107,19 @@ propTest <- function(data, xOrder = NULL, alternative = "two.sided",
                                                  round((t$estimate[1] - t$estimate[2]), 1),
                                                  round((t$estimate[1] - t$estimate[2]), 0))))))
 
-    df$pValue <- ifelse(t$p.value < (1-conf), "p < .05",
-                            round(t$p.value, 2))
+    df$pValue <- ifelse(t$p.value < (alpha), "p < .05",
+                            round(as.numeric(t$p.value), 4))
 
     footnote <- list()
     footnote[[1]] <- "      Group: The groups for which the differences in opinion are being evaluated."
-    footnote[[2]] <- paste0("         n1: The sample size for the ", groups[[g]]$p1Name, " group.")
-    footnote[[3]] <- paste0("         n2: The sample size for the ", groups[[g]]$p2Name, " group.")
-    footnote[[4]] <- paste0("         p1: The observed proportion of opinion for the ", groups[[g]]$p1Name, " group.")
+    footnote[[2]] <- paste0("         f1: The observed frequency of opinion for the ", groups[[g]]$p1Name, " group.")
+    footnote[[3]] <- paste0("         p1: The observed proportion of opinion for the ", groups[[g]]$p1Name, " group.")
+    footnote[[4]] <- paste0("         f2: The observed frequency of opinion for the ", groups[[g]]$p2Name, " group.")
     footnote[[5]] <- paste0("         p2: The observed proportion of opinion for the  ", groups[[g]]$p2Name, " group.")
-    footnote[[6]] <- paste0("        np1: The observed frequency of opinion for the  ", groups[[g]]$p1Name, " group.")
-    footnote[[7]] <- paste0("        np2: The observed frequency of opinion for the  ", groups[[g]]$p2Name, " group.")
-    footnote[[8]] <- paste0("       Null: The null hypothesis.")
-    footnote[[9]] <- paste0("        Alt: The alternative hypothesis.")
-    footnote[[10]] <- paste0("Difference: The difference in proportion of opinion between the groups.")
-    footnote[[11]] <- paste0("   p-Value: The probability of encountering a difference as extreme as that observed, given the null hypothesis.")
+    footnote[[6]] <- paste0("       Null: The null hypothesis.")
+    footnote[[7]] <- paste0("        Alt: The alternative hypothesis.")
+    footnote[[8]] <- paste0(" Difference: The difference in proportion of opinion between the groups.")
+    footnote[[9]] <- paste0("    p-Value: The probability of encountering a difference as extreme as that observed, given the null hypothesis.")
 
     # Format Statements
     null <- "equal to"
@@ -132,7 +128,8 @@ propTest <- function(data, xOrder = NULL, alternative = "two.sided",
     stmt$type <- "This was a two-proportion z-test of the null hypothesis that the true population proportions, p1, and p2 are equal. "
 
 
-    if (t$p.value < (alpha)) {
+    if ((alternative == "two.sided" & t$p.value < (alpha / 2))
+        | (alternative != "two.sided" & t$p.value < alpha)) {
       stmt$conclude <- paste0("Therefore, the null hypothesis was rejected in favor of the alternative hypothesis, with ",
                conf * 100, "% confidence, that the true population proportion ",
                "of ", success, " opinion in the ", groups[[g]]$p1Name, " group is ", alt,
@@ -159,7 +156,7 @@ propTest <- function(data, xOrder = NULL, alternative = "two.sided",
            " a difference in proportions this extreme (p-value) is ", df$pValue, ". ")
 
     res <- list(
-      df = as.data.frame(df, row.names = NULL),
+      df = as.data.frame(df, row.names = NULL, stringsAsFactors = FALSE),
       footnote = footnote,
       stmt = stmt
     )

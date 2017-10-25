@@ -4,7 +4,7 @@
 \alias{analyze}
 \title{analyze}
 \usage{
-analyze(data, y, x, success = "Traditional", alternative = "two.sided")
+analyze(data, y, x, success = "Traditional", xOrder = NULL)
 }
 \arguments{
 \item{data}{Data frame containing two columns; the response and the explanatory variable.}
@@ -15,9 +15,7 @@ analyze(data, y, x, success = "Traditional", alternative = "two.sided")
 
 \item{success}{Character string equivalent to the response variable level to be analyzed.}
 
-\item{alternative}{Character string indicating the alternative hypothesis for the test c=("less", "greater", "two.sided)}
-
-\item{order}{Vector of character strings which list the order of the levels of the explanatory variable.}
+\item{xOrder}{Vector of character strings which list the order of the levels of the explanatory variable.}
 
 \item{conf}{Numeric between 0 and 1, indicates desired confidence level for hypothesis test.}
 

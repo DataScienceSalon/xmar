@@ -9,7 +9,7 @@ X2(data, y, x, conf = 0.95, alpha = 0.05)
 \arguments{
 \item{data}{Data to be analyzed with response variable as first variable.}
 
-\item{y}{Character string indicating the name of the respnse variable}
+\item{y}{Character string indicating the name of the response variable}
 
 \item{x}{Character string indicating the name of the explanatory variable}
 

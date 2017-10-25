@@ -92,7 +92,7 @@ X2 <- function(data, y, x, conf = 0.95, alpha = 0.05) {
   # Format Statements
   stmt <- list()
   stmt$type <- paste0("This was a two-proportion chi-square test of the null hypothesis that ", y, " and ",
-                      x, "are independent")
+                      x, " are independent")
 
   if (x2$p.value < (alpha)) {
     stmt$conclude <- paste0("Therefore, the null hypothesis was rejected in favor of the alternative hypothesis, with ",
@@ -102,7 +102,7 @@ X2 <- function(data, y, x, conf = 0.95, alpha = 0.05) {
                             conf * 100, "% confidence, that ", y, " and ", x, " ARE independent.")
   }
 
-  stmt$detail <- paste0("the observed sum of the squared differences was ", x2$statistic,
+  stmt$detail <- paste0("the observed sum of the squared differences was ", round(x2$statistic,0),
                         " as such, the probability of encountering a sum of the squared differences",
                         " this extreme (p-value) is ", table$p_Value, ". ")
 

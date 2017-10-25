@@ -4,13 +4,13 @@
 \alias{propTest}
 \title{propTest}
 \usage{
-propTest(data, order = NULL, alternative = "two.sided", success = NULL,
+propTest(data, xOrder = NULL, alternative = "two.sided", success = NULL,
   conf = 0.95, alpha = 0.05)
 }
 \arguments{
 \item{data}{data frame containing data to be analyzed, with the response variable as the first variable.}
 
-\item{order}{when x is given, order of levels of x in which to subtract parameters}
+\item{xOrder}{when x is given, order of levels of x in which to subtract parameters}
 
 \item{alternative}{direction of the alternative hypothesis; "less","greater", or "two.sided"}
 

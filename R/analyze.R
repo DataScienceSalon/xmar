@@ -30,7 +30,6 @@
 #' @param x Character string label for the explanatory variable.
 #' @param success Character string equivalent to the response variable level to be analyzed.
 #' @param xOrder Vector of character strings which list the order of the levels of the explanatory variable.
-#' @param alternative Character string indicating the alternative hypothesis for the test c=("less", "greater", "two.sided)
 #' @param conf Numeric between 0 and 1, indicates desired confidence level for hypothesis test.
 #' @param alpha Numeric between 0 and 1, indicates the target probability of a type I error.
 #' @return list containing three types of objects: (1) data, both raw and summarized observed and expected frequencies,
@@ -41,7 +40,7 @@
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #' @family xmar functions
 #' @export
-analyze <- function(data, y, x, success = "Traditional", alternative = "two.sided") {
+analyze <- function(data, y, x, success = "Traditional", xOrder = NULL) {
 
   # Format data, render bar plots, and conduct hypothesis test
   data <- formatData(data, y = y, x = x)
@@ -51,7 +50,7 @@ analyze <- function(data, y, x, success = "Traditional", alternative = "two.side
     test <- zTest(data$raw, success = success, xOrder = NULL, alternative = "two.sided",
           conf = 0.95, alpha = 0.05)
   } else {
-    test <- propTest(data, xOrder = NULL, alternative = "two.sided",
+    test <- propTest(data, xOrder = NULL, alternative = "less",
                      success = NULL, conf = 0.95, alpha = 0.05)
   }
 

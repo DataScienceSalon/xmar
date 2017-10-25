@@ -369,21 +369,34 @@ This exploratory data analysis revealed the frequencies and proportions of respo
 
 ## Research Questions: Opinions by Age and Gender
 This section summarizes the examination of opinions by age and gender.
+```{r ageAnalysis, echo = F, message = FALSE, warning=FALSE}
+data <- xmar %>% select(Opinion, AgeGroup)
+age <- analyze(data, y = "Opinion", x = "Age Group", success = "Traditional")
+```
 
 ### Research Question 1: Opinions and Age Group
 Here, the following research question is examined: 
 > Is there an association between opinions w.r.t. extra-marital conduct and age
 
 #### Data
-The frequencies of opinion by age group (`r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`) indicated a trend towards more conservative views with increasing age. 
-```{r rq1Plot, echo = F, message = FALSE, warning=FALSE}
-data <- xmar %>% select(Opinion, AgeGroup)
-age <- analyze(data, y = "Opinion", x = "Age Group", success = "Traditional", alternative = "two.sided")
+The observed (`r kfigr::figr(label = "ageObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`) and expected frequencies (`r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`) of opinion by age group indicated a trend towards more conservative views with increasing age. 
 
+<div class = .col2-left>
+```{r ageObservedPlot, echo = F, message = FALSE, warning=FALSE}
+age$plots$observed
 ```
-`r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Opinions by Age Group 
+`r kfigr::figr(label = "ageObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Age Group 
+</div>
 
-The following hypotheses characterize the direction and degree of association between opinion nad age group.
+<div class = .col2-right>
+```{r ageExpectedPlot, echo = F, message = FALSE, warning=FALSE}
+age$plots$expected
+```
+`r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`: Expected Opinions by Age Group 
+</div>
+
+
+The following hypotheses characterize the direction and degree of association between opinion and age group.
 
 #### Hypotheses
 Two sets of hypotheses were posited for this research question.  The first set examined the association between opinion and age group.  The second set determined the direction and size of the differences in opinion between age groups.
@@ -414,170 +427,178 @@ $p4$ is the proportion of liberal opinion in age group 65+
 #### Inference Conditions
 Since both the z-test and the chi-square test of independence was contemplated for these hypotheses, the conditions for both methods were investigated as follows:
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
-2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables. Since the null hypotheses are equality conditions, the pooled proportions are used to calculate the numbers of expected successes and failures. As shown in `r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`, the number of conservative and liberal opinions far exceed this minimum threshold.   
+2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables. Since the null hypotheses are equality conditions, the pooled proportions are used to calculate the numbers of expected successes and failures. As shown in `r kfigr::figr(label = "rq1ExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`, the number of conservative and liberal opinions far exceed this minimum threshold.   
 3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the population.  
 
 Additional conditions for independence testing are as follows:  
-1. **Expected Values:** As shown in `r kfigr::figr(label = "rq1Plot", prefix = TRUE, link = TRUE, type="Figure")`, the minimum threshold of five expected counts for each cell was met.  
-* **Degrees of Freedom:** There were `r rqaResults$age$test$table$Df` degrees of freedom, greater than the minimum requirement of 2 degrees of freedom.  
+* **Degrees of Freedom:** There were `r age$tests$independence$table$Df` degrees of freedom, greater than the minimum requirement of 2 degrees of freedom.  
 
 As such, the conditions for performing a chi-square test of independence and two-proportion z-tests were met.
 
 #### Test results 
 
 ##### Independence Test 
-The hypotheses for tests of independence are restated for reference.  
+The hypotheses for the test of independence are restated as follows:  
 $H_0$ Opinion and age group are independent. Therefore, no association exists between these two variables.   
 $H_a$ Opinion and age group are **not** independent. Therefore, an association does exist between these two variables.   
 
-`r kfigr::figr(label = "rq1X2TestPlot", prefix = TRUE, link = TRUE, type="Figure")` graphically juxtaposes the computed chi-square statistic, `r round(rqaResults$age$x2Test$table$X2_Observed,0)` upon the chi-square distribution with `r rqaResults$age$x2Test$table$Df` degrees of freedom.  
+`r age$tests$independence$stmt$type`
 
 
 ```{r rq1X2TestPlot, include=T, echo = F, results='html'}
-rqaResults$age$test[[1]]$df
+age$tests$independence$table
 ```
 `r kfigr::figr(label = "rq1X2TestPlot", prefix = TRUE, link = TRUE, type="Figure")`: Opinion vs age group independence test plot
 
-As indicated above and confirmed in `r kfigr::figr(label = "rq1X2TestData", prefix = TRUE, link = TRUE, type="Table")`,  the association was significant, $X^2$(`r rqaResults$age$x2Test$table$Df`, $N = $`r rqaResults$age$x2Test$table$N`) = `r rqaResults$age$x2Test$table$X2_Observed`. As such, one concludes with 95% confidence that the difference in opinions among the population age groups are greater than that which would be observed by chance.  Age and opinion are associated.
+As indicated in `r kfigr::figr(label = "rq1X2TestData", prefix = TRUE, link = TRUE, type="Table")`,  `r age$tests$independence$stmt$detail`
 
 `r kfigr::figr(label = "rq1X2TestData", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs age group independence test
 ```{r rq1X2TestData, echo = F, results='html'}
-knitr::kable(rqaResults$age$test$table) %>%  
+knitr::kable(age$tests$independence$table) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
+`r age$tests$independence$stmt$conclude`
 
 ##### Difference in Proportions Tests
-Three sets of hypotheses were tested, one set to evaluate the differences in population proportion of liberal opinion for each adjacent age group.  
+To ascertain the direction and magnitude of the association, three sets of hypotheses were tested, one set to evaluate the differences in population proportion of Traditional opinion for each adjacent age group.  
 
 ###### Age Groups 15-24 and 25-44
 The one-tailed hypothesis for first pair of proportions is restated as follows:  
-$H_0$ $p1 - p2 > 0$   
+$H_0$ $p1 - p2 = 0$   
 $H_a$ $p1 - p2 \leq 0$    
 where:  
 $p1$ is the population proportion of liberal opinion in age group 15-24  
 $p2$ is the population proportion of liberal opinion in age group 25-44  
 
-`r rqaResults$age$propTest[[1]]$stmt$type` 
+`r age$tests$difference[[1]]$stmt$type` 
 
-`r kfigr::figr(label = "rq1apropTest", prefix = TRUE, link = TRUE, type="Table")`: Two-Proportion Z-Test of Opinion between age groups `r rqaResults$age$propTest[[1]]$df$Group`
-```{r rq1apropTest, echo = F, results='html'}
-knitr::kable(rqaResults$age$propTest[[1]]$df) %>%  
+As indicated in `r kfigr::figr(label = "ageZTest1", prefix = TRUE, link = TRUE, type="Table")`,  `r age$tests$difference[[1]]$stmt$detail`
+
+`r kfigr::figr(label = "ageZTest1", prefix = TRUE, link = TRUE, type="Table")`: Two-Proportion Z-Test of Opinion between age groups 15-24 and 25-44
+```{r ageZTest1, echo = F, results='html'}
+knitr::kable(age$tests$difference[[1]]$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 where:  
-* `r rqaResults$age$test[[1]]$footnote[[1]]`  
-* `r rqaResults$age$test[[1]]$footnote[[2]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[3]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[4]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[5]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[6]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[7]]`   
-* `r rqaResults$age$propTest[[1]]$footnote[[8]]`   
-* `r rqaResults$age$propTest[[1]]$footnote[[9]]`    
-* `r rqaResults$age$propTest[[1]]$footnote[[10]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[11]]`  
+* `r age$test$difference[[1]]$footnote[[1]]`  
+* `r age$test$difference[[1]]$footnote[[2]]`  
+* `r age$test$difference[[1]]$footnote[[3]]`  
+* `r age$test$difference[[1]]$footnote[[4]]`  
+* `r age$test$difference[[1]]$footnote[[5]]`  
+* `r age$test$difference[[1]]$footnote[[6]]`  
+* `r age$test$difference[[1]]$footnote[[7]]`   
+* `r age$test$difference[[1]]$footnote[[8]]`   
+* `r age$test$difference[[1]]$footnote[[9]]`   
 
-As indicated in `r kfigr::figr(label = "rq1apropTest", prefix = TRUE, link = TRUE, type="Table")`, `r  rqaResults$age$propTest[[1]]$stmt$detail`  
-
-`r rqaResults$age$propTest[[1]]$stmt$conclude`
+`r  age$tests$difference[[1]]$stmt$conclude`  
 
 ###### Age Groups 25-44 and 45-64
-The one-tailed hypothesis for first pair of proportions is restated as follows:  
-$H_0$ $p1 - p2 > 0$   
+The one-tailed hypothesis for second pair of proportions is restated as follows:  
+$H_0$ $p1 - p2 = 0$   
 $H_a$ $p1 - p2 \leq 0$    
 where:  
 $p1$ is the population proportion of liberal opinion in age group 25-44  
 $p2$ is the population proportion of liberal opinion in age group 45-64  
 
-`r rqaResults$age$propTest[[2]]$stmt$type` 
+`r age$tests$difference[[2]]$stmt$type` 
 
-`r kfigr::figr(label = "rq1bpropTest", prefix = TRUE, link = TRUE, type="Table")`: Two-Proportion Z-Test of Opinion between age groups `r rqaResults$age$propTest[[2]]$df$Group`
-```{r rq1bpropTest, echo = F, results='html'}
-knitr::kable(rqaResults$age$propTest[[2]]$df) %>%  
+As indicated in `r kfigr::figr(label = "ageZTest2", prefix = TRUE, link = TRUE, type="Table")`,  `r age$tests$difference[[2]]$stmt$detail`
+
+`r kfigr::figr(label = "ageZTest2", prefix = TRUE, link = TRUE, type="Table")`: Two-Proportion Z-Test of Opinion between age groups 25-44 and 45-64.
+```{r ageZTest2, echo = F, results='html'}
+knitr::kable(age$tests$difference[[2]]$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 where:  
-* `r rqaResults$age$propTest[[2]]$footnote[[1]]`  
-* `r rqaResults$age$propTest[[2]]$footnote[[2]]`  
-* `r rqaResults$age$propTest[[2]]$footnote[[3]]`  
-* `r rqaResults$age$propTest[[2]]$footnote[[4]]`  
-* `r rqaResults$age$propTest[[2]]$footnote[[5]]`  
-* `r rqaResults$age$propTest[[2]]$footnote[[6]]`  
-* `r rqaResults$age$propTest[[2]]$footnote[[7]]`   
-* `r rqaResults$age$propTest[[2]]$footnote[[8]]`   
-* `r rqaResults$age$propTest[[2]]$footnote[[9]]`    
-* `r rqaResults$age$propTest[[2]]$footnote[[10]]`  
-* `r rqaResults$age$propTest[[2]]$footnote[[11]]`  
+* `r age$test$difference[[2]]$footnote[[1]]`  
+* `r age$test$difference[[2]]$footnote[[2]]`  
+* `r age$test$difference[[2]]$footnote[[3]]`  
+* `r age$test$difference[[2]]$footnote[[4]]`  
+* `r age$test$difference[[2]]$footnote[[5]]`  
+* `r age$test$difference[[2]]$footnote[[6]]`  
+* `r age$test$difference[[2]]$footnote[[7]]`   
+* `r age$test$difference[[2]]$footnote[[8]]`   
+* `r age$test$difference[[2]]$footnote[[9]]`  
 
-As indicated in `r kfigr::figr(label = "rq1bpropTest", prefix = TRUE, link = TRUE, type="Table")`, `r  rqaResults$age$propTest[[2]]$stmt$detail`  
-
-`r rqaResults$age$propTest[[2]]$stmt$conclude`
+`r age$tests$difference[[2]]$stmt$conclude`
 
 ###### Age Groups 45-64 and 65+
-The one-tailed hypothesis for first pair of proportions is restated as follows:  
-$H_0$ $p1 - p2 > 0$   
+The one-tailed hypothesis for third pair of proportions is restated as follows:  
+$H_0$ $p1 - p2 = 0$   
 $H_a$ $p1 - p2 \leq 0$    
 where:  
 $p1$ is the population proportion of liberal opinion in age group 45-64  
 $p2$ is the population proportion of liberal opinion in age group 65+  
 
-`r rqaResults$age$propTest[[3]]$stmt$type` 
+`r age$tests$difference[[3]]$stmt$type` 
 
-`r kfigr::figr(label = "rq1cpropTest", prefix = TRUE, link = TRUE, type="Table")`: Two-Proportion Z-Test of Opinion between age groups `r rqaResults$age$propTest[[3]]$df$Group`
-```{r rq1cpropTest, echo = F, results='html'}
-knitr::kable(rqaResults$age$propTest[[3]]$df) %>%  
+As indicated in `r kfigr::figr(label = "ageZTest3", prefix = TRUE, link = TRUE, type="Table")`,  `r age$tests$difference[[3]]$stmt$detail`
+
+`r kfigr::figr(label = "ageZTest3", prefix = TRUE, link = TRUE, type="Table")`: Two-Proportion Z-Test of Opinion between age groups 45-64 and 65+
+```{r ageZTest3, echo = F, results='html'}
+knitr::kable(age$tests$difference[[3]]$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 where:  
-* `r rqaResults$age$propTest[[3]]$footnote[[1]]`  
-* `r rqaResults$age$propTest[[3]]$footnote[[2]]`  
-* `r rqaResults$age$propTest[[3]]$footnote[[3]]`  
-* `r rqaResults$age$propTest[[3]]$footnote[[4]]`  
-* `r rqaResults$age$propTest[[3]]$footnote[[5]]`  
-* `r rqaResults$age$propTest[[3]]$footnote[[6]]`  
-* `r rqaResults$age$propTest[[3]]$footnote[[7]]`   
-* `r rqaResults$age$propTest[[3]]$footnote[[8]]`   
-* `r rqaResults$age$propTest[[3]]$footnote[[9]]`    
-* `r rqaResults$age$propTest[[3]]$footnote[[10]]`  
-* `r rqaResults$age$propTest[[3]]$footnote[[11]]`  
+* `r age$test$difference[[3]]$footnote[[1]]`  
+* `r age$test$difference[[3]]$footnote[[2]]`  
+* `r age$test$difference[[3]]$footnote[[3]]`  
+* `r age$test$difference[[3]]$footnote[[4]]`  
+* `r age$test$difference[[3]]$footnote[[5]]`  
+* `r age$test$difference[[3]]$footnote[[6]]`  
+* `r age$test$difference[[3]]$footnote[[7]]`   
+* `r age$test$difference[[3]]$footnote[[8]]`   
+* `r age$test$difference[[3]]$footnote[[9]]`
 
-As indicated in `r kfigr::figr(label = "rq1cpropTest", prefix = TRUE, link = TRUE, type="Table")`, `r  rqaResults$age$propTest[[3]]$stmt$detail`  
-
-`r rqaResults$age$propTest[[3]]$stmt$conclude`
+`r age$test$difference[[3]]$stmt$conclude`
 
 #### Summary and Interpretation
-Chi-square tests of independence were conducted to examine the association between opinion and age group. As summarized in `r kfigr::figr(label = "rq1X2Summary", prefix = TRUE, link = TRUE, type="Table")`,  the association between variables was significant. $X2$ (`r rqaResults$age$x2Test$table$Df`, $N$ = `r rqaResults$age$x2Test$table$N`) = `r round(rqaResults$age$x2Test$table$X2_Observed, 0)`, p-value = `r rqaResults$age$x2Test$table$p_Value`. Opinions with respect to extra-marital conduct and age group are associated.
+Chi-square tests of independence were conducted to examine the association between opinion and age group. As summarized in `r kfigr::figr(label = "ageX2Summary", prefix = TRUE, link = TRUE, type="Table")`,  the association between variables was significant. $X2$ (`r age$test$independence$table$Df`, $N$ = `age$test$independence$table$N`) = `r round(age$test$independence$table$X2_Observed, 0)`, p-value = `r age$test$independence$table$p_Value`. Opinions with respect to extra-marital conduct and age group are associated.
 
-`r kfigr::figr(label = "rq1X2Summary", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs age group independence test
+`r kfigr::figr(label = "ageX2Summary", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs age group independence test
 ```{r rq1X2Summary, echo = F, results='html'}
-knitr::kable(rqaResults$age$x2Test$table) %>%  
+knitr::kable(age$tests$independence$table) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-To ascertain the direction of the differences in proportions of opinion by age group in the population, two proportion tests were conducted for each pair of adjacent age groups. 
+To ascertain the direction of the differences in proportions of opinion by age group in the population, two proportion tests were conducted for each pair of adjacent age groups and is summarized in `r kfigr::figr(label = "ageZSummary", prefix = TRUE, link = TRUE, type="Table")`. 
 
-`r kfigr::figr(label = "rq1ZSummary", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs age group difference in proportions
+`r kfigr::figr(label = "ageZSummary", prefix = TRUE, link = TRUE, type="Table")`: Opinion vs age group difference in proportions
 ```{r rq1ZSummary, echo = F, results='html'}
-df <- rbind(rqaResults$age$propTest[[1]]$df, rqaResults$age$propTest[[2]]$df, rqaResults$age$propTest[[3]]$df)
+df <- rbind(age$tests$difference[[1]]$df, age$tests$difference[[2]]$df, age$tests$difference[[3]]$df)
 knitr::kable(df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
-`r kfigr::figr(label = "rq1ZSummary", prefix = TRUE, link = TRUE, type="Table")` shows that the differences in proportions of liberal opinion in the population are significant at each age group. As such, conservative opinions with respect to extra-marital conduct in the population tend to increase with age.
-
-
+`r kfigr::figr(label = "ageZSummary", prefix = TRUE, link = TRUE, type="Table")` shows that the differences in proportions of Traditional opinion in the population are significant between age groups 18-24 and and the other age groups; however, the differences in proportions of Traditional opinion were not significant among age groups 25 and older.
 
 
 ### Research Question 2: Opinions and Gender
+```{r genderAnalysis, echo = F, message = FALSE, warning=FALSE}
+data <- xmar %>% select(Opinion, Gender)
+gender <- analyze(data, y = "Opinion", x = "Gender", success = "Traditional")
+```
+
 Here, the following research question is examined: 
 > Is there an association between opinions w.r.t. extra-marital conduct and gender
 
-#### Data
-The frequencies of opinion by gemder (`r kfigr::figr(label = "rq2Plot", prefix = TRUE, link = TRUE, type="Figure")`) suggested that men have more liberal views with respect to extra-marital conduct. 
-```{r rq2Plot, echo = F, message = FALSE, warning=FALSE}
-rqaResults$gender$plots
+#### The Data
+The observed (`r kfigr::figr(label = "genderObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`) and expected frequencies (`r kfigr::figr(label = "genderExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`) of opinion by gender indicate that the proportion of the female population that holds Traditional views w.r.t. extra-marital conduct exceeds the proportion of the male population that holds such views.
+
+<div class = .col2-left>
+```{r genderObservedPlot, echo = F, message = FALSE, warning=FALSE}
+gender$plots$observed
 ```
-`r kfigr::figr(label = "rq2Plot", prefix = TRUE, link = TRUE, type="Figure")`: Opinions by Gender
+`r kfigr::figr(label = "ageObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Age Group 
+</div>
+
+<div class = .col2-right>
+```{r genderExpectedPlot, echo = F, message = FALSE, warning=FALSE}
+gender$plots$expected
+```
+`r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`: Expected Opinions by Age Group 
+</div>
+
 
 #### Hypotheses
 The differences in proportion of liberal opinion by gender was evaluated via the following hypotheses:
@@ -593,35 +614,37 @@ $p2$ is the proportion of liberal opinion among females in the population
 The inference conditions for a two-proportion test for differences in the proportion of liberal opinion between the genders, were examined as follows:
 
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
-2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  As shown in `r kfigr::figr(label = "rq2Plot", prefix = TRUE, link = TRUE, type="Figure")`, the number of conservative and liberal opinions far exceed this minimum threshold.   
+2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  As shown in `r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`, the numbers from the sample holding  traditional and non-traditional views exceed the minimum threshold of 10.
 3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the population.  
 
 As such, the conditions for two-proportion z-tests were met.
 
 #### Test results 
-`r rqaResults$gender$propTest[[1]]$stmt$type` 
+`r gender$tests$difference$stmt$type` 
 
-`r kfigr::figr(label = "rq2propTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by gender
-```{r rq2propTest, echo = F, results='html'}
-knitr::kable(rqaResults$gender$propTest[[1]]$df) %>%  
+As indicated in `r kfigr::figr(label = "genderZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender$tests$difference$stmt$detail`
+
+`r kfigr::figr(label = "genderZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by gender
+```{r genderZTest, echo = F, results='html'}
+knitr::kable(gender$tests$difference$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 where:  
-* `r rqaResults$age$propTest[[1]]$footnote[[1]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[2]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[3]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[4]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[5]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[6]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[7]]`   
-* `r rqaResults$age$propTest[[1]]$footnote[[8]]`   
-* `r rqaResults$age$propTest[[1]]$footnote[[9]]`    
-* `r rqaResults$age$propTest[[1]]$footnote[[10]]`  
-* `r rqaResults$age$propTest[[1]]$footnote[[11]]`  
+* `r gender$tests$difference$footnote[[1]]`  
+* `r gender$tests$difference$footnote[[2]]`  
+* `r gender$tests$difference$footnote[[3]]`  
+* `r gender$tests$difference$footnote[[4]]`  
+* `r gender$tests$difference$footnote[[5]]`  
+* `r gender$tests$difference$footnote[[6]]`  
+* `r gender$tests$difference$footnote[[7]]`  
+* `r gender$tests$difference$footnote[[8]]`  
+* `r gender$tests$difference$footnote[[9]]`  
+* `r gender$tests$difference$footnote[[10]]`  
+* `r gender$tests$difference$footnote[[11]]`  
+* `r gender$tests$difference$footnote[[12]]`  
+* `r gender$tests$difference$footnote[[13]]`  
 
-As indicated in `r kfigr::figr(label = "rq2propTest", prefix = TRUE, link = TRUE, type="Table")`, `r  rqaResults$gender$propTest[[1]]$stmt$detail`  
-
-`r rqaResults$gender$propTest[[1]]$stmt$conclude`
+`r gender$tests$difference$stmt$conclude`
 
 
 
