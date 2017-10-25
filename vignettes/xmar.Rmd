@@ -646,6 +646,11 @@ where:
 
 `r gender$tests$difference$stmt$conclude`
 
+### Research Question 2: Opinions by Gender and Age
+```{r genderAnalysis, echo = F, message = FALSE, warning=FALSE}
+data3d <- xmar %>% select(Opinion, Gender, AgeGroup)
+genderAge <- analyze3d(data3d)
+```
 
 
 

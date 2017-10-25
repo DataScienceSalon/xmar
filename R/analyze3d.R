@@ -43,16 +43,15 @@
 analyze <- function(data, y, x, success = "Traditional", xOrder = NULL) {
 
   # Format data, render bar plots, and conduct hypothesis test
-  data <- formatData(data)
+  data <- formatData(data, y = y, x = x)
   x2 <- X2(data$raw, y = y, x = x, alpha = 0.05)
 
   if (length(levels(data$raw[[1]])) == 2 & length(levels(data$raw[[2]])) == 2) {
     test <- zTest(data$raw, success = success, xOrder = NULL, alternative = "two.sided",
           conf = 0.95, alpha = 0.05)
   } else {
-    numTests <- length(levels(data$raw[[2]])) - 1
     test <- propTest(data, xOrder = NULL, alternative = "less",
-                     success = NULL, conf = 0.95, alpha = 0.05 / numTests)
+                     success = NULL, conf = 0.95, alpha = 0.05)
   }
 
   observed <- plotBars(data$observed, y = y, x = x)

@@ -7,16 +7,16 @@
 #'
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #'
-#' @param data Data frame containing two columns, the values for the response and explanatory variables
-#' @param y Character string indicating the description of the response variable
-#' @param x Character string indicating the description of the explanatory variable
+#' @param data Data frame containing two or three columns, the values for the
+#' response and explanatory variable(s). The first column is the response
+#' variable.
 #'
 #' @return List containing a contingency table and a data frame of descriptive statistics
 #'
 #' @family xmar functions
 #' @export
 #'
-formatData <- function(data, y, x) {
+formatData <- function(data) {
 
   #---------------------------------------------------------------------------#
   #                               Prepare Data                                #
@@ -26,7 +26,7 @@ formatData <- function(data, y, x) {
   x2 <- chisq.test(x2Table)
 
 
-  # Observed Frequency Data
+  # Frequency Data
   obsDf <- as.data.frame(ftable(data, exclude = c(NA, "NA")))
   expDf <- melt(round(x2$expected, 0))
   names(expDf) <- names(obsDf)

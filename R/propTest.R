@@ -46,6 +46,14 @@ propTest <- function(data, xOrder = NULL, alternative = "two.sided",
   }
   success <- factorLevels[[1]]
 
+  if (length(levels(data$observed[[1]])) == 2) {
+    p <- data$observed %>% filter(.[[1]] == success) %>% select(Prop)
+    n <- data$observed %>% filter(.[[1]] == success) %>% select(Ttl)
+  } else {
+    p <- data$observed %>% filter(.[[2]] == success) %>% select(Prop)
+    n <- data$observed %>% filter(.[[2]] == success) %>% select(Ttl)
+  }
+
   p <- data$observed %>% filter(.[[2]] == success) %>% select(Prop)
   n <- data$observed %>% filter(.[[2]] == success) %>% select(Ttl)
 
