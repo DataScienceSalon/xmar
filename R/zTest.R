@@ -100,7 +100,8 @@ zTest <- function(data, success = NULL, xOrder = NULL, alternative = "two.sided"
     zScore = as.numeric(round(zScore, 4)),
     pValue = as.numeric(round(pValue, 4)),
     LowerCi = as.numeric(round(ci[1], 4)),
-    UpperCi = as.numeric(round(ci[2], 4))
+    UpperCi = as.numeric(round(ci[2], 4)),
+    Decision = ifelse(pValue < alpha, "Reject", "Fail to Reject")
   )
 
   #---------------------------------------------------------------------------#
@@ -147,6 +148,7 @@ zTest <- function(data, success = NULL, xOrder = NULL, alternative = "two.sided"
   footnote[[11]] <- paste0("     pValue: The probability of encountering a zScore as extreme as that observed.")
   footnote[[12]] <- paste0("    LowerCI: The lower 95% confidence interval for the difference in proportions.")
   footnote[[13]] <- paste0("    UpperCI: The upper 95% confidence interval for the difference in proportions.")
+  footnote[[14]] <- paste0("   Decision: The decision w.r.t. the null hypothesis.")
 
 
   #---------------------------------------------------------------------------#

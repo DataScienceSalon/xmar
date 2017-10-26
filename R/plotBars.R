@@ -12,11 +12,12 @@
 #' 'target' represents the proportions for the target variable and 'group' is the name of the grouping variable
 #' @param y Character string indicating the name of the response variable.
 #' @param x Character string indicating the name of the explanatory variable.
+#' @param title Character string indicating the title of the plot
 #'
 #' @family xmar functions
 #' @export
 #'
-plotBars <- function(data, y, x) {
+plotBars <- function(data, y, x, title) {
 
   #---------------------------------------------------------------------------#
   #                                Barplot                                    #
@@ -33,7 +34,7 @@ plotBars <- function(data, y, x) {
     ggplot2::theme(legend.position="bottom",
                    text=ggplot2::element_text(family="Open Sans")) +
     ggplot2::scale_fill_brewer(palette = 'Greens', name = y) +
-    ggplot2::labs(title = paste(y, "By", x),
+    ggplot2::labs(title = title,
                   x = x,
                   y = y)
 

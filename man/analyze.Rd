@@ -4,7 +4,7 @@
 \alias{analyze}
 \title{analyze}
 \usage{
-analyze(data, y, x, success = "Traditional", xOrder = NULL)
+analyze(data, y, x, title, success = "Traditional", xOrder = NULL)
 }
 \arguments{
 \item{data}{Data frame containing two columns; the response and the explanatory variable.}
@@ -12,6 +12,8 @@ analyze(data, y, x, success = "Traditional", xOrder = NULL)
 \item{y}{Character string label for the response variable.}
 
 \item{x}{Character string label for the explanatory variable.}
+
+\item{title}{Character string containing title of the plot}
 
 \item{success}{Character string equivalent to the response variable level to be analyzed.}
 

@@ -4,7 +4,7 @@
 \alias{plotBars}
 \title{plotBars}
 \usage{
-plotBars(data, y, x)
+plotBars(data, y, x, title)
 }
 \arguments{
 \item{data}{Data frame containing proportions comprised of two columns: 'target' and 'group'.
@@ -13,6 +13,8 @@ plotBars(data, y, x)
 \item{y}{Character string indicating the name of the response variable.}
 
 \item{x}{Character string indicating the name of the explanatory variable.}
+
+\item{title}{Character string indicating the title of the plot}
 }
 \description{
 \code{plotBars} Renders segmented bar plots with value labels representing
