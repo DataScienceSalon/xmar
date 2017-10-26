@@ -19,7 +19,7 @@
 #' @return Data frame containing the results of the z-test
 #'
 #' @family xmar functions
-#' @export#'
+#' @export
 zTest <- function(data, success = NULL, xOrder = NULL, alternative = "two.sided",
                   conf = 0.95, alpha = 0.05) {
 

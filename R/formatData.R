@@ -15,7 +15,6 @@
 #'
 #' @family xmar functions
 #' @export
-#'
 formatData <- function(data) {
 
   #---------------------------------------------------------------------------#
@@ -34,25 +33,24 @@ formatData <- function(data) {
   expDf$Opinion <- factor(expDf$Opinion, levels = c("Traditional", "Non-Traditional"))
 
 
-  observed <- as.data.frame(obsDf %>% arrange(.[[2]], desc(.[[1]])) %>%
-    mutate(cumFreq = cumsum(Freq),
-           pos = Freq - (0.5 * Freq),
-           Ttl = sum(Freq),
-           Prop = Freq / Ttl,
-           Pct = round(Freq / Ttl * 100, 0),
-           cumPct = cumsum(Pct)) %>%
-    select((.[[1]]), Opinion, Freq,
-           cumFreq, pos, Ttl, Prop, Pct, cumPct))
+  observed <- as.data.frame(obsDf %>% group_by(.[[2]]) %>%
+                              mutate(Ttl = sum(Freq)))
+  observed <- as.data.frame(observed %>% arrange(.[[2]], desc(.[[1]])) %>%
+                              mutate(pos = Freq - (0.5 * Freq),
+                                     Prop = Freq / Ttl,
+                                     Pct = round(Freq / Ttl * 100, 0)) %>%
+                              select((.[[1]]), Opinion, Freq,
+                                     pos, Ttl, Prop, Pct))
 
-  expected <- as.data.frame(expDf %>% arrange(.[[2]], desc(.[[1]])) %>%
-    mutate(cumFreq = cumsum(Freq),
-           pos = Freq - (0.5 * Freq),
-           Ttl = sum(Freq),
-           Prop = Freq / Ttl,
-           Pct = round(Freq / Ttl * 100, 0),
-           cumPct = cumsum(Pct)) %>%
-    select((.[[1]]), Opinion, Freq,
-           cumFreq, pos, Ttl, Prop, Pct, cumPct))
+
+  expected <- as.data.frame(expDf %>% group_by(.[[2]]) %>%
+                              mutate(Ttl = sum(Freq)))
+  expected <- as.data.frame(expected %>% arrange(.[[2]], desc(.[[1]])) %>%
+                              mutate(pos = Freq - (0.5 * Freq),
+                                     Prop = Freq / Ttl,
+                                     Pct = round(Freq / Ttl * 100, 0)) %>%
+                              select((.[[1]]), Opinion, Freq,
+                                     pos, Ttl, Prop, Pct))
 
   data = list(
     raw = data,

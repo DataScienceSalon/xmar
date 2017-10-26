@@ -63,24 +63,9 @@ For the years prior to and since the year 2000, this study poses the following r
 * Dependent Variable: Opinion w.r.t. extra-marital conduct  
 * Grouping Variable: Gender   
 
-**Research Question 3:**  Is there an association between opinion and gender / age group?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct  
-* Grouping Variable: Gender / Age group  
-
-### The Evolution of Opinion
-The following research questions explore the extent to which opinions have changed since the year 2000, by age group and gender.
-
-**Research Question 4:**  To what degree have opinions by age group changed since the year 2000?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct, by age group    
-* Grouping Variable: Years prior to and since the year 2000  
-
-**Research Question 5:**  To what degree have opinions by gender changed since the year 2000?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct, by gender  
-* Grouping Variable: Years prior to and since the year 2000  
-
-**Research Question 6:**  To what degree have opinions by gender and age group changed since the year 2000?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct, by gender and age group  
-* Grouping Variable: Years prior to and since the year 2000  
+**Research Question 3:** Have opinions w.r.t. extra-marital conduct changed since the the beginning of 2000.  
+* Dependent Variable: Opinion w.r.t. extra-marital conduct
+* Grouping Variable: Years prior to and since 2000.
 
 ## Document Organization
 The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
@@ -277,7 +262,7 @@ knitr::kable(eda$opinion$stats, align = c("l", rep("c", 5))) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaOpinionStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaOpinionPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$opinion$stats$N)` observations, with `r eda$opinion$stats$N[1]`, and `r eda$opinion$stats$N[2]` conservative and liberal opinions, respectively.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaOpinionStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaOpinionPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$opinion$stats$N)` observations, with `r eda$opinion$stats$N[1]`, and `r eda$opinion$stats$N[2]` traditional and traditional opinions, respectively.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
 
 ```{r edaOpinionPlot, echo = F, message = FALSE, warning=FALSE}
 eda$opinion$plot
@@ -379,7 +364,7 @@ Here, the following research question is examined:
 > Is there an association between opinions w.r.t. extra-marital conduct and age
 
 #### Data
-The observed (`r kfigr::figr(label = "ageObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`) and expected frequencies (`r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`) of opinion by age group indicated a trend towards more conservative views with increasing age. 
+The observed (`r kfigr::figr(label = "ageObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`) and expected frequencies (`r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`) of opinion by age group indicated a trend towards more traditional views with increasing age. 
 
 <div class = .col2-left>
 ```{r ageObservedPlot, echo = F, message = FALSE, warning=FALSE}
@@ -418,16 +403,16 @@ $H_0$ $p3 - p4 = 0$
 $H_a$ $p3 - p4 \neq 0$  
  
 where:   
-$p1$ is the proportion of liberal opinion in age group 15-24  
-$p2$ is the proportion of liberal opinion in age group 25-44  
-$p3$ is the proportion of liberal opinion in age group 45-64  
-$p4$ is the proportion of liberal opinion in age group 65+   
+$p1$ is the proportion of traditional opinion in age group 15-24  
+$p2$ is the proportion of traditional opinion in age group 25-44  
+$p3$ is the proportion of traditional opinion in age group 45-64  
+$p4$ is the proportion of traditional opinion in age group 65+   
 
 
 #### Inference Conditions
 Since both the z-test and the chi-square test of independence was contemplated for these hypotheses, the conditions for both methods were investigated as follows:
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
-2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables. Since the null hypotheses are equality conditions, the pooled proportions are used to calculate the numbers of expected successes and failures. As shown in `r kfigr::figr(label = "rq1ExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`, the number of conservative and liberal opinions far exceed this minimum threshold.   
+2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables. Since the null hypotheses are equality conditions, the pooled proportions are used to calculate the numbers of expected successes and failures. As shown in `r kfigr::figr(label = "rq1ExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`, the number of traditional and traditional opinions far exceed this minimum threshold.   
 3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the population.  
 
 Additional conditions for independence testing are as follows:  
@@ -468,8 +453,8 @@ The one-tailed hypothesis for first pair of proportions is restated as follows:
 $H_0$ $p1 - p2 = 0$   
 $H_a$ $p1 - p2 \leq 0$    
 where:  
-$p1$ is the population proportion of liberal opinion in age group 15-24  
-$p2$ is the population proportion of liberal opinion in age group 25-44  
+$p1$ is the population proportion of traditional opinion in age group 15-24  
+$p2$ is the population proportion of traditional opinion in age group 25-44  
 
 `r age$tests$difference[[1]]$stmt$type` 
 
@@ -498,8 +483,8 @@ The one-tailed hypothesis for second pair of proportions is restated as follows:
 $H_0$ $p1 - p2 = 0$   
 $H_a$ $p1 - p2 \leq 0$    
 where:  
-$p1$ is the population proportion of liberal opinion in age group 25-44  
-$p2$ is the population proportion of liberal opinion in age group 45-64  
+$p1$ is the population proportion of traditional opinion in age group 25-44  
+$p2$ is the population proportion of traditional opinion in age group 45-64  
 
 `r age$tests$difference[[2]]$stmt$type` 
 
@@ -528,8 +513,8 @@ The one-tailed hypothesis for third pair of proportions is restated as follows:
 $H_0$ $p1 - p2 = 0$   
 $H_a$ $p1 - p2 \leq 0$    
 where:  
-$p1$ is the population proportion of liberal opinion in age group 45-64  
-$p2$ is the population proportion of liberal opinion in age group 65+  
+$p1$ is the population proportion of traditional opinion in age group 45-64  
+$p2$ is the population proportion of traditional opinion in age group 65+  
 
 `r age$tests$difference[[3]]$stmt$type` 
 
@@ -601,17 +586,17 @@ gender$plots$expected
 
 
 #### Hypotheses
-The differences in proportion of liberal opinion by gender was evaluated via the following hypotheses:
+The differences in proportion of traditional opinion by gender was evaluated via the following hypotheses:
 
 $H_0$ $p1 = p2$  
 $H_a$ $p1 \neq p2$  
 
 where:   
-$p1$ is the proportion of liberal opinion among males in the population
-$p2$ is the proportion of liberal opinion among females in the population
+$p1$ is the proportion of traditional opinion among males in the population
+$p2$ is the proportion of traditional opinion among females in the population
 
 #### Inference Conditions
-The inference conditions for a two-proportion test for differences in the proportion of liberal opinion between the genders, were examined as follows:
+The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the genders, were examined as follows:
 
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
 2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  As shown in `r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`, the numbers from the sample holding  traditional and non-traditional views exceed the minimum threshold of 10.
@@ -646,11 +631,78 @@ where:
 
 `r gender$tests$difference$stmt$conclude`
 
-### Research Question 2: Opinions by Gender and Age
-```{r genderAnalysis, echo = F, message = FALSE, warning=FALSE}
-data3d <- xmar %>% select(Opinion, Gender, AgeGroup)
-genderAge <- analyze3d(data3d)
+### Research Question 3: Evolution of Opinion
+The evolution of opinion w.r.t. extra-marital conduct was examined via the following question.
+> Have opinions w.r.t. extra-marital conduct changed since the the beginning of 2000.  
+
+```{r yearsAnalysis, echo = F, message = FALSE, warning=FALSE}
+data <- xmar %>% select(Opinion, Years)
+years <- analyze(data, y = "Opinion", x = "Millennium", success = "Traditional")
 ```
+
+#### The Data
+The observed (`r kfigr::figr(label = "yearsObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`) and expected frequencies (`r kfigr::figr(label = "yearsExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`) of opinion by millennium indicate that the proportion of the population holding traditional views have increased since the year 2000.
+
+<div class = .col2-left>
+```{r yearsObservedPlot, echo = F, message = FALSE, warning=FALSE}
+years$plots$observed
+```
+`r kfigr::figr(label = "ageObservedPlot", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Millennium 
+</div>
+
+<div class = .col2-right>
+```{r yearsExpectedPlot, echo = F, message = FALSE, warning=FALSE}
+years$plots$expected
+```
+`r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`: Expected Opinions by Millennium 
+</div>
+
+#### Hypotheses
+The differences in proportion of traditional opinion by gender was evaluated via the following hypotheses:
+
+$H_0$ $p1 = p2$  
+$H_a$ $p1 \neq p2$  
+
+where:   
+$p1$ is the proportion of traditional opinion prior to the year 2000.
+$p2$ is the proportion of traditional opinion since the year 2000.
+
+#### Inference Conditions
+The inference conditions for a two-proportion test for differences in the proportion of traditional opinion, were examined as follows:
+
+1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
+2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  As shown in `r kfigr::figr(label = "ageExpectedPlot", prefix = TRUE, link = TRUE, type="Figure")`, the numbers from the sample holding  traditional and non-traditional views exceed the minimum threshold of 10.
+3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the population.  
+
+As such, the conditions for two-proportion z-tests were met.
+
+#### Test results 
+`r years$tests$difference$stmt$type` 
+
+As indicated in `r kfigr::figr(label = "yearsZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r years$tests$difference$stmt$detail`
+
+`r kfigr::figr(label = "yearsZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by millennium
+```{r yearsZTest, echo = F, results='html'}
+knitr::kable(years$tests$difference$df) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+where:  
+* `r years$tests$difference$footnote[[1]]`  
+* `r years$tests$difference$footnote[[2]]`  
+* `r years$tests$difference$footnote[[3]]`  
+* `r years$tests$difference$footnote[[4]]`  
+* `r years$tests$difference$footnote[[5]]`  
+* `r years$tests$difference$footnote[[6]]`  
+* `r years$tests$difference$footnote[[7]]`  
+* `r years$tests$difference$footnote[[8]]`  
+* `r years$tests$difference$footnote[[9]]`  
+* `r years$tests$difference$footnote[[10]]`  
+* `r years$tests$difference$footnote[[11]]`  
+* `r years$tests$difference$footnote[[12]]`  
+* `r years$tests$difference$footnote[[13]]`  
+
+`r years$tests$difference$stmt$conclude`
+
 
 
 

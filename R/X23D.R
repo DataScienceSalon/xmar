@@ -15,7 +15,6 @@
 #'
 #' @family xmar functions
 #' @export
-#'
 X23D <- function(data) {
 
   # Threeway observed and expected contingency table

@@ -29,10 +29,11 @@ categorical explanatory variable on a response variable. Assumes the null
 hypothesis is equal proportions.
 }
 \seealso{
-Other xmar functions: \code{\link{X2}},
-  \code{\link{analyze}}, \code{\link{formatData}},
-  \code{\link{plotBars}}, \code{\link{preprocess}},
-  \code{\link{propTest}}, \code{\link{univariate}}
+Other xmar functions: \code{\link{X23D}}, \code{\link{X2}},
+  \code{\link{analyze3d}}, \code{\link{analyze}},
+  \code{\link{formatData}}, \code{\link{plotBars}},
+  \code{\link{preprocess}}, \code{\link{propTest}},
+  \code{\link{univariate}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

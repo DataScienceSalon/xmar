@@ -10,10 +10,11 @@ univariate(xmar)
 \code{univariate} Performs univariate analysis of variables
 }
 \seealso{
-Other xmar functions: \code{\link{X2}},
-  \code{\link{analyze}}, \code{\link{formatData}},
-  \code{\link{plotBars}}, \code{\link{preprocess}},
-  \code{\link{propTest}}, \code{\link{zTest}}
+Other xmar functions: \code{\link{X23D}}, \code{\link{X2}},
+  \code{\link{analyze3d}}, \code{\link{analyze}},
+  \code{\link{formatData}}, \code{\link{plotBars}},
+  \code{\link{preprocess}}, \code{\link{propTest}},
+  \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

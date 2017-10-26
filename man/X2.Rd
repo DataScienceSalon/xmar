@@ -23,7 +23,8 @@ and renders a data frame containing the results and a plot showing the
 chi-square distribution with reject region and observed test statistic.
 }
 \seealso{
-Other xmar functions: \code{\link{analyze}},
+Other xmar functions: \code{\link{X23D}},
+  \code{\link{analyze3d}}, \code{\link{analyze}},
   \code{\link{formatData}}, \code{\link{plotBars}},
   \code{\link{preprocess}}, \code{\link{propTest}},
   \code{\link{univariate}}, \code{\link{zTest}}

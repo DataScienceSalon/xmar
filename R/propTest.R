@@ -19,7 +19,6 @@
 #'
 #' @family xmar functions
 #' @export
-#'
 propTest <- function(data, xOrder = NULL, alternative = "two.sided",
                   success = NULL, conf = 0.95, alpha = 0.05) {
 
@@ -53,9 +52,6 @@ propTest <- function(data, xOrder = NULL, alternative = "two.sided",
     p <- data$observed %>% filter(.[[2]] == success) %>% select(Prop)
     n <- data$observed %>% filter(.[[2]] == success) %>% select(Ttl)
   }
-
-  p <- data$observed %>% filter(.[[2]] == success) %>% select(Prop)
-  n <- data$observed %>% filter(.[[2]] == success) %>% select(Ttl)
 
   # Create the iteration vector
   groups <- lapply(seq_along(xOrder[1:length(xOrder)-1]), function(g) {
