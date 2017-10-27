@@ -42,27 +42,38 @@ xmar <- preprocess(GSS)
 ```
 
 ```{r eda, cache=TRUE}
-eda <- univariate(xmar)
+eda <- univariate(xmar$univariate)
 ```
 
 # Abstract
 # Introduction
-Researchers from the University of Michigan, Indiana University and Rutgers University conducted a study of the prevalence of consensual nonmonogamy (CNM) is increasing, little is known about the prevalence of CNM. Using two separate U.S. Census based quota samples of single adults in the United States (Study 1: n = 3,905; Study 2: n = 4,813), the present studies show that more than one in five (21.9% in Study 1; 21.2% in Study 2) According to a study published in the Journal of Sex & Marital Therapy, [@doi:10.1080/0092623X.2016.1178675], 21% 
+There is no dearth of research on American's changing attitudes towards marriage, its primacy as a way of life, and its exclusivity. Approximately four-in-ten Americans say that the present institution of marriage is becoming obsolete [@Taylor2010]. According to the same Pew Research 2010 study, 72% of all adults in America were married. By 2008, this proportion dropped to 52%. From this apparent decline in marriage, Americans are slowly becoming more accepting of open relationships, consensual non-manogamy (CNG) practices, and the like. Nearly half of the population of Americans would consider an open relationship, though fewer than 4% actually claim to be in an open relationship [@Avvo]. Notwithstanding, nearly 22% of married men and 14% of married women admit to having an affair at least once during their marriages, with or without the spousal concent [@Johnson2017].
+
+The purpose of this study is to examine the nature and evolution of attitudes and opinions with respect to (w.r.t.) extra-marital conduct. The opinions of over, 37,000 Americans (44% women, 56% men) over a period of 44 years (1972-2016) served as the data for this project, courtesy of the General Social Survey (GSS) [@NORCa], a project of NORC at the University of Chicago that monitors societal change and studies the growing complexity of American society. Concretely, this report contrasts the attitudes and opinions by various demographic factors over the two periods: the years prior to and since the year 2000. The extent to which such attitudes have changed by gender, age, class, and geographic region is the primary aim of this investigation.
+
 
 ## Research Questions
-This observational study examines the nature and evolution of opinion with respect to (w.r.t.) extra-marital conduct since the start of the millennium via three research questions.
+This observational study examines the nature and evolution of opinion with respect to (w.r.t.) extra-marital conduct since the start of the millennium via five research questions.
 
 **Research Question 1:**  To what degree have opinions changed since the year 2000 by age group?    
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Grouping Variable: Period, i.e., years prior to and since 2000, age group and gender  
+* Grouping Variable: Period, i.e., years prior to and since 2000, and age group
 
 **Research Question 2:**  To what degree have opinions changed since the year 2000 by gender?  
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Grouping Variable: Period, i.e., years prior to and since 2000, age group and gender  
+* Grouping Variable: Period, i.e., years prior to and since 2000, and gender  
   
 **Research Question 3:** To what degree have opinions changed since the year 2000 by age group and gender?  
 * Dependent Variable: Opinion w.r.t. extra-marital conduct  
 * Grouping Variable: Period, i.e., years prior to and since 2000, age group and gender  
+
+**Research Question 4:** To what degree have opinions changed since the year 2000 by class?  
+* Dependent Variable: Opinion w.r.t. extra-marital conduct  
+* Grouping Variable: Period, i.e., years prior to and since 2000 and class
+
+**Research Question 5:** To what degree have opinions changed since the year 2000 by region?  
+* Dependent Variable: Opinion w.r.t. extra-marital conduct  
+* Grouping Variable: Period, i.e., years prior to and since 2000, and region
 
 ## Document Organization
 The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
@@ -283,40 +294,41 @@ eda$gender$plot
 ```
 `r kfigr::figr(label = "edaGenderPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Gender Variable
 
-### Males by Age
-The following table provides the descriptive statistics for the Male Age variable.
+### Class
+The following table provides the descriptive statistics for the Class variable.
 
-`r kfigr::figr(label = "edaMaleAgeStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Male Age Variable
-```{r edaMaleAgeStats, echo = F, message = FALSE, warning=FALSE}
-knitr::kable(eda$maleAge$stats, align = c("l", rep("c", 5))) %>%  
+`r kfigr::figr(label = "edaClassStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Class Variable
+```{r edaClassStats, echo = F, message = FALSE, warning=FALSE}
+knitr::kable(eda$class$stats, align = c("l", rep("c", 5))) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaMaleAgeStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaMaleAgePlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$maleAge$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaClassStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaClassPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$class$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
 
-```{r edaMaleAgePlot, echo = F, message = FALSE, warning=FALSE}
-eda$maleAge$plot
+```{r edaClassPlot, echo = F, message = FALSE, warning=FALSE}
+eda$class$plot
 ```
-`r kfigr::figr(label = "edaMaleAgePlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Male Age Variable
+`r kfigr::figr(label = "edaClassPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Class Variable
 
-### Females by Age
-The following table provides the descriptive statistics for the Female Age variable.
+### Region
+The following table provides the descriptive statistics for the Region variable.
 
-`r kfigr::figr(label = "edaFemaleAgeStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Female Age Variable
-```{r edaFemaleAgeStats, echo = F, message = FALSE, warning=FALSE}
-knitr::kable(eda$femaleAge$stats, align = c("l", rep("c", 5))) %>%  
+`r kfigr::figr(label = "edaRegionStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Region Variable
+```{r edaRegionStats, echo = F, message = FALSE, warning=FALSE}
+knitr::kable(eda$region$stats, align = c("l", rep("c", 5))) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaFemaleAgeStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaFemaleAgePlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$femaleAge$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaRegionStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaRegionPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$region$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
 
-```{r edaFemaleAgePlot, echo = F, message = FALSE, warning=FALSE}
-eda$femaleAge$plot
+```{r edaRegionPlot, echo = F, message = FALSE, warning=FALSE}
+eda$region$plot
 ```
-`r kfigr::figr(label = "edaFemaleAgePlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Female Age Variable
+`r kfigr::figr(label = "edaRegionPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Region Variable
+
 
 ### Summary of Exploratory Data Analysis
-This exploratory data analysis revealed the frequencies and proportions of responses by the Period, Age Group, Gender, Male Age Group, and Female Age Group variables.  Since the independence and sample size requirements were met, the inferences with respect to the population parameters, are valid.   
+This exploratory data analysis revealed the frequencies and proportions of responses by the Opinion, Period, Age Group, Gender, Region, and Class variables.  Since the independence and sample size requirements were met, the inferences with respect to the population parameters, are valid.   
 
 ## Research Question 1: Evolution of opinion by age group
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by age group was examined via the following research question.  
@@ -325,10 +337,10 @@ Here, the degree to which opinions w.r.t. extra-marital conduct have changed by 
 
 ### The Data
 ```{r ageAnalysis, echo = F, message = FALSE, warning=FALSE}
-data1 <- xmar %>% filter(AgeGroup == "15-24") %>% select(Opinion, Period) 
-data2 <- xmar %>% filter(AgeGroup == "25-44") %>% select(Opinion, Period) 
-data3 <- xmar %>% filter(AgeGroup == "45-64") %>% select(Opinion, Period) 
-data4 <- xmar %>% filter(AgeGroup == "65+") %>% select(Opinion, Period) 
+data1 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "15-24") %>% select(Opinion, Period) 
+data2 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "25-44") %>% select(Opinion, Period) 
+data3 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "45-64") %>% select(Opinion, Period) 
+data4 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "65+") %>% select(Opinion, Period) 
 
 age1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 15-24", title = "Opinions by Period (Age Group 15-24)")
 age2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 25-45", title = "Opinions by Period (Age Group 25-44)")
@@ -453,8 +465,8 @@ Here, the degree to which opinions w.r.t. extra-marital conduct have changed by 
 
 ### The Data
 ```{r genderAnalysis, echo = F, message = FALSE, warning=FALSE}
-data1 <- xmar %>% filter(Gender == "Male") %>% select(Opinion, Period) 
-data2 <- xmar %>% filter(Gender == "Female") %>% select(Opinion, Period) 
+data1 <- xmar$bivariate$gender %>% filter(Gender == "Male") %>% select(Opinion, Period) 
+data2 <- xmar$bivariate$gender %>% filter(Gender == "Female") %>% select(Opinion, Period) 
 
 gender1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Male",   title = "Opinions by Period (Male)")
 gender2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Female", title = "Opinions by Period (Female)")
@@ -538,14 +550,14 @@ Here, the degree to which opinions w.r.t. extra-marital conduct have changed by 
 
 ### The Data
 ```{r genderAgeAnalysis, echo = F, message = FALSE, warning=FALSE}
-data1 <- xmar %>% filter(GenderAge == "Male 15-24") %>% select(Opinion, Period) 
-data2 <- xmar %>% filter(GenderAge == "Male 25-44") %>% select(Opinion, Period) 
-data3 <- xmar %>% filter(GenderAge == "Male 45-64") %>% select(Opinion, Period) 
-data4 <- xmar %>% filter(GenderAge == "Male 65+") %>% select(Opinion, Period) 
-data5 <- xmar %>% filter(GenderAge == "Female 15-24") %>% select(Opinion, Period) 
-data6 <- xmar %>% filter(GenderAge == "Female 25-44") %>% select(Opinion, Period) 
-data7 <- xmar %>% filter(GenderAge == "Female 45-64") %>% select(Opinion, Period) 
-data8 <- xmar %>% filter(GenderAge == "Female 65+") %>% select(Opinion, Period) 
+data1 <- xmar$bivariate$genderAger %>% filter(GenderAge == "Male 15-24") %>% select(Opinion, Period) 
+data2 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Male 25-44") %>% select(Opinion, Period) 
+data3 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Male 45-64") %>% select(Opinion, Period) 
+data4 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Male 65+") %>% select(Opinion, Period) 
+data5 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 15-24") %>% select(Opinion, Period) 
+data6 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 25-44") %>% select(Opinion, Period) 
+data7 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 45-64") %>% select(Opinion, Period) 
+data8 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 65+") %>% select(Opinion, Period) 
 
 genderAge1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 15-24", title = "Opinions by Period (Male 15-24)")
 genderAge2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 25-44", title = "Opinions by Period (Male 25-44)")
@@ -804,7 +816,7 @@ genderAgeDiscussion$plot
 `r kfigr::figr(label = "genderAgePlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by age and gender
 
 # Conclusion
-Amid claims of an increasing lack of deference to and respect for certain institutions on behalf of mellennials, this study indicates that the belief in the sanctity of marriage has not only remained stable for nearly half a century, but has slightly increased. Most notable is that the trend towards more conservatively held views is led largely by the mellennial generation.  But this reveals only part of the story. Future studies might examine questions such as the rates of marriage and divorce, the number of marriages per capita, marrying age, and the average length of marriage. Whereas marriage was once an expected milestone, are their fewer of us making the decision than before?  Are people approaching the institution with greater consideration? What can data tell us about ourselves, how we live...how we choose to live?
+Amid claims of an increasing lack of deference to and respect for certain institutions, especially on behalf of mellennials, this study indicates that the belief in the sanctity and exclusivity of marriage has not only remained stable for nearly half a century, but has slightly increased. Most notable is that the trend towards more conservatively held views is led largely by the mellennial generation.  But this reveals only part of the story. Future studies might examine questions such as the rates of marriage and divorce, the number of marriages per capita, marrying age, and the average length of marriage. Whereas marriage was once an expected milestone, are their fewer of us making the decision than before?  Are people approaching the institution with greater consideration? What can data tell us about ourselves, how we live...how we choose to live?
 
 # Appendix
 ## Source Code

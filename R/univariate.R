@@ -61,44 +61,41 @@ univariate <- function(xmar) {
   }
 
   # Format Data
-  opinion <- as.data.frame(xmar %>% select(Opinion) %>% group_by(Opinion) %>%
+  period <- as.data.frame(xmar$period %>% select(Period) %>% group_by(Period) %>%
+                             summarize(N = n()) %>%
+                             mutate(p = N/ sum(N)), row.names = NULL)
+  opinion <- as.data.frame(xmar$opinion %>% select(Opinion) %>% group_by(Opinion) %>%
                            summarize(N = n()) %>%
                            mutate(p = N/ sum(N)), row.names = NULL)
-
-  period <- as.data.frame(xmar %>% select(Period) %>% group_by(Period) %>%
-                           summarize(N = n()) %>%
-                           mutate(p = N/ sum(N)), row.names = NULL)
-  age <- as.data.frame(xmar %>% select(AgeGroup) %>% group_by(AgeGroup) %>%
+  age <- as.data.frame(xmar$age %>% select(AgeGroup) %>% group_by(AgeGroup) %>%
                          summarize(N = n()) %>%
                          mutate(p = N/ sum(N)), row.names = NULL)
-  gender <- as.data.frame(xmar %>% select(Gender) %>% group_by(Gender) %>%
+  gender <- as.data.frame(xmar$gender %>% select(Gender) %>% group_by(Gender) %>%
                             summarize(N = n()) %>%
                             mutate(p = N/ sum(N)), row.names = NULL)
-  maleAge <- as.data.frame(xmar %>% filter(Gender == "Male") %>%
-                             group_by(GenderAge) %>%
-                             summarize(N = n()) %>%
-                             mutate(p = N/ sum(N)), row.names = NULL)
-  femaleAge <- as.data.frame(xmar %>% filter(Gender == "Female") %>%
-                             group_by(GenderAge) %>%
-                             summarize(N = n()) %>%
-                             mutate(p = N/ sum(N)), row.names = NULL)
+  clas <- as.data.frame(xmar$class %>% select(Class) %>% group_by(Class) %>%
+                            summarize(N = n()) %>%
+                            mutate(p = N/ sum(N)), row.names = NULL)
+  region <- as.data.frame(xmar$region %>% select(Region) %>% group_by(Region) %>%
+                            summarize(N = n()) %>%
+                            mutate(p = N/ sum(N)), row.names = NULL)
 
   # Conduct Analysis
-  opinion <- analyze(opinion, "Opinion")
   period <- analyze(period, "Period")
+  opinion <- analyze(opinion, "Opinion")
   age <- analyze(age, "Age Group")
   gender <- analyze(gender, "Gender")
-  maleAge <- analyze(maleAge, "Males and Age Group")
-  femaleAge <- analyze(femaleAge, "Females and Age Group")
+  clas <- analyze(clas, "Class")
+  region <- analyze(region, "Region")
 
   # Return analysis
   analysis <- list(
-    opinion = opinion,
     period = period,
+    opinion = opinion,
     age = age,
     gender = gender,
-    maleAge = maleAge,
-    femaleAge = femaleAge
+    class = clas,
+    region = region
     )
   return(analysis)
 }
