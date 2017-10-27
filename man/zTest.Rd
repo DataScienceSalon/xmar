@@ -4,8 +4,8 @@
 \alias{zTest}
 \title{zTest}
 \usage{
-zTest(data, success = NULL, xOrder = NULL, alternative = "two.sided",
-  conf = 0.95, alpha = 0.05)
+zTest(data, success = "Traditional", xOrder = NULL,
+  alternative = "two.sided", conf = 0.95, alpha = 0.05)
 }
 \arguments{
 \item{data}{Explanatory and response variable values}

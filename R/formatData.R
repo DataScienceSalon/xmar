@@ -17,12 +17,10 @@
 #' @export
 formatData <- function(data) {
 
-  #---------------------------------------------------------------------------#
-  #                               Prepare Data                                #
-  #---------------------------------------------------------------------------#
+  # Obtain observed and expected frequency data
 
-  x2Table <- table(data[[1]], data[[2]])
-  x2 <- chisq.test(x2Table)
+  dataTable <- table(data[[1]], data[[2]])
+  x2 <- chisq.test(dataTable)
 
 
   # Frequency Data
@@ -54,6 +52,7 @@ formatData <- function(data) {
 
   data = list(
     raw = data,
+    table = dataTable,
     observed = observed,
     expected = expected
   )

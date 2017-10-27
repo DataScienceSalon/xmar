@@ -56,13 +56,13 @@ This observational study examines the nature and evolution of opinion with respe
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
 * Grouping Variable: Years prior to and since 2000 and Age group  
 
-**Research Question 2:**  To what degree have opinions changed since the year 2000 by gender?
-* Dependent Variable: Opinion w.r.t. extra-marital conduct  
-* Grouping Variable: Years prior to and since 2000 and gender   
-
+**Research Question 2:**  To what degree have opinions changed since the year 2000 by gender?  
+* Dependent Variable: Opinion w.r.t. extra-marital conduct    
+* Grouping Variable: Years prior to and since 2000 and gender     
+  
 **Research Question 3:** To what degree have opinions changed since the year 2000 by age group and gender?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct
-* Grouping Variable: Years prior to and since 2000, age group and gender
+* Dependent Variable: Opinion w.r.t. extra-marital conduct  
+* Grouping Variable: Years prior to and since 2000, age group and gender  
 
 ## Document Organization
 The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
@@ -109,16 +109,27 @@ The GSS variables were extracted for years 1972 thru 2016 and the following vari
 * 65+  
 
 **Opinion**: Two factor variable:  
-* Conservative: Always wrong and almost always wrong  
-* Liberal: Sometimes wrong and not wrong at all  
+* Traditional: Always wrong and almost always wrong  
+* Non-Traditional: Sometimes wrong and not wrong at all  
 
-**GenderAge**: Eight factor variable:
-* Combines gender and age group into a single 8 factor variable.
+**GenderAge**: Eight factor variable:  
+* Combines gender and age group into a single 8 factor variable.  
 
 Responses with "NAs", "Don't Know", and other non-response values for the GSS variables in scope, were filtered from the data set. 
 
 ## Data Analysis
-The data analysis outlined in the results section begins with a univariate exploratory data analysis of each study variable. Having established the univariate descriptive and inferential statistics, each research question is explored using the following hypothesis testing approach:  
+The data analysis outlined in the results section begins with a univariate exploratory data analysis of each study variable. Frequencies and proportions of responses for each categorical value are presented as well as confidence intervals for the population proportion at each categorical variable level.  
+
+To ensure that the observed sample proportions were within a 5% margin of error of the actual population proportion, minimum required sample sizes were computed for each variable at each level. The minimum sample size $N_{min}$ for level $l$ of a categorical variable was computed as follows:
+
+$$N_{min} = \frac{p_l(1-p_l)}{(\frac{me}{z^*})^2}$$
+where
+$p_l$ is the sample proportion for the categorical variable at level $l$
+$me$ is the margin of error
+$z^*$ is the critical value on the z-distribution for the designated margin of error
+, as well as confidence intervals for the 
+
+Having established the univariate descriptive and inferential statistics, each research question is explored using the following hypothesis testing approach:  
 1. State Hypotheses  
 2. Check Parametric Inference Conditions  
 3. Select appropriate statistical method / test statistic  
@@ -126,71 +137,24 @@ The data analysis outlined in the results section begins with a univariate explo
 5. Interpret and report results.   
 
 ### State Hypotheses
-Two types of hypothesis tests were conducted during this analysis; tests for independence (association) and tests for differences in two proportions.  
+The research questions were aimed at discovering the extent to which opinions have changed over time. As such, the two-sided hypotheses in this study take the following form:    
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
 
-Hypothesis tests for independence (or association) of categorical variables take the form:   
-$H_0$ The two categorical variables are independent, e.g. expected counts $E$ and observed counts $O$ are equal.  
-$H_a$ The two categorical variables are **not** independent, e.g. expected counts $E$ and observed counts $O$ are **not** equal.  
-Tests for difference in two-proportions take the following form:  
-$H_0$ Proportions are equal, e.g. $p_1 = p_2$
-$H_a$ Proportions are not equal, e.g. $p_1 \neq p_2$
+where:  
+$p_1$ is a proportion of interest for years prior to 2000
+$p_2$ is a proportion of interest for years since 2000
 
 ### Inference Conditions
 Statistical inferences were derived from parametric statistics and the central limit theoreom, whereby the former assumes that sample data comes from a population distribution with a fixed set of parameters, and the later assumes that the distribution is normal and that the parameters are $N(\mu, \sigma^2)$, where $\mu$ is the population proportion parameter $\hat{p}$ and $\sigma^2$ is the variation of of the population proportion parameter. We can assume that the sample comes from a normally distributed population if:  
 1. **Independence:** The sample observations must be independent. Since all samples were obtained through random sampling, independence was assumed for all statistical tests.  
-2. **Success/Failure:** There are at least 10 successes and 10 failures for dichotomous categorical variables.  
+2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  
 3. **Sample Size:** The sample size must be less than 10% of the population, if drawn without replacement. According to 2010 census, the population of adults ag 18 and older exceeded 200 million. Since the GSS data contains less than 2 million observations, this sample size requirement was assumed for all statistical tests.
 
-For tests of independence, the following two additional criteria must be met.
-1. **Expected Values:** For multiple groups or for categorical variables with multiple levels (>2), the *expected* counts must be greater than five for each variable and level.  
-2. **Degrees of Freedom:** Degrees of freedom for independence tests must be greater than 2.
-
-**Notes regarding inference conditions:**
-IndependeSince each sample was subject to a random sampling strategy, one can assume for the purposes of this analysis, that the independence condition is met. The other conditions depend upon sample size and will be assessed independently.
-
-The exploratory univariate data analysis examines each of the study variables.  To ensure that the observed sample proportions were within a 5% margin of error of the actual population proportion, minimum required sample sizes were computed for each variable at each level. The minimum sample size $N_{min}$ for level $l$ of a categorical variable was computed as follows:
-
-$$N_{min} = \frac{p_l(1-p_l)}{(\frac{me}{z^*})^2}$$
-where
-$p_l$ is the sample proportion for the categorical variable at level $l$
-$me$ is the margin of error
-$z^*$ is the critical value on the z-distribution for the designated margin of error
-
 ### Statistical Methods
-Three types of statistical methods were used to evaluate the hypotheses statements:   
-1. Chi-square test of independence for evaluating the association between categorical variables.   
-2. Two-proportion z-tests for hypotheses w.r.t. the difference in two proportions.
-3. Two-proportion z-tests for confidence intervals w.r.t. the difference in two proportions.
-
-`r kfigr::figr(label = "techniques", prefix = TRUE, link = TRUE, type="Table")` summarizes the test statistical methods and techniques used by research question.
-
-`r kfigr::figr(label = "techniques", prefix = TRUE, link = TRUE, type="Table")`: Statistical methods and techniques
-```{r techniques, echo = F, message = FALSE, warning=FALSE}
-techniques <- read.csv("../data/techniques.csv")
-knitr::kable(techniques) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
-```
-
-#### Chi-square test of independence  
-To evaluate the association between opinions, behaviors and demographic variables, Pearson’s chi-square $X^2$ test of independence was employed to compute the probability of observing differences in proportions as extreme as the differences observed, assuming the null hypothesis that *observed* counts $O$, and *expected* counts $E$ are equal. The *expected* counts are computed as follows:
-
-$E_{(i,j)} = \frac{0T_i * 0T_j}{0T$
-where:  
-$E_{(i,j)}$ is a contingency table of expected counts with rows $i$ and columns $j$.    
-$0T_i$ is the total for row $i$ from the **observed** contingency table.  
-$0T_j$ is the total for column $j$ from the **observed** contingency table.  
-$0T$ is total counts for the **observed** contingency table.  
-
-Given the observed and expected counts, the $X^2$ test statistic is the normalized sum of squared deviations between observed and expected counts and is computed as follows:
-$$X^2 = \displaystyle\sum_{i=1}^{r} \displaystyle\sum_{j=1}^{c} \frac{(O_{i,j} - E_{i,j})^2}{E_{i,j}}$$
-where:  
-  $X^2 = $ Pearson's cumulative test statistic.  
-  $O_{i,j} = $ the frequency or count from row $i$ and column $j$ of the *observed* contingency table
-  $E_{i,j} = $ the frequency or count from row $i$ and column $j$ of the *expected* contingency table
-  $r = $ the number of rows in the observed (and expected) contingency tables
-  $c = $ the number of columns in the observed (and expected) contingency tables
-
-The chi-squared statistic was used to calculate a p-value by comparing the value of the statistic to a *chi-squared* distribution with $df$ degrees of freedom, where $df = (r-1) * (c-1)$. The selected level of confidence for all statistical tests was 95% ($\alpha = 0.05$). If the p-value was less than or equal to $alpha$, the null hypothesis was rejected.  Otherwise, the null hypothesis was not rejected.
+Two types of statistical methods were used to evaluate the hypotheses statements:   
+1. Two-proportion z-tests for hypotheses w.r.t. the difference in two proportions.
+2. Two-proportion z-tests for confidence intervals w.r.t. the difference in two proportions.
 
 #### Two proportion z-test for hypothesis tests 
 To evaluate hypotheses w.r.t. the difference in two proportions, z-tests were conducted using the pooled proportions for the standard error calculation. Pooled proportions, $\hat{p}$, were calculated as follows:
@@ -235,9 +199,11 @@ $\hat{p_1}$ is the the proportion of interest from sample 1
 $\hat{p_2}$ is the the proportion of interest from sample 2
 
 #### Interpret and report results
-Results were interpreted in terms of whether the null hypothesis was rejected or not as follows:  
+Both hypothesis testing (p-values) and confidence intervals were used to interpret the difference in proportions.  For the hypothesis test approach, results were interpreted in terms of whether the null hypothesis was rejected or not as follows:  
 p-value $\le \alpha$, the hypothesis is **rejected** in favor of the alternative hypothesis.  
 p-value $> \alpha$, the hypothesis is **not rejected** in favor of the alternative hypothesis. 
+
+Confidence intervals for the difference in proportions were computed. If the confidence interval did not include zero difference, the null hypothesis was rejected.
 
 ## System and Environment
 This analysis was implemented using the 64 bit version of the R Programming Language, version 3.4.1. [@TheRFoundation2015] within the R. Studio Version 1.1.330 [@RStudioTeam2016] development environment on a Windows x64-based laptop powered by an Intel Core i7-3610QM CPU @ 2.30GHz, 2301 MHz processor with 4 Cores, 8 Logical Processors, and 16.0 GB of installed memory, running the Microsoft Windows 10 Home operating system, version	10.0.14393 Build 14393. Report writing and generation packages included knitr [@Xie2013], and kfigr [@Koohafkan2015].  Data management functionality was provided by the dplyr [Wickham2015a], reshape2 [@Rcpp2016], xtable [@Dahl2016] and data table [@Dowle2016] packages. Graphics and data visualization were powered by the ggplot2 [@Wickham2016], gridExtra [@BaptisteAuguie2016], and the stargazer [@Hlavac2015] packages.  The inference [@VinhNguyen2017] statistcal package provided functionality for extracting inferential values from a fitted model.
@@ -372,7 +338,7 @@ age4 <- analyze(data4, y = "Opinion", x = "Years", success = "Traditional", titl
 
 `r kfigr::figr(label = "agePlots", prefix = TRUE, link = TRUE, type="Figure")` indicates that a trend towards traditional views for the years since 2000 across all age groups, with the exception of those 65 and older.
 
-```{r agePlots, echo = F, message = FALSE, warning=FALSE}
+```{r agePlots, echo = F, message = FALSE, warning=FALSE, fig.height = 16}
 agePlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(age1$plots$observed, age2$plots$observed, ncol = 2),
              gridExtra::arrangeGrob(age3$plots$observed, age4$plots$observed, ncol = 2))
 ```
@@ -393,14 +359,14 @@ $H_0$ $p_7 - p_8 = 0$
 $H_a$ $p_7 - p8 \neq 0$  
 
 where:   
-$p_1$ is the proportion of traditional opinion in age group 15-24 for years prior to 2000
-$p_2$ is the proportion of traditional opinion in age group 15-24 for years since 2000
-$p_3$ is the proportion of traditional opinion in age group 25-44 for years prior to 2000
-$p_4$ is the proportion of traditional opinion in age group 25-44 for years since 2000
-$p_5$ is the proportion of traditional opinion in age group 45-64 for years prior to 2000 
-$p_6$ is the proportion of traditional opinion in age group 45-64 for years since 2000 
-$p_7$ is the proportion of traditional opinion in age group 65+ for years prior to 2000
-$p_8$ is the proportion of traditional opinion in age group 65+ for years since 2000
+$p_1$ is the proportion of traditional opinion in age group 15-24 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in age group 15-24 for years since 2000  
+$p_3$ is the proportion of traditional opinion in age group 25-44 for years prior to 2000  
+$p_4$ is the proportion of traditional opinion in age group 25-44 for years since 2000  
+$p_5$ is the proportion of traditional opinion in age group 45-64 for years prior to 2000   
+$p_6$ is the proportion of traditional opinion in age group 45-64 for years since 2000   
+$p_7$ is the proportion of traditional opinion in age group 65+ for years prior to 2000  
+$p_8$ is the proportion of traditional opinion in age group 65+ for years since 2000  
 
 ### Inference Conditions
 The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the age groups, were examined as follows:
@@ -413,56 +379,56 @@ As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
 #### Age Group 15-24
-`r age1$tests$difference$stmt$type` 
+`r age1$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age1$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age1$test$stmt$detail`
 
-`r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for age group 15-24
+`r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 15-24
 ```{r age1ZTest, echo = F, results='html'}
-knitr::kable(age1$tests$difference$df) %>%  
+knitr::kable(age1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r age1$tests$difference$stmt$conclude`
+`r age1$test$stmt$conclude`
 
 #### Age Group 25-44
-`r age2$tests$difference$stmt$type` 
+`r age2$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age2$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age2$test$stmt$detail`
 
-`r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for age group 25-44
+`r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 25-44
 ```{r age2ZTest, echo = F, results='html'}
-knitr::kable(age2$tests$difference$df) %>%  
+knitr::kable(age2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r age2$tests$difference$stmt$conclude`
+`r age2$test$stmt$conclude`
 
 #### Age Group 45-64
-`r age3$tests$difference$stmt$type` 
+`r age3$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age3$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age3$test$stmt$detail`
 
-`r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for age group 45-64
+`r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 45-64
 ```{r age3ZTest, echo = F, results='html'}
-knitr::kable(age3$tests$difference$df) %>%  
+knitr::kable(age3$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r age3$tests$difference$stmt$conclude`
+`r age3$test$stmt$conclude`
 
 #### Age Group 65+
-`r age4$tests$difference$stmt$type` 
+`r age4$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age4$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age4$test$stmt$detail`
 
-`r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for age group 65+
+`r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 65+
 ```{r age4ZTest, echo = F, results='html'}
-knitr::kable(age4$tests$difference$df) %>%  
+knitr::kable(age4$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r age4$tests$difference$stmt$conclude`
+`r age4$test$stmt$conclude`
 
 ## Research Question 2: Evolution of opinion by gender
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by gender was examined via the following research question.  
@@ -510,30 +476,30 @@ As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
 #### Male Population
-`r gender1$tests$difference$stmt$type` 
+`r gender1$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender1$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender1$test$stmt$detail`
 
-`r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for male population
+`r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population
 ```{r gender1ZTest, echo = F, results='html'}
-knitr::kable(gender1$tests$difference$df) %>%  
+knitr::kable(gender1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r gender1$tests$difference$stmt$conclude`
+`r gender1$test$stmt$conclude`
 
 #### Female Population
-`r gender2$tests$difference$stmt$type` 
+`r gender2$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender2$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender2$test$stmt$detail`
 
-`r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for female population
+`r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population
 ```{r gender2ZTest, echo = F, results='html'}
-knitr::kable(gender2$tests$difference$df) %>%  
+knitr::kable(gender2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r gender2$tests$difference$stmt$conclude`
+`r gender2$test$stmt$conclude`
 
 
 
@@ -579,51 +545,49 @@ gridExtra::grid.arrange(gridExtra::arrangeGrob(genderAge1$plots$observed, gender
 `r kfigr::figr(label = "genderAgePlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by gender and age group  
 
 ### Hypotheses
-The degree to which opinions have changed by gender and age group was examined via the following hypotheses:
-$H_0$ $p_1 - p_2 = 0$  
-$H_a$ $p_1 - p_2 \neq 0$  
-
-$H_0$ $p_3 - p_4 = 0$  
-$H_a$ $p_3 - p_4 \neq 0$  
-
-$H_0$ $p_5 - p_6 = 0$  
-$H_a$ $p_5 - p_6 \neq 0$  
-
+The degree to which opinions have changed by gender and age group was examined via the following hypotheses:  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+  
+$H_0$ $p_3 - p_4 = 0$    
+$H_a$ $p_3 - p_4 \neq 0$    
+  
+$H_0$ $p_5 - p_6 = 0$    
+$H_a$ $p_5 - p_6 \neq 0$    
+  
 $H_0$ $p_7 - p_8 = 0$  
-$H_a$ $p_7 - p_8 \neq 0$
-
-$H_0$ $p_9 - p_{10} = 0$  
-$H_a$ $p_9 - p_{10} \neq 0$  
-
-$H_0$ $p_{11} - p_{12} = 0$  
-$H_a$ $p_{11} - p_{12} \neq 0$  
-
-$H_0$ $p_{13} - p_{14} = 0$  
-$H_a$ $p_{13} - p_{14} \neq 0$  
-
-$H_0$ $p_{15} - p_{16} = 0$  
-$H_a$ $p_{15} - p_{16} \neq 0$
+$H_a$ $p_7 - p_8 \neq 0$  
+  
+$H_0$ $p_9 - p_{10} = 0$    
+$H_a$ $p_9 - p_{10} \neq 0$    
+  
+$H_0$ $p_{11} - p_{12} = 0$    
+$H_a$ $p_{11} - p_{12} \neq 0$      
+  
+$H_0$ $p_{13} - p_{14} = 0$    
+$H_a$ $p_{13} - p_{14} \neq 0$    
+  
+$H_0$ $p_{15} - p_{16} = 0$    
+$H_a$ $p_{15} - p_{16} \neq 0$  
 
 where:   
-$p_1$ is the proportion of traditional opinion among males age 15-24 for years prior to 2000
-$p_2$ is the proportion of traditional opinion among males age 15-24 for years since 2000
-$p_3$ is the proportion of traditional opinion among males age 25-44 for years prior to 2000
-$p_4$ is the proportion of traditional opinion among males age 25-44 for years since 2000
-$p_5$ is the proportion of traditional opinion among males age 45-64 for years prior to 2000
-$p_6$ is the proportion of traditional opinion among males age 45-64 for years since 2000
-$p_7$ is the proportion of traditional opinion among males age 65+ for years prior to 2000
-$p_8$ is the proportion of traditional opinion among males age 65+ for years since 2000
-
-
-$p_9$ is the proportion of traditional opinion among females age 15-24 for years prior to 2000
-$p_{10}$ is the proportion of traditional opinion among females age 15-24 for years since 2000
-$p_{11}$ is the proportion of traditional opinion among females age 25-44 for years prior to 2000
-$p_{12}$ is the proportion of traditional opinion among females age 25-44 for years since 2000
-$p_{13}$ is the proportion of traditional opinion among females age 45-64 for years prior to 2000
-$p_{14}$ is the proportion of traditional opinion among females age 45-64 for years since 2000
-$p_{15}$ is the proportion of traditional opinion among females age 65+ for years prior to 2000
-$p_{16}$ is the proportion of traditional opinion among females age 65+ for years since 2000
-
+$p_1$ is the proportion of traditional opinion among males age 15-24 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among males age 15-24 for years since 2000  
+$p_3$ is the proportion of traditional opinion among males age 25-44 for years prior to 2000  
+$p_4$ is the proportion of traditional opinion among males age 25-44 for years since 2000  
+$p_5$ is the proportion of traditional opinion among males age 45-64 for years prior to 2000  
+$p_6$ is the proportion of traditional opinion among males age 45-64 for years since 2000  
+$p_7$ is the proportion of traditional opinion among males age 65+ for years prior to 2000  
+$p_8$ is the proportion of traditional opinion among males age 65+ for years since 2000  
+  
+$p_9$ is the proportion of traditional opinion among females age 15-24 for years prior to 2000  
+$p_{10}$ is the proportion of traditional opinion among females age 15-24 for years since 2000  
+$p_{11}$ is the proportion of traditional opinion among females age 25-44 for years prior to 2000  
+$p_{12}$ is the proportion of traditional opinion among females age 25-44 for years since 2000  
+$p_{13}$ is the proportion of traditional opinion among females age 45-64 for years prior to 2000  
+$p_{14}$ is the proportion of traditional opinion among females age 45-64 for years since 2000  
+$p_{15}$ is the proportion of traditional opinion among females age 65+ for years prior to 2000  
+$p_{16}$ is the proportion of traditional opinion among females age 65+ for years since 2000  
 
 ### Inference Conditions
 The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the genders and age groups, were examined as follows:
@@ -636,110 +600,116 @@ As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
 #### Male Population Age 15-24
-`r genderAge1$tests$difference$stmt$type` 
+`r genderAge1$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge1$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge1$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for male population age 15-24
+`r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 15-24
 ```{r genderAge1ZTest, echo = F, results='html'}
-knitr::kable(genderAge1$tests$difference$df) %>%  
+knitr::kable(genderAge1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge1$tests$difference$stmt$conclude`
+`r genderAge1$test$stmt$conclude`
 
 #### Male Population Age 25-44
-`r genderAge2$tests$difference$stmt$type` 
+`r genderAge2$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge2$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge2$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for male population age 25-44
+`r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 25-44
 ```{r genderAge2ZTest, echo = F, results='html'}
-knitr::kable(genderAge2$tests$difference$df) %>%  
+knitr::kable(genderAge2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge2$tests$difference$stmt$conclude`
+`r genderAge2$test$stmt$conclude`
 
 #### Male Population Age 45-64
-`r genderAge3$tests$difference$stmt$type` 
+`r genderAge3$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge3$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge3$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for male population age 45-64
+`r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 45-64
 ```{r genderAge3ZTest, echo = F, results='html'}
-knitr::kable(genderAge3$tests$difference$df) %>%  
+knitr::kable(genderAge3$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge3$tests$difference$stmt$conclude`
+`r genderAge3$test$stmt$conclude`
 
 #### Male Population Age 65+
-`r genderAge4$tests$difference$stmt$type` 
+`r genderAge4$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge4$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge4$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for male population age 65+
+`r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 65+
 ```{r genderAge4ZTest, echo = F, results='html'}
-knitr::kable(genderAge4$tests$difference$df) %>%  
+knitr::kable(genderAge4$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge4$tests$difference$stmt$conclude`
+`r genderAge4$test$stmt$conclude`
 
 
 #### Female Population Age 15-24
-`r genderAge5$tests$difference$stmt$type` 
+`r genderAge5$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge5$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge5$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for female population age 15-24
+`r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 15-24
 ```{r genderAge5ZTest, echo = F, results='html'}
-knitr::kable(genderAge5$tests$difference$df) %>%  
+knitr::kable(genderAge5$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge5$tests$difference$stmt$conclude`
+`r genderAge5$test$stmt$conclude`
 
 #### Female Population Age 25-44
-`r genderAge6$tests$difference$stmt$type` 
+`r genderAge6$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge6$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge6$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for female population age 25-44
+`r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 25-44
 ```{r genderAge6ZTest, echo = F, results='html'}
-knitr::kable(genderAge6$tests$difference$df) %>%  
+knitr::kable(genderAge6$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge6$tests$difference$stmt$conclude`
+`r genderAge6$test$stmt$conclude`
 
 #### Female Population Age 45-64
-`r genderAge7$tests$difference$stmt$type` 
+`r genderAge7$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge7$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge7$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for female population age 45-64
+`r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 45-64
 ```{r genderAge7ZTest, echo = F, results='html'}
-knitr::kable(genderAge7$tests$difference$df) %>%  
+knitr::kable(genderAge7$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge7$tests$difference$stmt$conclude`
+`r genderAge7$test$stmt$conclude`
 
 #### Female Population Age 65+
-`r genderAge8$tests$difference$stmt$type` 
+`r genderAge8$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge8$tests$difference$stmt$detail`
+As indicated in `r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge8$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of opinion by years for female population age 65+
+`r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 65+
 ```{r genderAge8ZTest, echo = F, results='html'}
-knitr::kable(genderAge8$tests$difference$df) %>%  
+knitr::kable(genderAge8$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge8$tests$difference$stmt$conclude`
+`r genderAge8$test$stmt$conclude`
 
+# Discussion
+## Evolution of Opinion by Age Group
+
+## Evolution of Opinion by Gender
+
+## Evolution of Opinion by Age Group and Gender
 
 # Appendix
 ## Source Code
