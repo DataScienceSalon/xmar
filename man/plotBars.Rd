@@ -23,9 +23,9 @@ proportions each segment represents.
 \seealso{
 Other xmar functions: \code{\link{X23D}}, \code{\link{X2}},
   \code{\link{analyze3d}}, \code{\link{analyze}},
-  \code{\link{formatData}}, \code{\link{preprocess}},
-  \code{\link{propTest}}, \code{\link{univariate}},
-  \code{\link{zTest}}
+  \code{\link{discussion}}, \code{\link{formatData}},
+  \code{\link{preprocess}}, \code{\link{propTest}},
+  \code{\link{univariate}}, \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

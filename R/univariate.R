@@ -65,7 +65,7 @@ univariate <- function(xmar) {
                            summarize(N = n()) %>%
                            mutate(p = N/ sum(N)), row.names = NULL)
 
-  years <- as.data.frame(xmar %>% select(Years) %>% group_by(Years) %>%
+  period <- as.data.frame(xmar %>% select(Period) %>% group_by(Period) %>%
                            summarize(N = n()) %>%
                            mutate(p = N/ sum(N)), row.names = NULL)
   age <- as.data.frame(xmar %>% select(AgeGroup) %>% group_by(AgeGroup) %>%
@@ -85,7 +85,7 @@ univariate <- function(xmar) {
 
   # Conduct Analysis
   opinion <- analyze(opinion, "Opinion")
-  years <- analyze(years, "Years")
+  period <- analyze(period, "Period")
   age <- analyze(age, "Age Group")
   gender <- analyze(gender, "Gender")
   maleAge <- analyze(maleAge, "Males and Age Group")
@@ -94,7 +94,7 @@ univariate <- function(xmar) {
   # Return analysis
   analysis <- list(
     opinion = opinion,
-    years = years,
+    period = period,
     age = age,
     gender = gender,
     maleAge = maleAge,

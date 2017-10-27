@@ -47,22 +47,22 @@ eda <- univariate(xmar)
 
 # Abstract
 # Introduction
-## Background Information
+Researchers from the University of Michigan, Indiana University and Rutgers University conducted a study of the prevalence of consensual nonmonogamy (CNM) is increasing, little is known about the prevalence of CNM. Using two separate U.S. Census based quota samples of single adults in the United States (Study 1: n = 3,905; Study 2: n = 4,813), the present studies show that more than one in five (21.9% in Study 1; 21.2% in Study 2) According to a study published in the Journal of Sex & Marital Therapy, [@doi:10.1080/0092623X.2016.1178675], 21% 
 
 ## Research Questions
 This observational study examines the nature and evolution of opinion with respect to (w.r.t.) extra-marital conduct since the start of the millennium via three research questions.
 
 **Research Question 1:**  To what degree have opinions changed since the year 2000 by age group?    
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Grouping Variable: Years prior to and since 2000 and Age group  
+* Grouping Variable: Period, i.e., years prior to and since 2000, age group and gender  
 
 **Research Question 2:**  To what degree have opinions changed since the year 2000 by gender?  
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Grouping Variable: Years prior to and since 2000 and gender     
+* Grouping Variable: Period, i.e., years prior to and since 2000, age group and gender  
   
 **Research Question 3:** To what degree have opinions changed since the year 2000 by age group and gender?  
 * Dependent Variable: Opinion w.r.t. extra-marital conduct  
-* Grouping Variable: Years prior to and since 2000, age group and gender  
+* Grouping Variable: Period, i.e., years prior to and since 2000, age group and gender  
 
 ## Document Organization
 The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
@@ -98,9 +98,9 @@ knitr::kable(variables) %>%
 ### Data Preprocessing
 The GSS variables were extracted for years 1972 thru 2016 and the following variables were created.
 
-**Years**: Two factor variable  
-* Prior to 2000: Years from beginning of study through 1999 inclusive  
-* Since 2000: Years from 2000 through 2016  
+**Period**: Two factor variable  
+* Prior to 2000: Period from beginning of study through 1999 inclusive  
+* Since 2000: Period from 2000 through 2016  
 
 **Age Group**: Four factor variable  
 * 18-24  
@@ -235,21 +235,21 @@ eda$opinion$plot
 ```
 `r kfigr::figr(label = "edaOpinionPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Opinion Variable
 
-### Years
-The following table provides the descriptive statistics for the Years variable.
+### Period
+The following table provides the descriptive statistics for the period variable.
 
-`r kfigr::figr(label = "edaYearsStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Years Variable
-```{r edaYearsStats, echo = F, message = FALSE, warning=FALSE}
-knitr::kable(eda$years$stats, align = c("l", rep("c", 5))) %>%  
+`r kfigr::figr(label = "edaPeriodStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Period Variable
+```{r edaPeriodStats, echo = F, message = FALSE, warning=FALSE}
+knitr::kable(eda$period$stats, align = c("l", rep("c", 5))) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaYearsStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaYearsPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$years$stats$N)` observations, with `r eda$years$stats$N[1]`, and `r eda$years$stats$N[2]` observations for the years prior to 2000, and the years since 2000, respectively.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaPeriodStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaPeriodPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$period$stats$N)` observations, with `r eda$period$stats$N[1]`, and `r eda$period$stats$N[2]` observations for the years prior to 2000, and the years since 2000, respectively.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
 
-```{r edaYearsPlot, echo = F, message = FALSE, warning=FALSE}
-eda$years$plot
+```{r edaPeriodPlot, echo = F, message = FALSE, warning=FALSE}
+eda$period$plot
 ```
-`r kfigr::figr(label = "edaYearsPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Years Variable
+`r kfigr::figr(label = "edaPeriodPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Period Variable
 
 ### Age Group
 The following table provides the descriptive statistics for the Age Group variable.
@@ -316,7 +316,7 @@ eda$femaleAge$plot
 `r kfigr::figr(label = "edaFemaleAgePlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Female Age Variable
 
 ### Summary of Exploratory Data Analysis
-This exploratory data analysis revealed the frequencies and proportions of responses by the Years, Age Group, Gender, Male Age Group, and Female Age Group variables.  Since the independence and sample size requirements were met, the inferences with respect to the population parameters, are valid.   
+This exploratory data analysis revealed the frequencies and proportions of responses by the Period, Age Group, Gender, Male Age Group, and Female Age Group variables.  Since the independence and sample size requirements were met, the inferences with respect to the population parameters, are valid.   
 
 ## Research Question 1: Evolution of opinion by age group
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by age group was examined via the following research question.  
@@ -325,15 +325,16 @@ Here, the degree to which opinions w.r.t. extra-marital conduct have changed by 
 
 ### The Data
 ```{r ageAnalysis, echo = F, message = FALSE, warning=FALSE}
-data1 <- xmar %>% filter(AgeGroup == "15-24") %>% select(Opinion, Years) 
-data2 <- xmar %>% filter(AgeGroup == "25-44") %>% select(Opinion, Years) 
-data3 <- xmar %>% filter(AgeGroup == "45-64") %>% select(Opinion, Years) 
-data4 <- xmar %>% filter(AgeGroup == "65+") %>% select(Opinion, Years) 
+data1 <- xmar %>% filter(AgeGroup == "15-24") %>% select(Opinion, Period) 
+data2 <- xmar %>% filter(AgeGroup == "25-44") %>% select(Opinion, Period) 
+data3 <- xmar %>% filter(AgeGroup == "45-64") %>% select(Opinion, Period) 
+data4 <- xmar %>% filter(AgeGroup == "65+") %>% select(Opinion, Period) 
 
-age1 <- analyze(data1, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Age Group 15-24)")
-age2 <- analyze(data2, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Age Group 25-44)")
-age3 <- analyze(data3, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Age Group 45-64)")
-age4 <- analyze(data4, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Age Group 65+)")
+age1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 15-24", title = "Opinions by Period (Age Group 15-24)")
+age2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 25-45", title = "Opinions by Period (Age Group 25-44)")
+age3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 45-65", title = "Opinions by Period (Age Group 45-64)")
+age4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 65+", title = "Opinions by Period (Age Group 65+)")
+age <- rbind(age1$test$df, age2$test$df, age3$test$df, age4$test$df)
 ```
 
 `r kfigr::figr(label = "agePlots", prefix = TRUE, link = TRUE, type="Figure")` indicates that a trend towards traditional views for the years since 2000 across all age groups, with the exception of those 65 and older.
@@ -345,28 +346,15 @@ agePlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(age1$plots$observed, 
 `r kfigr::figr(label = "agePlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Age Group 
 
 ### Hypotheses
-The degree to which opinions have changed by age group was examined via the following hypotheses:
+The following hypotheses were tested to discover the extent to which opinion has changed by age group, over the periods of the study. Generally stated, they are: 
 $H_0$ $p_1 - p_2 = 0$  
 $H_a$ $p_1 - p_2 \neq 0$  
 
-$H_0$ $p_3 - p_4 = 0$  
-$H_a$ $p_3 - p_4 \neq 0$  
-
-$H_0$ $p_5 - p_6 = 0$  
-$H_a$ $p_5 - p_6 \neq 0$  
-
-$H_0$ $p_7 - p_8 = 0$  
-$H_a$ $p_7 - p8 \neq 0$  
-
 where:   
-$p_1$ is the proportion of traditional opinion in age group 15-24 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion in age group 15-24 for years since 2000  
-$p_3$ is the proportion of traditional opinion in age group 25-44 for years prior to 2000  
-$p_4$ is the proportion of traditional opinion in age group 25-44 for years since 2000  
-$p_5$ is the proportion of traditional opinion in age group 45-64 for years prior to 2000   
-$p_6$ is the proportion of traditional opinion in age group 45-64 for years since 2000   
-$p_7$ is the proportion of traditional opinion in age group 65+ for years prior to 2000  
-$p_8$ is the proportion of traditional opinion in age group 65+ for years since 2000  
+$p_1$ is the proportion of traditional opinion within an age group for years prior to 2000  
+$p_2$ is the proportion of traditional opinion within an age group for years since 2000  
+
+The specific hypotheses for each age group are stated below.
 
 ### Inference Conditions
 The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the age groups, were examined as follows:
@@ -379,11 +367,18 @@ As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
 #### Age Group 15-24
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct for the age group 15-24 over the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in age group 15-24 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in age group 15-24 for years since 2000  
+
 `r age1$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age1$test$stmt$detail`
 
-`r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 15-24
+`r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 15-24
 ```{r age1ZTest, echo = F, results='html'}
 knitr::kable(age1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -392,11 +387,18 @@ knitr::kable(age1$test$df) %>%
 `r age1$test$stmt$conclude`
 
 #### Age Group 25-44
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct for the age group 25-44 over the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in age group 25-44 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in age group 25-44 for years since 2000  
+
 `r age2$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age2$test$stmt$detail`
 
-`r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 25-44
+`r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 25-44
 ```{r age2ZTest, echo = F, results='html'}
 knitr::kable(age2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -405,11 +407,18 @@ knitr::kable(age2$test$df) %>%
 `r age2$test$stmt$conclude`
 
 #### Age Group 45-64
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct for the age group 45-64 over the two periods of the study.     
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in age group 45-64 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in age group 45-64 for years since 2000  
+
 `r age3$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age3$test$stmt$detail`
 
-`r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 45-64
+`r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 45-64
 ```{r age3ZTest, echo = F, results='html'}
 knitr::kable(age3$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -418,11 +427,18 @@ knitr::kable(age3$test$df) %>%
 `r age3$test$stmt$conclude`
 
 #### Age Group 65+
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct for the age group 65+ over the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in age group 65+ for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in age group 65+ for years since 2000  
+
 `r age4$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age4$test$stmt$detail`
 
-`r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for age group 65+
+`r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 65+
 ```{r age4ZTest, echo = F, results='html'}
 knitr::kable(age4$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -436,34 +452,32 @@ Here, the degree to which opinions w.r.t. extra-marital conduct have changed by 
 > To what degree have opinions changed since the year 2000 by gender?   
 
 ### The Data
-```{r genderAnalysis, echo = F, messgender = FALSE, warning=FALSE}
-data1 <- xmar %>% filter(Gender == "Male") %>% select(Opinion, Years) 
-data2 <- xmar %>% filter(Gender == "Female") %>% select(Opinion, Years) 
+```{r genderAnalysis, echo = F, message = FALSE, warning=FALSE}
+data1 <- xmar %>% filter(Gender == "Male") %>% select(Opinion, Period) 
+data2 <- xmar %>% filter(Gender == "Female") %>% select(Opinion, Period) 
 
-gender1 <- analyze(data1, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Male)")
-gender2 <- analyze(data2, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Female)")
+gender1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Male",   title = "Opinions by Period (Male)")
+gender2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Female", title = "Opinions by Period (Female)")
+gender <- rbind(gender1$test$df, gender2$test$df)
 ```
 
 `r kfigr::figr(label = "genderPlots", prefix = TRUE, link = TRUE, type="Figure")` indicates that a trend towards traditional views for the years since 2000 for both genders.
 
-```{r genderPlots, echo = F, messgender = FALSE, warning=FALSE}
+```{r genderPlots, echo = F, message = FALSE, warning=FALSE}
 genderPlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(gender1$plots$observed, gender2$plots$observed, ncol = 2))
 ```
 `r kfigr::figr(label = "genderPlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by gender  
 
 ### Hypotheses
-The degree to which opinions have changed by gender was examined via the following hypotheses:
+The degree to which opinions have changed by gender was examined via the following hypotheses:  
 $H_0$ $p_1 - p_2 = 0$  
 $H_a$ $p_1 - p_2 \neq 0$  
 
-$H_0$ $p_3 - p_4 = 0$  
-$H_a$ $p_3 - p_4 \neq 0$  
-
 where:   
-$p_1$ is the proportion of traditional opinion among males for years prior to 2000
-$p_2$ is the proportion of traditional opinion among males for years since 2000
-$p_3$ is the proportion of traditional opinion among females for years prior to 2000
-$p_4$ is the proportion of traditional opinion among females for years since 2000
+$p_1$ is the proportion of traditional opinion among those of a specific gender for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among those of a specific gender for years since 2000  
+
+The specific hypotheses by gender are stated below.
 
 ### Inference Conditions
 The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the age groups, were examined as follows:
@@ -476,11 +490,19 @@ As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
 #### Male Population
+The following hypotheses were tested to discover the extent to which opinion has changed among men over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+
+where:   
+$p_1$ is the proportion of traditional opinion among men for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among men for years since 2000  
+
 `r gender1$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender1$test$stmt$detail`
 
-`r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population
+`r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population
 ```{r gender1ZTest, echo = F, results='html'}
 knitr::kable(gender1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -489,11 +511,19 @@ knitr::kable(gender1$test$df) %>%
 `r gender1$test$stmt$conclude`
 
 #### Female Population
+The following hypotheses were tested to discover the extent to which opinion has changed among women over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+
+where:   
+$p_1$ is the proportion of traditional opinion among women for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among women for years since 2000  
+
 `r gender2$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender2$test$stmt$detail`
 
-`r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population
+`r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population
 ```{r gender2ZTest, echo = F, results='html'}
 knitr::kable(gender2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -501,40 +531,37 @@ knitr::kable(gender2$test$df) %>%
 
 `r gender2$test$stmt$conclude`
 
-
-
-
-
 ## Research Question 3: Evolution of opinion by age and gender
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by age and gender was examined via the following research question.  
 
 > To what degree have opinions changed since the year 2000 by age and gender?   
 
 ### The Data
-```{r genderAgeAnalysis, echo = F, messgender = FALSE, warning=FALSE}
-data1 <- xmar %>% filter(GenderAge == "Male 15-24") %>% select(Opinion, Years) 
-data2 <- xmar %>% filter(GenderAge == "Male 25-44") %>% select(Opinion, Years) 
-data3 <- xmar %>% filter(GenderAge == "Male 45-64") %>% select(Opinion, Years) 
-data4 <- xmar %>% filter(GenderAge == "Male 65+") %>% select(Opinion, Years) 
-data5 <- xmar %>% filter(GenderAge == "Female 15-24") %>% select(Opinion, Years) 
-data6 <- xmar %>% filter(GenderAge == "Female 25-44") %>% select(Opinion, Years) 
-data7 <- xmar %>% filter(GenderAge == "Female 45-64") %>% select(Opinion, Years) 
-data8 <- xmar %>% filter(GenderAge == "Female 65+") %>% select(Opinion, Years) 
+```{r genderAgeAnalysis, echo = F, message = FALSE, warning=FALSE}
+data1 <- xmar %>% filter(GenderAge == "Male 15-24") %>% select(Opinion, Period) 
+data2 <- xmar %>% filter(GenderAge == "Male 25-44") %>% select(Opinion, Period) 
+data3 <- xmar %>% filter(GenderAge == "Male 45-64") %>% select(Opinion, Period) 
+data4 <- xmar %>% filter(GenderAge == "Male 65+") %>% select(Opinion, Period) 
+data5 <- xmar %>% filter(GenderAge == "Female 15-24") %>% select(Opinion, Period) 
+data6 <- xmar %>% filter(GenderAge == "Female 25-44") %>% select(Opinion, Period) 
+data7 <- xmar %>% filter(GenderAge == "Female 45-64") %>% select(Opinion, Period) 
+data8 <- xmar %>% filter(GenderAge == "Female 65+") %>% select(Opinion, Period) 
 
-genderAge1 <- analyze(data1, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Male 15-24)")
-genderAge2 <- analyze(data2, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Male 25-44)")
-genderAge3 <- analyze(data3, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Male 45-64)")
-genderAge4 <- analyze(data4, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Male 65+)")
-genderAge5 <- analyze(data5, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Female 15-24)")
-genderAge6 <- analyze(data6, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Female 25-44)")
-genderAge7 <- analyze(data7, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Female 45-64)")
-genderAge8 <- analyze(data8, y = "Opinion", x = "Years", success = "Traditional", title = "Opinions by Years (Female 65+)")
+genderAge1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 15-24", title = "Opinions by Period (Male 15-24)")
+genderAge2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 25-44", title = "Opinions by Period (Male 25-44)")
+genderAge3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 45-64", title = "Opinions by Period (Male 45-64)")
+genderAge4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 65+", title = "Opinions by Period (Male 65+)")
+genderAge5 <- analyze(data5, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 15-24", title = "Opinions by Period (Female 15-24)")
+genderAge6 <- analyze(data6, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 25-44", title = "Opinions by Period (Female 25-44)")
+genderAge7 <- analyze(data7, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 45-64", title = "Opinions by Period (Female 45-64)")
+genderAge8 <- analyze(data8, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 65+", title = "Opinions by Period (Female 65+)")
 
+genderAge <- rbind(genderAge1$test$df, genderAge2$test$df, genderAge3$test$df, genderAge4$test$df, genderAge5$test$df, genderAge6$test$df, genderAge7$test$df, genderAge8$test$df)
 ```
 
 `r kfigr::figr(label = "genderAgePlots", prefix = TRUE, link = TRUE, type="Figure")` indicates that a trend towards traditional views for the years since 2000 for both genderAges.
 
-```{r genderAgePlots, echo = F, messgenderAge = FALSE, warning=FALSE, fig.height = 20}
+```{r genderAgePlots, echo = F, message = FALSE, warning=FALSE, fig.height = 20}
 genderAgePlots <- 
 gridExtra::grid.arrange(gridExtra::arrangeGrob(genderAge1$plots$observed, genderAge2$plots$observed, ncol = 2),
                         gridExtra::arrangeGrob(genderAge3$plots$observed, genderAge4$plots$observed, ncol = 2),
@@ -548,46 +575,10 @@ gridExtra::grid.arrange(gridExtra::arrangeGrob(genderAge1$plots$observed, gender
 The degree to which opinions have changed by gender and age group was examined via the following hypotheses:  
 $H_0$ $p_1 - p_2 = 0$   
 $H_a$ $p_1 - p_2 \neq 0$    
-  
-$H_0$ $p_3 - p_4 = 0$    
-$H_a$ $p_3 - p_4 \neq 0$    
-  
-$H_0$ $p_5 - p_6 = 0$    
-$H_a$ $p_5 - p_6 \neq 0$    
-  
-$H_0$ $p_7 - p_8 = 0$  
-$H_a$ $p_7 - p_8 \neq 0$  
-  
-$H_0$ $p_9 - p_{10} = 0$    
-$H_a$ $p_9 - p_{10} \neq 0$    
-  
-$H_0$ $p_{11} - p_{12} = 0$    
-$H_a$ $p_{11} - p_{12} \neq 0$      
-  
-$H_0$ $p_{13} - p_{14} = 0$    
-$H_a$ $p_{13} - p_{14} \neq 0$    
-  
-$H_0$ $p_{15} - p_{16} = 0$    
-$H_a$ $p_{15} - p_{16} \neq 0$  
-
 where:   
-$p_1$ is the proportion of traditional opinion among males age 15-24 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among males age 15-24 for years since 2000  
-$p_3$ is the proportion of traditional opinion among males age 25-44 for years prior to 2000  
-$p_4$ is the proportion of traditional opinion among males age 25-44 for years since 2000  
-$p_5$ is the proportion of traditional opinion among males age 45-64 for years prior to 2000  
-$p_6$ is the proportion of traditional opinion among males age 45-64 for years since 2000  
-$p_7$ is the proportion of traditional opinion among males age 65+ for years prior to 2000  
-$p_8$ is the proportion of traditional opinion among males age 65+ for years since 2000  
-  
-$p_9$ is the proportion of traditional opinion among females age 15-24 for years prior to 2000  
-$p_{10}$ is the proportion of traditional opinion among females age 15-24 for years since 2000  
-$p_{11}$ is the proportion of traditional opinion among females age 25-44 for years prior to 2000  
-$p_{12}$ is the proportion of traditional opinion among females age 25-44 for years since 2000  
-$p_{13}$ is the proportion of traditional opinion among females age 45-64 for years prior to 2000  
-$p_{14}$ is the proportion of traditional opinion among females age 45-64 for years since 2000  
-$p_{15}$ is the proportion of traditional opinion among females age 65+ for years prior to 2000  
-$p_{16}$ is the proportion of traditional opinion among females age 65+ for years since 2000  
+$p_1$ is the proportion of traditional opinion by gender and age group for years prior to 2000  
+$p_2$ is the proportion of traditional opinion by gender and age group for years since 2000    
+
 
 ### Inference Conditions
 The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the genders and age groups, were examined as follows:
@@ -599,12 +590,19 @@ The inference conditions for a two-proportion test for differences in the propor
 As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
-#### Male Population Age 15-24
+#### Male Population Age 15-24  
+The following hypotheses examine the differences in opinion for males age 15-24 over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among males age 15-24 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among males age 15-24 for years since 2000    
+
 `r genderAge1$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge1$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 15-24
+`r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 15-24
 ```{r genderAge1ZTest, echo = F, results='html'}
 knitr::kable(genderAge1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -613,11 +611,18 @@ knitr::kable(genderAge1$test$df) %>%
 `r genderAge1$test$stmt$conclude`
 
 #### Male Population Age 25-44
+The following hypotheses examine the differences in opinion for males age 25-44 over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among males age 25-44 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among males age 25-44 for years since 2000    
+
 `r genderAge2$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge2$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 25-44
+`r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 25-44
 ```{r genderAge2ZTest, echo = F, results='html'}
 knitr::kable(genderAge2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -626,11 +631,18 @@ knitr::kable(genderAge2$test$df) %>%
 `r genderAge2$test$stmt$conclude`
 
 #### Male Population Age 45-64
+The following hypotheses examine the differences in opinion for males age 45-64 over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among males age 45-64 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among males age 45-64 for years since 2000    
+
 `r genderAge3$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge3$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 45-64
+`r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 45-64
 ```{r genderAge3ZTest, echo = F, results='html'}
 knitr::kable(genderAge3$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -639,11 +651,18 @@ knitr::kable(genderAge3$test$df) %>%
 `r genderAge3$test$stmt$conclude`
 
 #### Male Population Age 65+
+The following hypotheses examine the differences in opinion for males age 65+ over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among males age 65+ for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among males age 65+ for years since 2000    
+
 `r genderAge4$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge4$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for male population age 65+
+`r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 65+
 ```{r genderAge4ZTest, echo = F, results='html'}
 knitr::kable(genderAge4$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -653,11 +672,18 @@ knitr::kable(genderAge4$test$df) %>%
 
 
 #### Female Population Age 15-24
+The following hypotheses examine the differences in opinion for females age 15-24 over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among females age 15-24 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among females age 15-24 for years since 2000    
+
 `r genderAge5$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge5$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 15-24
+`r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 15-24
 ```{r genderAge5ZTest, echo = F, results='html'}
 knitr::kable(genderAge5$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -666,11 +692,18 @@ knitr::kable(genderAge5$test$df) %>%
 `r genderAge5$test$stmt$conclude`
 
 #### Female Population Age 25-44
+The following hypotheses examine the differences in opinion for females age 25-44 over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among females age 25-44 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among females age 25-44 for years since 2000    
+
 `r genderAge6$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge6$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 25-44
+`r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 25-44
 ```{r genderAge6ZTest, echo = F, results='html'}
 knitr::kable(genderAge6$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -679,11 +712,18 @@ knitr::kable(genderAge6$test$df) %>%
 `r genderAge6$test$stmt$conclude`
 
 #### Female Population Age 45-64
+The following hypotheses examine the differences in opinion for females age 45-64 over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among females age 45-64 for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among females age 45-64 for years since 2000    
+
 `r genderAge7$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge7$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 45-64
+`r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 45-64
 ```{r genderAge7ZTest, echo = F, results='html'}
 knitr::kable(genderAge7$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -692,11 +732,18 @@ knitr::kable(genderAge7$test$df) %>%
 `r genderAge7$test$stmt$conclude`
 
 #### Female Population Age 65+
+The following hypotheses examine the differences in opinion for females age 65+ over the periods of the study.  
+$H_0$ $p_1 - p_2 = 0$   
+$H_a$ $p_1 - p_2 \neq 0$    
+where:   
+$p_1$ is the proportion of traditional opinion among females age 65+ for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among females age 65+ for years since 2000    
+
 `r genderAge8$test$stmt$type` 
 
 As indicated in `r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge8$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by years for female population age 65+
+`r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 65+
 ```{r genderAge8ZTest, echo = F, results='html'}
 knitr::kable(genderAge8$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
@@ -705,11 +752,59 @@ knitr::kable(genderAge8$test$df) %>%
 `r genderAge8$test$stmt$conclude`
 
 # Discussion
+```{r discussion, echo = F, message = FALSE, warning=FALSE}
+ageGroupDiscussion <- discussion(age)
+genderDiscussion <- discussion(gender)
+genderAgeDiscussion <- discussion(genderAge)
+```
 ## Evolution of Opinion by Age Group
+There has been a slight increase in the proportion of people holding traditional opinions w.r.t. extra-marital conduct over the periods up to and following the year 2000 across most age groups. `r kfigr::figr(label = "agePlot", prefix = TRUE, link = TRUE, type="Figure")` shows that the degree of change in opinion appears to correlate negatively with age; whereby, the greatest amount of change (`r round(ageGroupDiscussion$data %>% summarize(max(PctChange)), 2)`%) was associate with the 15-24 age group. The `r round(ageGroupDiscussion$data %>% summarize(min(PctChange)), 2)`% within the 65+ age group was not significant.
+
+
+`r kfigr::figr(label = "ageDisc", prefix = TRUE, link = TRUE, type="Table")`: Summary of analysis by age group
+```{r ageDisc, echo = F, results='html'}
+knitr::kable(ageGroupDiscussion$data, align = c("l", rep("c", 4))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r agePlot, echo = F, message = FALSE, warning=FALSE}
+ageGroupDiscussion$plot
+```
+`r kfigr::figr(label = "agePlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by age group
 
 ## Evolution of Opinion by Gender
+Similarly, there was a trend towards more traditional opinion for both males and females, with `r round(ageGroupDiscussion$data %>% summarize(max(PctChange)), 2)`% and `r round(ageGroupDiscussion$data %>% summarize(min(PctChange)), 2)`% increases respectively. As indicated in `r kfigr::figr(label = "genderPlot", prefix = TRUE, link = TRUE, type="Figure")`, more men found extra-marital conduct to be wrong, or almost always wrong at over twice the rate than did the female population.  
+
+`r kfigr::figr(label = "genderDisc", prefix = TRUE, link = TRUE, type="Table")`: Summary of analysis by gender
+```{r genderDisc, echo = F, results='html'}
+knitr::kable(genderDiscussion$data, align = c("l", rep("c", 4))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r genderPlot, echo = F, message = FALSE, warning=FALSE}
+genderDiscussion$plot
+```
+`r kfigr::figr(label = "genderPlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by gender
+
 
 ## Evolution of Opinion by Age Group and Gender
+The trend towards increasingly traditional opinion among the younger population can also be seen within the male population. Men age 15-24 had the greatest degree of change (10%) towards more conservative opinions, followed by men age 25-44, then the 45-65 age group.  The change in opinion within the 65+ age group was not significant. The positions of the female population was more stable.  The greatest amount of change was with the 25-44 age group with an approximate 5% increase in the proportion of women holding conservative views. The changes among the other age groups in the female population were not significant. 
+
+
+`r kfigr::figr(label = "genderAgeDisc", prefix = TRUE, link = TRUE, type="Table")`: Summary of analysis by age and gender
+```{r genderAgeDisc, echo = F, results='html'}
+knitr::kable(genderAgeDiscussion$data, align = c("l", rep("c", 4))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+
+```{r genderAgePlot, echo = F, message = FALSE, warning=FALSE}
+genderAgeDiscussion$plot
+```
+`r kfigr::figr(label = "genderAgePlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by age and gender
+
+# Conclusion
+Amid claims of an increasing lack of deference to and respect for certain institutions on behalf of mellennials, this study indicates that the belief in the sanctity of marriage has not only remained stable for nearly half a century, but has slightly increased. Most notable is that the trend towards more conservatively held views is led largely by the mellennial generation.  But this reveals only part of the story. Future studies might examine questions such as the rates of marriage and divorce, the number of marriages per capita, marrying age, and the average length of marriage. Whereas marriage was once an expected milestone, are their fewer of us making the decision than before?  Are people approaching the institution with greater consideration? What can data tell us about ourselves, how we live...how we choose to live?
 
 # Appendix
 ## Source Code

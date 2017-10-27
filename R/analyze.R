@@ -30,7 +30,7 @@
 #' @param x Character string label for the explanatory variable.
 #' @param title Character string containing title of the plot
 #' @param success Character string equivalent to the response variable level to be analyzed.
-#' @param xOrder Vector of character strings which list the order of the levels of the explanatory variable.
+#' @param scope Character string indicating the scope of the data.
 #' @param conf Numeric between 0 and 1, indicates desired confidence level for hypothesis test.
 #' @param alpha Numeric between 0 and 1, indicates the target probability of a type I error.
 #' @return list containing three types of objects: (1) data, both raw and summarized observed and expected frequencies,
@@ -41,14 +41,15 @@
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #' @family xmar functions
 #' @export
-analyze <- function(data, y, x, title, success = "Traditional", xOrder = NULL) {
+analyze <- function(data, y, x, title, success = "Traditional", scope,
+                    conf = 0.95, alpha = 0.05) {
 
   # Format data, render bar plots, and conduct hypothesis test
   data <- formatData(data)
 
   # Conduct test
-  test <- zTest(data, success = success, xOrder = NULL, alternative = "two.sided",
-                conf = 0.95, alpha = 0.05)
+  test <- zTest(data, success = success, scope = scope, alternative = "two.sided",
+                conf = conf, alpha = alpha)
 
   # Plot Data
   observed <- plotBars(data$observed, y = y, x = x, title = title)

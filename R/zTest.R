@@ -11,7 +11,7 @@
 #'
 #' @param data Explanatory and response variable values
 #' @param success Which level of response variable to call "success", i.e. upon which inference should be done. Defaults to order in which factor variables are defined.
-#' @param xOrder The order in which the levels of the explanatory variable should be analyzed. Defaults to order in which factor variables are defined.
+#' @param scope Character string indicating the scope of the data being analyzed.
 #' @param alternative direction of the alternative hypothesis; "less","greater", or "two.sided"
 #' @param conf Desired confidence level
 #' @param alpha Probability of a type I error
@@ -20,13 +20,13 @@
 #'
 #' @family xmar functions
 #' @export
-zTest <- function(data, success = "Traditional", xOrder = NULL, alternative = "two.sided",
-                  conf = 0.95, alpha = 0.05) {
+zTest <- function(data, success = "Traditional",scope,
+                  alternative = "two.sided", conf = 0.95, alpha = 0.05) {
 
   #---------------------------------------------------------------------------#
   #                                 PropTest                                  #
   #---------------------------------------------------------------------------#
-  groups <- as.character((data$observed %>% filter(.[[2]] == success) %>% select(Years))$Years)
+  groups <- as.character((data$observed %>% filter(.[[2]] == success) %>% select(Period))$Period)
   pSuccess <- (data$observed %>% filter(.[[2]] == success) %>% select(Prop))$Prop
   nSuccess <- (data$observed %>% filter(.[[2]] == success) %>% select(Freq))$Freq
   nTotal <- (data$observed %>% group_by(.[[1]]) %>% summarize(Ttl = sum(Freq)) %>% select(Ttl))$Ttl
@@ -48,6 +48,7 @@ zTest <- function(data, success = "Traditional", xOrder = NULL, alternative = "t
                    ifelse(alternative == "greater", "One-Sided, Two-Sample Proportion Test",
                           "Two-Sample Proportion Test")),
     Groups = paste0(groups[1], "/", groups[2]),
+    Scope = scope,
     H0 = paste0("H0: p1 = p2"),
     Ha = ifelse(alternative == "less", "p1 < p2",
                 ifelse(alternative == "greater",  "p1 > p2", "p1 <> p2")),
@@ -71,14 +72,14 @@ zTest <- function(data, success = "Traditional", xOrder = NULL, alternative = "t
   group2 <- data$observed %>% filter(.[[1]] != topGroup)
 
   # Extract values for text
-  g1  <- (unique(group1 %>% select(Years))$Years)
+  g1  <- (unique(group1 %>% select(Period))$Period)
   p1  <- (group1 %>% filter(Opinion == "Traditional") %>% select(Prop))$Prop
   p1a <- (group1 %>% filter(Opinion == "Non-Traditional") %>% select(Prop))$Prop
   f1  <- (group1 %>% filter(Opinion == "Traditional") %>% select(Freq))$Freq
   f1a <-(group1 %>% filter(Opinion == "Non-Traditional") %>% select(Freq))$Freq
   t1 <- f1 + f1a
 
-  g2  <- (unique(group2 %>% select(Years))$Years)
+  g2  <- (unique(group2 %>% select(Period))$Period)
   p2  <- (group2 %>% filter(Opinion == "Traditional") %>% select(Prop))$Prop
   p2a <- (group2 %>% filter(Opinion == "Non-Traditional") %>% select(Prop))$Prop
   f2  <- (group2 %>% filter(Opinion == "Traditional") %>% select(Freq))$Freq

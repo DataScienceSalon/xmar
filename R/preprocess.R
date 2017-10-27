@@ -13,7 +13,7 @@ preprocess <- function(GSS) {
   # Create study variables
   xmar <- GSS %>%
     dplyr::mutate(
-      Years = ifelse(YEAR < 2000, "Prior to 2000", "Since 2000"),
+      Period = ifelse(YEAR < 2000, "Prior to 2000", "Since 2000"),
       AgeGroup = ifelse(AGE < 25, "15-24",
                         ifelse(AGE < 45, "25-44",
                                ifelse(AGE < 65, "45-64",
@@ -23,7 +23,7 @@ preprocess <- function(GSS) {
       GenderAge = paste(Gender, AgeGroup),
       Opinion = ifelse(XMARSEX %in% c(1,2), "Traditional",
                         ifelse(XMARSEX  %in%  c(3,4), "Non-Traditional", "NA"))) %>%
-    dplyr::select(Years, AgeGroup, Gender, GenderAge, Opinion)
+    dplyr::select(Period, AgeGroup, Gender, GenderAge, Opinion)
 
   # Filter NA values
   xmar <- xmar %>% filter(AgeGroup != "NA")
@@ -32,7 +32,7 @@ preprocess <- function(GSS) {
 
 
   # Create factor levels
-  xmar$Years <- factor(xmar$Years, levels = c("Prior to 2000", "Since 2000"))
+  xmar$Period <- factor(xmar$Period, levels = c("Prior to 2000", "Since 2000"))
   xmar$AgeGroup <- factor(xmar$AgeGroup,
                           levels = c("15-24", "25-44", "45-64", "65+"))
   xmar$Gender <- factor(xmar$Gender, levels = c("Male", "Female"))
