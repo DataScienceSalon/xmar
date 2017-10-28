@@ -73,7 +73,7 @@ univariate <- function(xmar) {
   gender <- as.data.frame(xmar$gender %>% select(Gender) %>% group_by(Gender) %>%
                             summarize(N = n()) %>%
                             mutate(p = N/ sum(N)), row.names = NULL)
-  clas <- as.data.frame(xmar$class %>% select(Class) %>% group_by(Class) %>%
+  educ <- as.data.frame(xmar$educ %>% select(Educ) %>% group_by(Educ) %>%
                             summarize(N = n()) %>%
                             mutate(p = N/ sum(N)), row.names = NULL)
   region <- as.data.frame(xmar$region %>% select(Region) %>% group_by(Region) %>%
@@ -85,7 +85,7 @@ univariate <- function(xmar) {
   opinion <- analyze(opinion, "Opinion")
   age <- analyze(age, "Age Group")
   gender <- analyze(gender, "Gender")
-  clas <- analyze(clas, "Class")
+  educ <- analyze(educ, "Education")
   region <- analyze(region, "Region")
 
   # Return analysis
@@ -94,7 +94,7 @@ univariate <- function(xmar) {
     opinion = opinion,
     age = age,
     gender = gender,
-    class = clas,
+    educ = educ,
     region = region
     )
   return(analysis)

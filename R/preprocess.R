@@ -21,6 +21,7 @@ preprocess <- function(GSS) {
   # Order factors
   periodVar$Period <- factor(periodVar$Period,
                               levels = c("Prior to 2000", "Since 2000"))
+  periodVar <- periodVar %>% filter(Period != "NA")
 
 
   #---------------------------------------------------------------------------#
@@ -36,7 +37,7 @@ preprocess <- function(GSS) {
   # Order factors
   opinionVar$Opinion <- factor(opinionVar$Opinion,
                                levels = c("Traditional", "Non-Traditional"))
-
+  opinionVar <- opinionVar %>% filter(Opinion != "NA")
   #---------------------------------------------------------------------------#
   #                            Gender Variable                                #
   #---------------------------------------------------------------------------#
@@ -48,6 +49,7 @@ preprocess <- function(GSS) {
 
   # Order factors
   genderVar$Gender <- factor(genderVar$Gender, levels = c("Male", "Female"))
+  genderVar <- genderVar %>% filter(Gender != "NA")
 
   #---------------------------------------------------------------------------#
   #                              Age Variable                                 #
@@ -59,27 +61,31 @@ preprocess <- function(GSS) {
                                ifelse(AGE < 65, "45-64",
                                       ifelse(AGE < 98, "65+", "NA"))))) %>%
     dplyr::select(AgeGroup)
+  ageVar <- ageVar %>% filter(AgeGroup != "NA")
 
   # Order factors
   ageVar$AgeGroup <- factor(ageVar$AgeGroup,
                             levels = c("15-24", "25-44", "45-64", "65+"))
 
   #---------------------------------------------------------------------------#
-  #                              Class Variable                               #
+  #                           Education Variable                              #
   #---------------------------------------------------------------------------#
-  classVar <- GSS %>%
+  educVar <- GSS %>%
     dplyr::mutate(
-      Class = ifelse(CLASS_ == 1, "Lower Class",
-                     ifelse(CLASS_ == 2, "Working Class",
-                            ifelse(CLASS_ == 3, "Middle Class",
-                                   ifelse(CLASS_ == 4, "Upper Class",
-                                          "NA"))))) %>%
-    dplyr::select(Class)
+      Educ = ifelse(EDUC < 13, "High School",
+                     ifelse(EDUC < 15, "Some College",
+                            ifelse(EDUC <  17, "UnderGraduate",
+                                   ifelse(EDUC < 19, "Graduate",
+                                          ifelse(EDUC < 21, "Post-Graduate",
+                                          "NA")))))) %>%
+    dplyr::select(Educ)
 
   # Order factors
-  classVar$Class <- factor(classVar$Class,
-                           levels = c("Lower Class", "Working Class",
-                                      "Middle Class", "Upper Class"))
+  educVar$Educ <- factor(educVar$Educ,
+                           levels = c("High School", "Some College",
+                                      "UnderGraduate", "Graduate",
+                                      "Post-Graduate"))
+  educVar <- educVar %>% filter(Educ != "NA")
 
   #---------------------------------------------------------------------------#
   #                              Region Variable                              #
@@ -97,7 +103,7 @@ preprocess <- function(GSS) {
   regionVar$Region <- factor(regionVar$Region,
                             levels = c("Northeast", "South",
                                        "Midwest", "Mountain", "Pacific"))
-
+  regionVar <- regionVar %>% filter(Region != "NA")
   #---------------------------------------------------------------------------#
   #                             Gender Data (Bivariate)                       #
   #---------------------------------------------------------------------------#
@@ -184,33 +190,35 @@ preprocess <- function(GSS) {
                               levels = c("Traditional", "Non-Traditional"))
 
   #---------------------------------------------------------------------------#
-  #                         Class Data (Bivariate)                            #
+  #                         Education Data (Bivariate)                        #
   #---------------------------------------------------------------------------#
   # Extract Data (Bivariate)
-  clas <- GSS %>%
+  educ <- GSS %>%
     dplyr::mutate(
       Period = ifelse(YEAR < 2000, "Prior to 2000", "Since 2000"),
-      Class = ifelse(CLASS_ == 1, "Lower Class",
-                     ifelse(CLASS_ == 2, "Working Class",
-                            ifelse(CLASS_ == 3, "Middle Class",
-                                   ifelse(CLASS_ == 4, "Upper Class",
-                                          "NA")))),
+      Educ = ifelse(EDUC < 13, "High School",
+                    ifelse(EDUC < 15, "Some College",
+                           ifelse(EDUC <  17, "UnderGraduate",
+                                  ifelse(EDUC < 19, "Graduate",
+                                         ifelse(EDUC < 21, "Post-Graduate",
+                                                "NA"))))),
       Opinion = ifelse(XMARSEX %in% c(1,2), "Traditional",
                        ifelse(XMARSEX  %in%  c(3,4), "Non-Traditional", "NA"))) %>%
-    dplyr::select(Period, Class, Opinion)
+    dplyr::select(Period, Educ, Opinion)
 
   # Filter Data (Bivariate)
-  clas <- clas %>% filter(Period != "NA")
-  clas <- clas %>% filter(Class != "NA")
-  clas <- clas %>% filter(Opinion != "NA")
+  educ <- educ %>% filter(Period != "NA")
+  educ <- educ %>% filter(Educ != "NA")
+  educ <- educ %>% filter(Opinion != "NA")
 
   # Order factors
-  clas$Period <- factor(clas$Period,
+  educ$Period <- factor(educ$Period,
                              levels = c("Prior to 2000", "Since 2000"))
-  clas$Class <- factor(clas$Class,
-                        levels = c("Lower Class", "Working Class",
-                                   "Middle Class", "Upper Class"))
-  clas$Opinion <- factor(clas$Opinion,
+  educ$Educ <- factor(educ$Educ,
+                      levels = c("High School", "Some College",
+                                 "UnderGraduate", "Graduate",
+                                 "Post-Graduate"))
+  educ$Opinion <- factor(educ$Opinion,
                               levels = c("Traditional", "Non-Traditional"))
 
   #---------------------------------------------------------------------------#
@@ -248,14 +256,13 @@ preprocess <- function(GSS) {
       opinion = opinionVar,
       ageGroup = ageVar,
       gender = genderVar,
-      class = classVar,
+      educ = educVar,
       region = regionVar
     ),
     bivariate = list(
       ageGroup = ageGroup,
       gender = gender,
-      genderAge = genderAge,
-      class = clas,
+      educ = educ,
       region = region
     )
   )

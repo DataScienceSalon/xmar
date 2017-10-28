@@ -20,7 +20,7 @@
 #'
 #' @family xmar functions
 #' @export
-zTest <- function(data, success = "Traditional",scope,
+zTest <- function(data, success = "Traditional", scope,
                   alternative = "two.sided", conf = 0.95, alpha = 0.05) {
 
   #---------------------------------------------------------------------------#
@@ -109,37 +109,53 @@ zTest <- function(data, success = "Traditional",scope,
 
   # Format Statements
   stmt <- list()
-  stmt$type <- paste0("This was a two-proportion z-test of the null hypothesis that the true population proportions of ",
-                      "traditional opinion among the ", groups[1], " and ",
-                      groups[2], " groups are equal with ", (conf * 100), "% confidence. ")
+  stmt$type <- paste0("This was a ", (conf * 100), "% confidence, two-proportion z-test ",
+                      "of the null hypothesis that the true population proportion of ",
+                      "traditional opinion within the ", tolower(scope), " population is equal for ",
+                      "the periods prior to and since the year 2000. ")
 
   if ((alternative == "two.sided" & pValue < (alpha / 2))
        | (alternative != "two.sided" & pValue < alpha)) {
-    stmt$conclude <- paste0("Therefore, the null hypothesis was rejected in favor of the alternative hypothesis, with ",
-           conf * 100, "% confidence, that the true population proportion ",
-           "of traditional opinion in the ", groups[1], " group is ", alt,
-           " the true population proportion of traditional ",
-           "opinion in the ", groups[2], " group. ", ciNote, "Lastly, ",
-           "one can conclude with 95% confidence that the ", g1, " group is ",
-           round(rr$measure[[2]], 2), " times as likely as the ", g2, " group to hold traditional opinions. ")
+    stmt$conclude <- paste0("Therefore, the null hypothesis was rejected with, ",
+                            conf * 100, "% confidence, in favor ",
+                            "of the alternative hypothesis that the true ",
+                            "population proportion of traditional opinion ",
+                            "within the ", tolower(scope), " population ",
+                            tolower(g1), " is ", alt, " the true population ",
+                            "proportion of traditional opinion within the ",
+                            tolower(scope), " population ", tolower(g2), ". ",
+                            "Moreover, one can conclude with ", conf * 100,
+                            "% confidence, that a randomly selected person from the ",
+                            tolower(scope), " population ", tolower(g1), " is ",
+                            round(rr$measure[[2]], 2), " times as likely to ",
+                            "hold traditional opinions than such a randomly ",
+                            "selected person from the ", tolower(scope),
+                            " population ", tolower(g2), ". ")
   } else {
-    stmt$conclude <- paste0("Therefore, the null hypothesis was not rejected; consequently, one concludes, with ",
-           conf * 100, "% confidence, that the true proportion of traditional opinion",
-           " among the ", groups[1], " and ", groups[2], " groups are equal.", ciNote)
+    stmt$conclude <- paste0("Therefore, the null hypothesis was not rejected; ",
+                            "consequently, one concludes, with ", conf * 100,
+                            "% confidence, that the true proportion of ",
+                            "traditional opinion among the ", tolower(scope),
+                            " populations prior to and since the year 2000 ",
+                            "are equal.", ciNote)
   }
 
-  stmt$detail <- paste0("the observed frequency of traditional opinion in the ", g1, " group was ",
+  stmt$detail <- paste0("the observed frequency of traditional opinion ",
+                        tolower(g1), " in the ", tolower(scope), " was ",
                         prettyNum(round(f1, 0), big.mark = ",") ,
                         " out of a total of ", prettyNum(t1, big.mark = ","),
-                        " observations, yielding a proportion equal to ", round(p1, 2), ".",
-                        "The observed frequency of traditional opinion in the ", g2,
-                        " group was ", prettyNum(round(f2, 0), big.mark = ",") ,
+                        " observations, yielding a proportion equal to ",
+                        round(p1, 2), ". The observed frequency of traditional ",
+                        " opinion ", tolower(g2), " in the ", tolower(scope),
+                        " population was ", prettyNum(round(f2, 0), big.mark = ",") ,
                         " out of a total of ", prettyNum(t2, big.mark = ","),
-                        " observations, yielding a proportion equal to ", round(p2, 2), ".",
-                        " The difference in observed proportions of traditional",
-                        "' opinion was ", round(p1 - p2, 2), ", raising a z-score of ", round(zScore, 2), ".",
-                        " The probability of encountering a difference in proportions",
-                        " this extreme (p-value) is approximately ", round(t$p.value, 4), ". ")
+                        " observations, yielding a proportion equal to ",
+                        round(p2, 2), ". The difference in observed proportions ",
+                        "of traditional opinion was ", round(p1 - p2, 2),
+                        ", raising a z-score of ", round(zScore, 2), ".",
+                        " The probability of encountering a difference in ",
+                        "proportions this extreme (p-value) is approximately ",
+                        round(t$p.value, 4), ". ")
 
   result <- list(
     df = as.data.frame(z, row.names = NULL, stringsAsFactors = FALSE),

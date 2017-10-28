@@ -47,36 +47,35 @@ eda <- univariate(xmar$univariate)
 
 # Abstract
 # Introduction
-There is no dearth of research on American's changing attitudes towards marriage, its primacy as a way of life, and its exclusivity. Approximately four-in-ten Americans say that the present institution of marriage is becoming obsolete [@Taylor2010]. According to the same Pew Research 2010 study, 72% of all adults in America were married. By 2008, this proportion dropped to 52%. From this apparent decline in marriage, Americans are slowly becoming more accepting of open relationships, consensual non-manogamy (CNG) practices, and the like. Nearly half of the population of Americans would consider an open relationship, though fewer than 4% actually claim to be in an open relationship [@Avvo]. Notwithstanding, nearly 22% of married men and 14% of married women admit to having an affair at least once during their marriages, with or without the spousal concent [@Johnson2017].
+There is no dearth of research on American's changing attitudes towards marriage, its primacy as a way of life, and its exclusivity. Approximately four-in-ten Americans say that the present institution of marriage is becoming obsolete [@Taylor2010]. According to the same Pew Research 2010 study, 72% of all adults in America were married in 1960. By 2008, this percentage had dropped to 52%. From this apparent decline in marriage, Americans are slowly becoming more accepting of open relationships, consensual non-manogamy (CNG) practices, and the like. Nearly half of the population of Americans would consider an open relationship, though fewer than 4% actually claim to be in one [@Avvo]. Notwithstanding, nearly 22% of married men and 14% of married women admit to having an affair at least once during their marriages, with or without the spousal concent [@Johnson2017].
 
-The purpose of this study is to examine the nature and evolution of attitudes and opinions with respect to (w.r.t.) extra-marital conduct. The opinions of over, 37,000 Americans (44% women, 56% men) over a period of 44 years (1972-2016) served as the data for this project, courtesy of the General Social Survey (GSS) [@NORCa], a project of NORC at the University of Chicago that monitors societal change and studies the growing complexity of American society. Concretely, this report contrasts the attitudes and opinions by various demographic factors over the two periods: the years prior to and since the year 2000. The extent to which such attitudes have changed by gender, age, class, and geographic region is the primary aim of this investigation.
-
+The purpose of this study is to examine the nature and evolution of attitudes and opinions with respect to (w.r.t.) extra-marital conduct. Serving as the data source, the opinions of over, 37,000 Americans (44% women, 56% men) over a period of 44 years (1972-2016), courtesy of the General Social Survey (GSS) [@NORCa], a project of NORC at the University of Chicago that monitors societal change and studies the growing complexity of American society. Concretely, this report contrasts the attitudes and opinions by various demographic factors over two periods: the years prior to and since the year 2000. Understanding the extent to which such attitudes have changed by gender, age, education, class, and geographic region is the primary aim of this investigation.
 
 ## Research Questions
-This observational study examines the nature and evolution of opinion with respect to (w.r.t.) extra-marital conduct since the start of the millennium via five research questions.
+This observational study examines the nature and evolution of opinion with respect to (w.r.t.) extra-marital conduct since the start of the millennium via four research questions.
 
 **Research Question 1:**  To what degree have opinions changed since the year 2000 by age group?    
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Grouping Variable: Period, i.e., years prior to and since 2000, and age group
+* Explanatory Variable: Age group
+* Controlling Variable: Period, i.e., years prior to and since 2000
 
 **Research Question 2:**  To what degree have opinions changed since the year 2000 by gender?  
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Grouping Variable: Period, i.e., years prior to and since 2000, and gender  
+* Explanatory Variable: Gender
+* Controlling Variable: Period, i.e., years prior to and since 2000
   
-**Research Question 3:** To what degree have opinions changed since the year 2000 by age group and gender?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct  
-* Grouping Variable: Period, i.e., years prior to and since 2000, age group and gender  
+**Research Question 3:** To what degree have opinions changed since the year 2000 by highest education level achieved?  
+* Dependent Variable: Opinion w.r.t. extra-marital conduct    
+* Explanatory Variable: Highest education level achieved
+* Controlling Variable: Period, i.e., years prior to and since 2000
 
-**Research Question 4:** To what degree have opinions changed since the year 2000 by class?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct  
-* Grouping Variable: Period, i.e., years prior to and since 2000 and class
-
-**Research Question 5:** To what degree have opinions changed since the year 2000 by region?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct  
-* Grouping Variable: Period, i.e., years prior to and since 2000, and region
+**Research Question 4:** To what degree have opinions changed since the year 2000 by region?  
+* Dependent Variable: Opinion w.r.t. extra-marital conduct    
+* Explanatory Variable: Region
+* Controlling Variable: Period, i.e., years prior to and since 2000
 
 ## Document Organization
-The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the analyses. Hypotheses are offered, analyzed and tested in the **results** section, and the **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
+The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the analyses. Hypotheses are offered, analyzed and tested in the **results** section. The **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
 
 # Methods
 ## Data 
@@ -103,7 +102,7 @@ The following table lists the variables extracted from the GSS data.
 ```{r variableTbl, echo = F, message = FALSE, warning=FALSE}
 variables <- read.csv("../data/variables.csv")
 knitr::kable(variables) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = F, position = "center")
+  kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
 ### Data Preprocessing
@@ -112,26 +111,34 @@ The GSS variables were extracted for years 1972 thru 2016 and the following vari
 **Period**: Two factor variable  
 * Prior to 2000: Period from beginning of study through 1999 inclusive  
 * Since 2000: Period from 2000 through 2016  
-
 **Age Group**: Four factor variable  
 * 18-24  
 * 25-44  
 * 45-64  
 * 65+  
-
 **Opinion**: Two factor variable:  
 * Traditional: Always wrong and almost always wrong  
 * Non-Traditional: Sometimes wrong and not wrong at all  
+**Region**: Five factor variable:   
+* Northeast: Comprised of responses from the New England and Mid Atlantic regions   
+* MidWest: Comprised of responses from the East Central and West Central regions  
+* South: Consisting of responses from the South Atlantic and East and West South Central regions  
+* Mountain  
+* Pacific 
+**Educ**: Five factor variable:  
+* High School: Education years 0 thru 12   
+* Some College: Education years 13 thru 14   
+* UnderGraduate: Education years 15 thru 16  
+* Graduate: Education years 17 thru 18   
+* Post-Graduate: Education years 19 thru 20  
 
-**GenderAge**: Eight factor variable:  
-* Combines gender and age group into a single 8 factor variable.  
 
 Responses with "NAs", "Don't Know", and other non-response values for the GSS variables in scope, were filtered from the data set. 
 
 ## Data Analysis
-The data analysis outlined in the results section begins with a univariate exploratory data analysis of each study variable. Frequencies and proportions of responses for each categorical value are presented as well as confidence intervals for the population proportion at each categorical variable level.  
+The data analysis outlined in the results section begins with a univariate exploratory data analysis of each study variable. Frequencies and proportions of responses for each categorical value are presented as well as confidence intervals for the population proportions at each categorical variable level.  
 
-To ensure that the observed sample proportions were within a 5% margin of error of the actual population proportion, minimum required sample sizes were computed for each variable at each level. The minimum sample size $N_{min}$ for level $l$ of a categorical variable was computed as follows:
+To ensure that the observed sample proportions were within a 5% margin of error (the confidence intervals) of the actual population proportion, minimum required sample sizes were computed for each variable at each level. The minimum sample size $N_{min}$ for level $l$ of a categorical variable was computed as follows:
 
 $$N_{min} = \frac{p_l(1-p_l)}{(\frac{me}{z^*})^2}$$
 where
@@ -140,7 +147,7 @@ $me$ is the margin of error
 $z^*$ is the critical value on the z-distribution for the designated margin of error
 , as well as confidence intervals for the 
 
-Having established the univariate descriptive and inferential statistics, each research question is explored using the following hypothesis testing approach:  
+Having established the univariate descriptive and inferential statistics, each research question was explored using the following hypothesis testing approach:  
 1. State Hypotheses  
 2. Check Parametric Inference Conditions  
 3. Select appropriate statistical method / test statistic  
@@ -152,83 +159,88 @@ The research questions were aimed at discovering the extent to which opinions ha
 $H_0$ $p_1 - p_2 = 0$   
 $H_a$ $p_1 - p_2 \neq 0$    
 
-where:  
-$p_1$ is a proportion of interest for years prior to 2000
-$p_2$ is a proportion of interest for years since 2000
+where:   
+$p_1$ is a proportion of interest for years prior to 2000    
+$p_2$ is a proportion of interest for years since 2000  
 
 ### Inference Conditions
 Statistical inferences were derived from parametric statistics and the central limit theoreom, whereby the former assumes that sample data comes from a population distribution with a fixed set of parameters, and the later assumes that the distribution is normal and that the parameters are $N(\mu, \sigma^2)$, where $\mu$ is the population proportion parameter $\hat{p}$ and $\sigma^2$ is the variation of of the population proportion parameter. We can assume that the sample comes from a normally distributed population if:  
+
 1. **Independence:** The sample observations must be independent. Since all samples were obtained through random sampling, independence was assumed for all statistical tests.  
-2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  
+2. **Success/Failure:** For one proportion inference, there must be a minimum of ten successes and failures for dichotomous variables. For comparison of two proportions, there must be a minimum of five counts in the **expected** frequency contingency table at each cell. Concretely, there must be at least five counts for each response/explanatory/controlling variable combination.
 3. **Sample Size:** The sample size must be less than 10% of the population, if drawn without replacement. According to 2010 census, the population of adults ag 18 and older exceeded 200 million. Since the GSS data contains less than 2 million observations, this sample size requirement was assumed for all statistical tests.
 
 ### Statistical Methods
 Two types of statistical methods were used to evaluate the hypotheses statements:   
-1. Two-proportion z-tests for hypotheses w.r.t. the difference in two proportions.
-2. Two-proportion z-tests for confidence intervals w.r.t. the difference in two proportions.
+1. Two-proportion z-tests for hypotheses w.r.t. the difference in two proportions.  
+2. Two-proportion z-tests for confidence intervals w.r.t. the difference in two proportions.  
 
 #### Two proportion z-test for hypothesis tests 
-To evaluate hypotheses w.r.t. the difference in two proportions, z-tests were conducted using the pooled proportions for the standard error calculation. Pooled proportions, $\hat{p}$, were calculated as follows:
+To evaluate hypotheses w.r.t. the difference in two proportions, z-tests were conducted using the *pooled* proportions for the standard error calculation. Pooled proportions, $\hat{p}$, were calculated as follows:
 
 $$\hat{p} = \frac{\hat{p_1}n_1 + \hat{p_2}n_2}{n_1 + n_2}$$  
-where:
-$n1$ is the number of samples in sample 1 
-$n2$ is the number of samples in sample 2 
-$p1$ is the the proportion of interest from sample 1
-$p2$ is the the proportion of interest from sample 2
+where:  
+$n1$ is the number of responses of interest prior to the year 2000  
+$n2$ is the number of responses of interest since the year 2000  
+$p1$ is the the proportion of responses of interest prior to the year 2000  
+$p2$ is the the proportion of responses of interest since the year 2000  
 
-Given the pooled proportion, the *pooled* standard error, $SE_{pooled}$, for the difference in proportions was calculated as follows:
+Given the pooled proportion, the *pooled* standard error, $SE_{pooled}$, for the difference in proportions was calculated as follows:  
 $$SE_{pooled} = \sqrt{\frac{\hat{p}(1-\hat{p})}{n_1} + \frac{\hat{p}(1-\hat{p})}{n_2}}$$  
-where:
-$\hat{p}$ is the pooled proortion calculated above
-$n1$ is the number of samples in sample 1 
-$n2$ is the number of samples in sample 2 
+where:  
+$\hat{p}$ is the pooled proortion calculated above  
+$n1$ is the number of responses of interest prior to the year 2000  
+$n2$ is the number of responses of interest since the year 2000  
 
-Lastly, the z-statistic under the null hypothesis of equal proportions was calculated as follows:
+Lastly, the z-statistic under the null hypothesis of equal proportions was calculated as follows:  
 $$Z = \frac{(\hat{p_1} - \hat{p_2}) - 0}{SE_{pooled}}$$ 
-The z-statistic was used to calculate a p-value by comparing the value of the statistic for each random variable $X$ to a *standard normal* distribution ($X \sim N(\mu = 0, \sigma^2 = 1)$. The selected level of confidence for all statistical tests was 95% ($\alpha = 0.05$). If the p-value was less than or equal to $alpha$, the null hypothesis was rejected.  Otherwise, the null hypothesis was not rejected. The p-value for a guassian distribution can be readily obtained by most statistical software packages and is computed as follows:
+The z-statistic was used to calculate a p-value by comparing the value of the statistic for each random variable $X$ to a *standard normal* distribution ($X \sim N(\mu = 0, \sigma^2 = 1)$. The selected level of confidence for all statistical tests was 95% ($\alpha = 0.05$). If the p-value was less than or equal to $alpha$, the null hypothesis was rejected.  Otherwise, the null hypothesis was not rejected. The p-value for a guassian distribution can be readily obtained by most statistical software packages and is computed as follows:  
 $$p(x;\mu, \sigma^2) = \frac{1}{\sqrt{2\pi} * \sigma} * exp(-\frac{(x-\mu)^2}{2\sigma^2})$$
-where:
-$x% = random variable
-$\mu$ = mean of random variable x
-$\sigma$ = standard deviation of a random variable x 
+where:  
+$x$ = random variable  
+$\mu$ = mean of random variable $x$    
+$\sigma$ = standard deviation of a random variable $x$     
 
 #### Two proportion z-test for confidence intervals
-Z-tests were conducted to compute the confidence interval for the difference in two proportions. The 95% confidence intervals for the differences in two proportions were computed as follows:
+Z-tests were conducted to compute the confidence interval for the difference in two proportions. The 95% confidence intervals for the differences in two proportions were computed as follows:  
 $$C = (\hat{p_1} - \hat{p_2}) \pm Z^* * SE$$
-where
-$\hat{p_1}$ is the proportion of interest from sample 1
-$\hat{p_2}$ is the proportion of interest from sample 2
-$Z^*$ is the critical value for a two sided z-distribution at a 95% confidence level $\approx 1.96$
+where:  
+$\hat{p_1}$ is the the proportion of responses of interest prior to the year 2000  
+$\hat{p_2}$ is the the proportion of responses of interest since the year 2000  
+$Z^*$ is the $z_{\alpha/2}$ critical value for a two sided z-distribution at a 95% confidence level $\approx 1.96$  
 
-The standard error $SE$ is computed as follows:
+The standard error $SE$ is computed as follows:  
 $$SE= \sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1} + \frac{\hat{p_2}(1-\hat{p_2})}{n_2}}$$  
-where:
-$n1$ is the number of samples in sample 1 
-$n2$ is the number of samples in sample 2 
-$\hat{p_1}$ is the the proportion of interest from sample 1
-$\hat{p_2}$ is the the proportion of interest from sample 2
+where:  
+$n1$ is the number of responses of interest prior to the year 2000  
+$n2$ is the number of responses of interest since the year 2000   
+$\hat{p_1}$ is the the proportion of responses of interest prior to the year 2000  
+$\hat{p_2}$ is the the proportion of responses of interest since the year 2000  
 
 #### Interpret and report results
-Both hypothesis testing (p-values) and confidence intervals were used to interpret the difference in proportions.  For the hypothesis test approach, results were interpreted in terms of whether the null hypothesis was rejected or not as follows:  
-p-value $\le \alpha$, the hypothesis is **rejected** in favor of the alternative hypothesis.  
-p-value $> \alpha$, the hypothesis is **not rejected** in favor of the alternative hypothesis. 
+Both hypothesis testing (p-values) and confidence intervals were used to interpret the difference in proportions.  For the hypothesis tests, the null hypothesis was evaluated as follows:  
+p-value $\neq \alpha$, the hypothesis is **rejected** in favor of the alternative hypothesis.  
+p-value $= \alpha$, the hypothesis is **not rejected** in favor of the alternative hypothesis. 
 
-Confidence intervals for the difference in proportions were computed. If the confidence interval did not include zero difference, the null hypothesis was rejected.
+**Confidence intervals** for the difference in proportions were also computed. If the confidence interval did not include zero difference, the null hypothesis was rejected.
 
-## System and Environment
+**Relative risk** was also computed to characterize the direction and size of the difference of proportions.
+
+## System and Environment  
 This analysis was implemented using the 64 bit version of the R Programming Language, version 3.4.1. [@TheRFoundation2015] within the R. Studio Version 1.1.330 [@RStudioTeam2016] development environment on a Windows x64-based laptop powered by an Intel Core i7-3610QM CPU @ 2.30GHz, 2301 MHz processor with 4 Cores, 8 Logical Processors, and 16.0 GB of installed memory, running the Microsoft Windows 10 Home operating system, version	10.0.14393 Build 14393. Report writing and generation packages included knitr [@Xie2013], and kfigr [@Koohafkan2015].  Data management functionality was provided by the dplyr [Wickham2015a], reshape2 [@Rcpp2016], xtable [@Dahl2016] and data table [@Dowle2016] packages. Graphics and data visualization were powered by the ggplot2 [@Wickham2016], gridExtra [@BaptisteAuguie2016], and the stargazer [@Hlavac2015] packages.  The inference [@VinhNguyen2017] statistcal package provided functionality for extracting inferential values from a fitted model.
 
-# Results
+# Results  
+As a preliminary step, a univariate exploratory data analysis was undertaken for each variable in the study as described above. 
+
 ## Exploratory Data Analysis
-This section begins with the exploratory univariate data analysis of the study variables. Each study variable was examined in terms of:   
+Using tables nad barplots, each study variable was examined in terms of:   
 * **N**: The counts for each level of the categorical variable   
-* **Minimum N**: The minimum sample size required to ensure that the sample proportion was within a 5% margin of error of the population proportion.   
+* **Minimum N**: The minimum sample size required to ensure that the sample proportions were within a 5% margin of error (the confidence intervals) of the population proportions.   
 * **Proportion**: The proportional responses at each level of each categorical variable    
-* **Cumulative**: The cumulative proportions    
+* **Cumulative Proportions**: The cumulative proportions at each level of each categorical variable  
 * **Confidence Interval**: The 95% confidence interval for the population proportion at each categorical level     
 
-Barplots were rendered to graphically depict the frequencies and proportions.
+Furthermore, the conditions for inference were checked in order to characterize the degree to which the samples were representative of the population proportions.
 
 ### Opinion
 The following table provides the descriptive statistics for the Opinion variable.
@@ -239,7 +251,7 @@ knitr::kable(eda$opinion$stats, align = c("l", rep("c", 5))) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaOpinionStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaOpinionPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$opinion$stats$N)` observations, with `r eda$opinion$stats$N[1]`, and `r eda$opinion$stats$N[2]` traditional and traditional opinions, respectively.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaOpinionStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaOpinionPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$opinion$stats$N)` observations, with `r eda$opinion$stats$N[1]`, and `r eda$opinion$stats$N[2]` traditional and non-traditional opinions, respectively. Of all respondents interviewed since 1972, `r round(eda$opinion$stats$Cumulative[1] * 100, 0)`% consider extra-marital conduct to be wrong or almost always wrong! 
 
 ```{r edaOpinionPlot, echo = F, message = FALSE, warning=FALSE}
 eda$opinion$plot
@@ -255,7 +267,7 @@ knitr::kable(eda$period$stats, align = c("l", rep("c", 5))) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaPeriodStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaPeriodPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$period$stats$N)` observations, with `r eda$period$stats$N[1]`, and `r eda$period$stats$N[2]` observations for the years prior to 2000, and the years since 2000, respectively.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaPeriodStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaPeriodPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$period$stats$N)` observations, with `r eda$period$stats$N[1]`, and `r eda$period$stats$N[2]` observations for the years prior to 2000, and the years since 2000, respectively. Over `r round(eda$period$stats$Proportion[1] * 100, -1)`% of responses were obtained prior to the year 2000. 
 
 ```{r edaPeriodPlot, echo = F, message = FALSE, warning=FALSE}
 eda$period$plot
@@ -271,7 +283,7 @@ knitr::kable(eda$age$stats, align = c("l", rep("c", 5))) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaAgeStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaAgePlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$age$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaAgeStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaAgePlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$age$stats$N)` observations. Over `r round(eda$age$stats$Cumulative[2] * 100, -1)`% of responses were obtained from respondents below 45 years of age. 
 
 ```{r edaAgePlot, echo = F, message = FALSE, warning=FALSE}
 eda$age$plot
@@ -287,28 +299,28 @@ knitr::kable(eda$gender$stats, align = c("l", rep("c", 5))) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaGenderStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaGenderPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$gender$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaGenderStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaGenderPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$gender$stats$N)` observations. The percentage of male and female respondents were `r round(eda$gender$stats$Proportion[1] * 100, 0)` and `r round(eda$gender$stats$Proportion[2] * 100, 0)`, respectively. 
 
 ```{r edaGenderPlot, echo = F, message = FALSE, warning=FALSE}
 eda$gender$plot
 ```
 `r kfigr::figr(label = "edaGenderPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Gender Variable
 
-### Class
-The following table provides the descriptive statistics for the Class variable.
+### Education
+The following table provides the descriptive statistics for the Education variable.
 
-`r kfigr::figr(label = "edaClassStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Class Variable
-```{r edaClassStats, echo = F, message = FALSE, warning=FALSE}
-knitr::kable(eda$class$stats, align = c("l", rep("c", 5))) %>%  
+`r kfigr::figr(label = "edaEducationStats", prefix = TRUE, link = TRUE, type="Table")`: Descriptive Statistics for Education Variable
+```{r edaEducationStats, echo = F, message = FALSE, warning=FALSE}
+knitr::kable(eda$educ$stats, align = c("l", rep("c", 5))) %>%  
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaClassStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaClassPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$class$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaEducationStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaEducationPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$educ$stats$N)` observations.  High school graduates comprised over `r round(eda$educ$stats$Cumulative[1] * 100, -1)`% of respondents. High school graduates with some college made up approximately `r round(eda$educ$stats$Cumulative[2] * 100, -1)`% of the sample. Those with undergraduate, graduate, and post-graduage degrees represented `r round(eda$educ$stats$Proportion[3] * 100, 0)`%, `r round(eda$educ$stats$Proportion[4] * 100, 0)`%, and `r round(eda$educ$stats$Proportion[5] * 100, 0)`%, of the sample respectively.
 
-```{r edaClassPlot, echo = F, message = FALSE, warning=FALSE}
-eda$class$plot
+```{r edaEducationPlot, echo = F, message = FALSE, warning=FALSE}
+eda$educ$plot
 ```
-`r kfigr::figr(label = "edaClassPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Class Variable
+`r kfigr::figr(label = "edaEducationPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Education Variable
 
 ### Region
 The following table provides the descriptive statistics for the Region variable.
@@ -319,16 +331,18 @@ knitr::kable(eda$region$stats, align = c("l", rep("c", 5))) %>%
   kableExtra::kable_styling(bootstrap_options = c("hover", "condensed", "responsive"), full_width = T, position = "center")
 ```
 
-As shown in `r kfigr::figr(label = "edaRegionStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaRegionPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$region$stats$N)` observations.  Since the samples were independent and the minimum required counts were met at each level, one can assume that the sample proportions were within a 5% margin of error of the population proportions. In other words, there is 95% confidence that the population proportions were within the computed confidence intervals.
+As shown in `r kfigr::figr(label = "edaRegionStats", prefix = TRUE, link = TRUE, type="Table")` and graphically depicted in `r kfigr::figr(label = "edaRegionPlot", prefix = TRUE, link = TRUE, type="Figure")`, there were a total of `r sum(eda$region$stats$N)` observations. Over `r round(eda$region$stats$Cumulative[2] * 100, -1)`% of respondents resided in eastern and southeastern parts of the country, `r round(eda$region$stats$Proportion[3] * 100, 0)`% in the Midwest and the rest in the western states. 
 
 ```{r edaRegionPlot, echo = F, message = FALSE, warning=FALSE}
 eda$region$plot
 ```
 `r kfigr::figr(label = "edaRegionPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Region Variable
 
-
 ### Summary of Exploratory Data Analysis
-This exploratory data analysis revealed the frequencies and proportions of responses by the Opinion, Period, Age Group, Gender, Region, and Class variables.  Since the independence and sample size requirements were met, the inferences with respect to the population parameters, are valid.   
+Over `r round(eda$opinion$stats$Cumulative[1] * 100, 0)`% of all respondents since 1972 held the traditional view that extra-maritical conduct was wrong or almost always wrong. Granted, over `r round(eda$period$stats$Proportion[1] * 100, -1)`% of
+the responses were obtained prior to the year 2000. Over `r round(eda$age$stats$Cumulative[2] * 100, -1)`% of respondents were less than 45 years old at the time of the interview, and women comprised nearly `r round(eda$gender$stats$Proportion[2] * 100, 0)`% of all responses.  A slight majority (`r round(eda$educ$stats$Cumulative[1] * 100, 0)`%) of respondents were high school graduates and those with undergraduate, graduate, and post-graduage degrees represented `r round(eda$educ$stats$Proportion[3] * 100, 0)`%, `r round(eda$educ$stats$Proportion[4] * 100, 0)`%, and `r round(eda$educ$stats$Proportion[5] * 100, 0)`%, of the sample respectively. Respondents from the Northeast, South, Midwest, Mountain, and Pacific regions comprised `r round(eda$region$stats$Proportion[1] * 100, 0)`%, `r round(eda$region$stats$Proportion[2] * 100, 0)`%, `r round(eda$region$stats$Proportion[3] * 100, 0)`%, `r round(eda$region$stats$Proportion[4] * 100, 0)`% and `r round(eda$region$stats$Proportion[5] * 100, 0)`% of responses, respectively.
+
+All conditions of inference, independence, success/failure, and sample size, were met.  Therefore,  one can assume that the true population proportions were within a 5% margin of error from its corresponding sample proportion.
 
 ## Research Question 1: Evolution of opinion by age group
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by age group was examined via the following research question.  
@@ -337,11 +351,13 @@ Here, the degree to which opinions w.r.t. extra-marital conduct have changed by 
 
 ### The Data
 ```{r ageAnalysis, echo = F, message = FALSE, warning=FALSE}
+data0 <- xmar$bivariate$ageGroup %>% select(Opinion, Period, AgeGroup) 
 data1 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "15-24") %>% select(Opinion, Period) 
 data2 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "25-44") %>% select(Opinion, Period) 
 data3 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "45-64") %>% select(Opinion, Period) 
 data4 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "65+") %>% select(Opinion, Period) 
 
+age0 <- X23D(data0)
 age1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 15-24", title = "Opinions by Period (Age Group 15-24)")
 age2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 25-45", title = "Opinions by Period (Age Group 25-44)")
 age3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 45-65", title = "Opinions by Period (Age Group 45-64)")
@@ -358,11 +374,11 @@ agePlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(age1$plots$observed, 
 `r kfigr::figr(label = "agePlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Age Group 
 
 ### Hypotheses
-The following hypotheses were tested to discover the extent to which opinion has changed by age group, over the periods of the study. Generally stated, they are: 
-$H_0$ $p_1 - p_2 = 0$  
-$H_a$ $p_1 - p_2 \neq 0$  
+The following hypotheses were tested to discover the extent to which opinion has changed by age group, over the periods of the study. Generally stated, they are:   
+$H_0$: $p_1 - p_2 = 0$  
+$H_a$: $p_1 - p_2 \neq 0$  
 
-where:   
+where:     
 $p_1$ is the proportion of traditional opinion within an age group for years prior to 2000  
 $p_2$ is the proportion of traditional opinion within an age group for years since 2000  
 
@@ -372,9 +388,15 @@ The specific hypotheses for each age group are stated below.
 The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the age groups, were examined as follows:
 
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
-2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  As shown in `r kfigr::figr(label = "agePlots", prefix = TRUE, link = TRUE, type="Figure")`, the numbers from the sample holding traditional and non-traditional views exceed the minimum threshold of 10.
-3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the population.  
+2. **Success/Failure:** Expected counts for each response/explanatory/controlling variable combination must be five or greater. As shown in `r kfigr::figr(label = "ageExp", prefix = TRUE, link = TRUE, type="Table")`, the expected counts exceed this minimum threshold.
+3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the U.S. adult population.  
 
+<center>
+`r kfigr::figr(label = "ageExp", prefix = TRUE, link = TRUE, type="Table")`: Contingency table of expected counts of opinions by age group, controlling for period
+```{r ageExp, echo = F, message = FALSE, warning=FALSE, results = 'asis'}
+stargazer::stargazer(format(age0$expected, quote = FALSE), type = 'html')
+```
+</center>
 As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
@@ -465,9 +487,11 @@ Here, the degree to which opinions w.r.t. extra-marital conduct have changed by 
 
 ### The Data
 ```{r genderAnalysis, echo = F, message = FALSE, warning=FALSE}
+data0 <- xmar$bivariate$gender %>% select(Opinion, Period, Gender) 
 data1 <- xmar$bivariate$gender %>% filter(Gender == "Male") %>% select(Opinion, Period) 
 data2 <- xmar$bivariate$gender %>% filter(Gender == "Female") %>% select(Opinion, Period) 
 
+gender0 <- X23D(data0)
 gender1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Male",   title = "Opinions by Period (Male)")
 gender2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Female", title = "Opinions by Period (Female)")
 gender <- rbind(gender1$test$df, gender2$test$df)
@@ -492,12 +516,18 @@ $p_2$ is the proportion of traditional opinion among those of a specific gender 
 The specific hypotheses by gender are stated below.
 
 ### Inference Conditions
-The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the age groups, were examined as follows:
+The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the genders, were examined as follows:
 
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
-2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  As shown in `r kfigr::figr(label = "genderPlots", prefix = TRUE, link = TRUE, type="Figure")`, the numbers from the sample holding traditional and non-traditional views exceed the minimum threshold of 10.
-3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the population.  
+2. **Success/Failure:** Expected counts for each response/explanatory/controlling variable combination must be five or greater. As shown in `r kfigr::figr(label = "ageExp", prefix = TRUE, link = TRUE, type="Table")`, the expected counts exceed this minimum threshold.
+3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the U.S. adult population.  
 
+<center>
+`r kfigr::figr(label = "genderExp", prefix = TRUE, link = TRUE, type="Table")`: Contingency table of expected counts of opinions by gender, controlling for period
+```{r genderExp, echo = F, message = FALSE, warning=FALSE, results = 'asis'}
+stargazer::stargazer(format(gender0$expected, quote = FALSE), type = 'html')
+```
+</center>
 As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
@@ -543,231 +573,315 @@ knitr::kable(gender2$test$df) %>%
 
 `r gender2$test$stmt$conclude`
 
-## Research Question 3: Evolution of opinion by age and gender
-Here, the degree to which opinions w.r.t. extra-marital conduct have changed by age and gender was examined via the following research question.  
 
-> To what degree have opinions changed since the year 2000 by age and gender?   
+## Research Question 3: Evolution of opinion by education
+Here, the degree to which opinions w.r.t. extra-marital conduct have changed by education was examined via the following research question.  
+
+> To what degree have opinions changed since the year 2000 by highest education level achieved?   
 
 ### The Data
-```{r genderAgeAnalysis, echo = F, message = FALSE, warning=FALSE}
-data1 <- xmar$bivariate$genderAger %>% filter(GenderAge == "Male 15-24") %>% select(Opinion, Period) 
-data2 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Male 25-44") %>% select(Opinion, Period) 
-data3 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Male 45-64") %>% select(Opinion, Period) 
-data4 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Male 65+") %>% select(Opinion, Period) 
-data5 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 15-24") %>% select(Opinion, Period) 
-data6 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 25-44") %>% select(Opinion, Period) 
-data7 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 45-64") %>% select(Opinion, Period) 
-data8 <- xmar$bivariate$genderAge %>% filter(GenderAge == "Female 65+") %>% select(Opinion, Period) 
+```{r educAnalysis, echo = F, messeduc = FALSE, warning=FALSE}
+data0 <- xmar$bivariate$educ %>% select(Opinion, Period, Educ) 
+data1 <- xmar$bivariate$educ %>% filter(Educ == "High School") %>% select(Opinion, Period) 
+data2 <- xmar$bivariate$educ %>% filter(Educ == "Some College") %>% select(Opinion, Period) 
+data3 <- xmar$bivariate$educ %>% filter(Educ == "UnderGraduate") %>% select(Opinion, Period) 
+data4 <- xmar$bivariate$educ %>% filter(Educ == "Graduate") %>% select(Opinion, Period) 
+data5 <- xmar$bivariate$educ %>% filter(Educ == "Post-Graduate") %>% select(Opinion, Period) 
 
-genderAge1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 15-24", title = "Opinions by Period (Male 15-24)")
-genderAge2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 25-44", title = "Opinions by Period (Male 25-44)")
-genderAge3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 45-64", title = "Opinions by Period (Male 45-64)")
-genderAge4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Male 65+", title = "Opinions by Period (Male 65+)")
-genderAge5 <- analyze(data5, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 15-24", title = "Opinions by Period (Female 15-24)")
-genderAge6 <- analyze(data6, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 25-44", title = "Opinions by Period (Female 25-44)")
-genderAge7 <- analyze(data7, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 45-64", title = "Opinions by Period (Female 45-64)")
-genderAge8 <- analyze(data8, y = "Opinion", x = "Period", success = "Traditional", scope = "Female 65+", title = "Opinions by Period (Female 65+)")
-
-genderAge <- rbind(genderAge1$test$df, genderAge2$test$df, genderAge3$test$df, genderAge4$test$df, genderAge5$test$df, genderAge6$test$df, genderAge7$test$df, genderAge8$test$df)
+educ0 <- X23D(data0)
+educ1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "High School Graduate", title = "Opinions by Period (High School)")
+educ2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Community College Graduate", title = "Opinions by Period (Some College)")
+educ3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", scope = "UnderGraduate", title = "Opinions by Period (UnderGraduate)")
+educ4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Graduate", title = "Opinions by Period (Graduate)")
+educ5 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Post-Graduate", title = "Opinions by Period (Post-Graduate)")
+educ <- rbind(educ1$test$df, educ2$test$df, educ3$test$df, educ4$test$df, educ5$test$df)
 ```
 
-`r kfigr::figr(label = "genderAgePlots", prefix = TRUE, link = TRUE, type="Figure")` indicates that a trend towards traditional views for the years since 2000 for both genderAges.
+`r kfigr::figr(label = "educPlots", prefix = TRUE, link = TRUE, type="Figure")` indicates...
 
-```{r genderAgePlots, echo = F, message = FALSE, warning=FALSE, fig.height = 20}
-genderAgePlots <- 
-gridExtra::grid.arrange(gridExtra::arrangeGrob(genderAge1$plots$observed, genderAge2$plots$observed, ncol = 2),
-                        gridExtra::arrangeGrob(genderAge3$plots$observed, genderAge4$plots$observed, ncol = 2),
-                        gridExtra::arrangeGrob(genderAge5$plots$observed, genderAge6$plots$observed, ncol = 2),
-                        gridExtra::arrangeGrob(genderAge7$plots$observed, genderAge8$plots$observed, ncol = 2),
-                        nrow = 4)
+```{r educPlots, echo = F, messeduc = FALSE, warning=FALSE, fig.height = 16}
+educPlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(educ1$plots$observed, educ2$plots$observed, ncol = 2),
+             gridExtra::arrangeGrob(educ3$plots$observed, educ4$plots$observed, ncol = 2))
 ```
-`r kfigr::figr(label = "genderAgePlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by gender and age group  
+`r kfigr::figr(label = "educPlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Education Level
 
 ### Hypotheses
-The degree to which opinions have changed by gender and age group was examined via the following hypotheses:  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion by gender and age group for years prior to 2000  
-$p_2$ is the proportion of traditional opinion by gender and age group for years since 2000    
+The following hypotheses were tested to discover the extent to which opinion has changed by education level, over the periods of the study. Generally stated, they are: 
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
 
+where:   
+$p_1$ is the proportion of traditional opinion at a level of education for years prior to 2000  
+$p_2$ is the proportion of traditional opinion at a level of education for years since 2000  
+
+The specific hypotheses for each educ are stated below.
 
 ### Inference Conditions
-The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the genders and age groups, were examined as follows:
+The inference conditions for a two-proportion test for differences in the proportion of traditional opinion at various education levels, were examined as follows:
 
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
-2. **Success/Failure:** There must be at least 10 successes and 10 failures for dichotomous categorical variables.  As shown in `r kfigr::figr(label = "genderAgePlots", prefix = TRUE, link = TRUE, type="Figure")`, the numbers from the sample holding traditional and non-traditional views exceed the minimum threshold of 10.
-3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the population.  
+2. **Success/Failure:** Expected counts for each response/explanatory/controlling variable combination must be five or greater. As shown in `r kfigr::figr(label = "educExp", prefix = TRUE, link = TRUE, type="Table")`, the expected counts exceed this minimum threshold.
+3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the U.S. adult population.  
+
+<center>
+`r kfigr::figr(label = "educExp", prefix = TRUE, link = TRUE, type="Table")`: Contingency table of expected counts of opinions by education level, controlling for period
+```{r educExp, echo = F, message = FALSE, warning=FALSE, results = 'asis'}
+stargazer::stargazer(format(educ0$expected, quote = FALSE), type = 'html')
+```
+</center>
 
 As such, the conditions for two-proportion z-tests were met.
 
 ### Test Results
-#### Male Population Age 15-24  
-The following hypotheses examine the differences in opinion for males age 15-24 over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion among males age 15-24 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among males age 15-24 for years since 2000    
+#### High School Graduates
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct for high school graduates for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion among high school graduates for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among high school graduates for years since 2000  
 
-`r genderAge1$test$stmt$type` 
+`r educ1$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge1$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ1$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 15-24
-```{r genderAge1ZTest, echo = F, results='html'}
-knitr::kable(genderAge1$test$df) %>%  
+`r kfigr::figr(label = "educ1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for high school graduates
+```{r educ1ZTest, echo = F, results='html'}
+knitr::kable(educ1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge1$test$stmt$conclude`
+`r educ1$test$stmt$conclude`
 
-#### Male Population Age 25-44
-The following hypotheses examine the differences in opinion for males age 25-44 over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion among males age 25-44 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among males age 25-44 for years since 2000    
+#### Some College / Associate or Technical Degree
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct among those who have attended some college or have earned an associates or technical degree, for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion among those who have attended some college or have earned an associates or technical degree, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among those who have attended some college or have earned an associates or technical degree, for years since 2000  
 
-`r genderAge2$test$stmt$type` 
+`r educ2$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge2$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ2$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 25-44
-```{r genderAge2ZTest, echo = F, results='html'}
-knitr::kable(genderAge2$test$df) %>%  
+`r kfigr::figr(label = "educ2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion among those who have attended some college or have earned an associates or technical degree
+```{r educ2ZTest, echo = F, results='html'}
+knitr::kable(educ2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge2$test$stmt$conclude`
+`r educ2$test$stmt$conclude`
 
-#### Male Population Age 45-64
-The following hypotheses examine the differences in opinion for males age 45-64 over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion among males age 45-64 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among males age 45-64 for years since 2000    
+#### UnderGraduate
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct among undergraduates for the two periods of the study.     
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion among undergraduates for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among undergraduates for years since 2000  
 
-`r genderAge3$test$stmt$type` 
+`r educ3$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge3$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ3$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 45-64
-```{r genderAge3ZTest, echo = F, results='html'}
-knitr::kable(genderAge3$test$df) %>%  
+`r kfigr::figr(label = "educ3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion among undergraduates for the two periods of the study.
+```{r educ3ZTest, echo = F, results='html'}
+knitr::kable(educ3$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge3$test$stmt$conclude`
+`r educ3$test$stmt$conclude`
 
-#### Male Population Age 65+
-The following hypotheses examine the differences in opinion for males age 65+ over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion among males age 65+ for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among males age 65+ for years since 2000    
+#### Graduate
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct among those holding graduate degrees, for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion among those holding graduate degrees, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among those holding graduate degrees, for years since 2000  
 
-`r genderAge4$test$stmt$type` 
+`r educ4$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge4$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ4$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population age 65+
-```{r genderAge4ZTest, echo = F, results='html'}
-knitr::kable(genderAge4$test$df) %>%  
+`r kfigr::figr(label = "educ4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period among those holding graduate degrees
+```{r educ4ZTest, echo = F, results='html'}
+knitr::kable(educ4$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge4$test$stmt$conclude`
+`r educ4$test$stmt$conclude`
 
 
-#### Female Population Age 15-24
-The following hypotheses examine the differences in opinion for females age 15-24 over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
+
+
+## Research Question 3: Evolution of opinion by region
+Here, the degree to which opinions w.r.t. extra-marital conduct have changed by region was examined via the following research question.  
+
+> To what degree have opinions changed since the year 2000 by geographic region?   
+
+### The Data
+```{r regionAnalysis, echo = F, messregion = FALSE, warning=FALSE}
+data0 <- xmar$bivariate$region %>% select(Opinion, Period, Region) 
+data1 <- xmar$bivariate$region %>% filter(Region == "Northeast") %>% select(Opinion, Period) 
+data2 <- xmar$bivariate$region %>% filter(Region == "Midwest") %>% select(Opinion, Period) 
+data3 <- xmar$bivariate$region %>% filter(Region == "South") %>% select(Opinion, Period) 
+data4 <- xmar$bivariate$region %>% filter(Region == "Mountain") %>% select(Opinion, Period) 
+data5 <- xmar$bivariate$region %>% filter(Region == "Pacific") %>% select(Opinion, Period) 
+
+region0 <- X23D(data0)
+region1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "Northeast Region", title = "Opinions by Period (Northeast)")
+region2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Midwest Region", title = "Opinions by Period (Midwest)")
+region3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", scope = "South Region", title = "Opinions by Period (South)")
+region4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Mountain Region", title = "Opinions by Period (Mountain)")
+region5 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Pacific Region", title = "Opinions by Period (Pacific)")
+region <- rbind(region1$test$df, region2$test$df, region3$test$df, region4$test$df, region5$test$df)
+```
+
+`r kfigr::figr(label = "regionPlots", prefix = TRUE, link = TRUE, type="Figure")` indicates...
+
+```{r regionPlots, echo = F, messregion = FALSE, warning=FALSE, fig.height = 16}
+regionPlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(region1$plots$observed, region2$plots$observed, ncol = 2),
+             gridExtra::arrangeGrob(region3$plots$observed, region4$plots$observed, ncol = 2))
+```
+`r kfigr::figr(label = "regionPlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Region
+
+### Hypotheses
+The following hypotheses were tested to discover the extent to which opinion has changed by region level, over the periods of the study. Generally stated, they are: 
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+
 where:   
-$p_1$ is the proportion of traditional opinion among females age 15-24 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among females age 15-24 for years since 2000    
+$p_1$ is the proportion of traditional opinion by region for years prior to 2000  
+$p_2$ is the proportion of traditional opinion by region for years since 2000  
 
-`r genderAge5$test$stmt$type` 
+The specific hypotheses for each region are stated below.
 
-As indicated in `r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge5$test$stmt$detail`
+### Inference Conditions
+The inference conditions for a two-proportion test for differences in the proportion of traditional opinion at various region levels, were examined as follows:
 
-`r kfigr::figr(label = "genderAge5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 15-24
-```{r genderAge5ZTest, echo = F, results='html'}
-knitr::kable(genderAge5$test$df) %>%  
+1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
+2. **Success/Failure:** Expected counts for each response/explanatory/controlling variable combination must be five or greater. As shown in `r kfigr::figr(label = "regionExp", prefix = TRUE, link = TRUE, type="Table")`, the expected counts exceed this minimum threshold.
+3. **Sample Size:** As indicated in section the methods section, the sample size falls well below 10% of the U.S. adult population.  
+
+<center>
+`r kfigr::figr(label = "regionExp", prefix = TRUE, link = TRUE, type="Table")`: Contingency table of expected counts of opinions by region, controlling for period
+```{r regionExp, echo = F, message = FALSE, warning=FALSE, results = 'asis'}
+stargazer::stargazer(format(region0$expected, quote = FALSE), type = 'html')
+```
+</center>
+
+As such, the conditions for two-proportion z-tests were met.
+
+### Test Results
+#### Northeast Region
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct in the Northeast region, for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in the Northeast region, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in the Northeast region, for years since 2000  
+
+`r region1$test$stmt$type` 
+
+As indicated in `r kfigr::figr(label = "region1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region1$test$stmt$detail`
+
+`r kfigr::figr(label = "region1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion in the Northeast region, for the two periods of the study.
+```{r region1ZTest, echo = F, results='html'}
+knitr::kable(region1$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge5$test$stmt$conclude`
+`r region1$test$stmt$conclude`
 
-#### Female Population Age 25-44
-The following hypotheses examine the differences in opinion for females age 25-44 over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion among females age 25-44 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among females age 25-44 for years since 2000    
+#### South Region
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct in the South region, for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in the South region, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in the South region, for years since 2000  
 
-`r genderAge6$test$stmt$type` 
+`r region2$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge6$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region2$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge6ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 25-44
-```{r genderAge6ZTest, echo = F, results='html'}
-knitr::kable(genderAge6$test$df) %>%  
+`r kfigr::figr(label = "region2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion among residents in the South region, for the two periods of the study. 
+```{r region2ZTest, echo = F, results='html'}
+knitr::kable(region2$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge6$test$stmt$conclude`
+`r region2$test$stmt$conclude`
 
-#### Female Population Age 45-64
-The following hypotheses examine the differences in opinion for females age 45-64 over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion among females age 45-64 for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among females age 45-64 for years since 2000    
+#### Midwest Region
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion in the Midwest region, for the two periods of the study.     
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in the Midwest region, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in the Midwest region, for years since 2000  
 
-`r genderAge7$test$stmt$type` 
+`r region3$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge7$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region3$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge7ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 45-64
-```{r genderAge7ZTest, echo = F, results='html'}
-knitr::kable(genderAge7$test$df) %>%  
+`r kfigr::figr(label = "region3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion in the Midwest region, for the two periods of the study.
+```{r region3ZTest, echo = F, results='html'}
+knitr::kable(region3$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge7$test$stmt$conclude`
+`r region3$test$stmt$conclude`
 
-#### Female Population Age 65+
-The following hypotheses examine the differences in opinion for females age 65+ over the periods of the study.  
-$H_0$ $p_1 - p_2 = 0$   
-$H_a$ $p_1 - p_2 \neq 0$    
-where:   
-$p_1$ is the proportion of traditional opinion among females age 65+ for years prior to 2000  
-$p_2$ is the proportion of traditional opinion among females age 65+ for years since 2000    
+#### Mountain Region
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct in the Mountain region, for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in the Mountain region, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in the Mountain region, for years since 2000  
 
-`r genderAge8$test$stmt$type` 
+`r region4$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r genderAge8$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region4$test$stmt$detail`
 
-`r kfigr::figr(label = "genderAge8ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population age 65+
-```{r genderAge8ZTest, echo = F, results='html'}
-knitr::kable(genderAge8$test$df) %>%  
+`r kfigr::figr(label = "region4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period in the Mountain region
+```{r region4ZTest, echo = F, results='html'}
+knitr::kable(region4$test$df) %>%  
   kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
 ``` 
 
-`r genderAge8$test$stmt$conclude`
+`r region4$test$stmt$conclude`
+
+#### Pacific Region
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct in the Pacific region, for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion in the Pacific region, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion in the Pacific region, for years since 2000  
+
+`r region5$test$stmt$type` 
+
+As indicated in `r kfigr::figr(label = "region5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region5$test$stmt$detail`
+
+`r kfigr::figr(label = "region5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period in the Pacific region
+```{r region5ZTest, echo = F, results='html'}
+knitr::kable(region5$test$df) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+`r region5$test$stmt$conclude`
+
+
+
 
 # Discussion
 ```{r discussion, echo = F, message = FALSE, warning=FALSE}
 ageGroupDiscussion <- discussion(age)
 genderDiscussion <- discussion(gender)
-genderAgeDiscussion <- discussion(genderAge)
 ```
 ## Evolution of Opinion by Age Group
 There has been a slight increase in the proportion of people holding traditional opinions w.r.t. extra-marital conduct over the periods up to and following the year 2000 across most age groups. `r kfigr::figr(label = "agePlot", prefix = TRUE, link = TRUE, type="Figure")` shows that the degree of change in opinion appears to correlate negatively with age; whereby, the greatest amount of change (`r round(ageGroupDiscussion$data %>% summarize(max(PctChange)), 2)`%) was associate with the 15-24 age group. The `r round(ageGroupDiscussion$data %>% summarize(min(PctChange)), 2)`% within the 65+ age group was not significant.
@@ -799,21 +913,6 @@ genderDiscussion$plot
 `r kfigr::figr(label = "genderPlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by gender
 
 
-## Evolution of Opinion by Age Group and Gender
-The trend towards increasingly traditional opinion among the younger population can also be seen within the male population. Men age 15-24 had the greatest degree of change (10%) towards more conservative opinions, followed by men age 25-44, then the 45-65 age group.  The change in opinion within the 65+ age group was not significant. The positions of the female population was more stable.  The greatest amount of change was with the 25-44 age group with an approximate 5% increase in the proportion of women holding conservative views. The changes among the other age groups in the female population were not significant. 
-
-
-`r kfigr::figr(label = "genderAgeDisc", prefix = TRUE, link = TRUE, type="Table")`: Summary of analysis by age and gender
-```{r genderAgeDisc, echo = F, results='html'}
-knitr::kable(genderAgeDiscussion$data, align = c("l", rep("c", 4))) %>%  
-  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
-``` 
-
-
-```{r genderAgePlot, echo = F, message = FALSE, warning=FALSE}
-genderAgeDiscussion$plot
-```
-`r kfigr::figr(label = "genderAgePlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by age and gender
 
 # Conclusion
 Amid claims of an increasing lack of deference to and respect for certain institutions, especially on behalf of mellennials, this study indicates that the belief in the sanctity and exclusivity of marriage has not only remained stable for nearly half a century, but has slightly increased. Most notable is that the trend towards more conservatively held views is led largely by the mellennial generation.  But this reveals only part of the story. Future studies might examine questions such as the rates of marriage and divorce, the number of marriages per capita, marrying age, and the average length of marriage. Whereas marriage was once an expected milestone, are their fewer of us making the decision than before?  Are people approaching the institution with greater consideration? What can data tell us about ourselves, how we live...how we choose to live?
