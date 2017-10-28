@@ -112,7 +112,7 @@ zTest <- function(data, success = "Traditional", scope,
   stmt$type <- paste0("This was a ", (conf * 100), "% confidence, two-proportion z-test ",
                       "of the null hypothesis that the true population proportion of ",
                       "traditional opinion within the ", tolower(scope), " population is equal for ",
-                      "the periods prior to and since the year 2000. ")
+                      "the periods prior to, and since, the year 2000. ")
 
   if ((alternative == "two.sided" & pValue < (alpha / 2))
        | (alternative != "two.sided" & pValue < alpha)) {
@@ -136,8 +136,8 @@ zTest <- function(data, success = "Traditional", scope,
                             "consequently, one concludes, with ", conf * 100,
                             "% confidence, that the true proportion of ",
                             "traditional opinion among the ", tolower(scope),
-                            " populations prior to and since the year 2000 ",
-                            "are equal.", ciNote)
+                            " population prior to and since the year 2000 ",
+                            "are equal. ", ciNote)
   }
 
   stmt$detail <- paste0("the observed frequency of traditional opinion ",

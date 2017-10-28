@@ -73,7 +73,7 @@ preprocess <- function(GSS) {
   educVar <- GSS %>%
     dplyr::mutate(
       Educ = ifelse(EDUC < 13, "High School",
-                     ifelse(EDUC < 15, "Some College",
+                     ifelse(EDUC < 15, "Community College",
                             ifelse(EDUC <  17, "UnderGraduate",
                                    ifelse(EDUC < 19, "Graduate",
                                           ifelse(EDUC < 21, "Post-Graduate",
@@ -82,7 +82,7 @@ preprocess <- function(GSS) {
 
   # Order factors
   educVar$Educ <- factor(educVar$Educ,
-                           levels = c("High School", "Some College",
+                           levels = c("High School", "Community College",
                                       "UnderGraduate", "Graduate",
                                       "Post-Graduate"))
   educVar <- educVar %>% filter(Educ != "NA")
@@ -197,7 +197,7 @@ preprocess <- function(GSS) {
     dplyr::mutate(
       Period = ifelse(YEAR < 2000, "Prior to 2000", "Since 2000"),
       Educ = ifelse(EDUC < 13, "High School",
-                    ifelse(EDUC < 15, "Some College",
+                    ifelse(EDUC < 15, "Community College",
                            ifelse(EDUC <  17, "UnderGraduate",
                                   ifelse(EDUC < 19, "Graduate",
                                          ifelse(EDUC < 21, "Post-Graduate",
@@ -215,7 +215,7 @@ preprocess <- function(GSS) {
   educ$Period <- factor(educ$Period,
                              levels = c("Prior to 2000", "Since 2000"))
   educ$Educ <- factor(educ$Educ,
-                      levels = c("High School", "Some College",
+                      levels = c("High School", "Community College",
                                  "UnderGraduate", "Graduate",
                                  "Post-Graduate"))
   educ$Opinion <- factor(educ$Opinion,

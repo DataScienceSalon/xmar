@@ -21,13 +21,14 @@ discussion <- function(analysis) {
                   p2 = round(analysis$p2, 2),
                   PctChange = round(analysis$Diff / analysis$p1 * 100, 2),
                   Significant = ifelse(analysis$Decision == "Reject", "Yes", "No"))
+  d$Scope <- factor(d$Scope, levels = d$Scope[order(d$PctChange)], ordered = TRUE)
   d <- d %>% arrange(desc(PctChange))
-
   #---------------------------------------------------------------------------#
   #                              Plot Data                                    #
   #---------------------------------------------------------------------------#
   # Proportion Bar Plot
-  plotBar <- ggplot2::ggplot(data = d, ggplot2::aes(x = Scope, y = PctChange,
+  plotBar <- ggplot2::ggplot(data = d,
+                             ggplot2::aes(x = Scope, y = PctChange,
                                                     fill = Scope)) +
     ggplot2::geom_bar(stat = "identity") +
     ggplot2::geom_text(data = d,

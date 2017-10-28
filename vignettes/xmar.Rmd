@@ -49,30 +49,30 @@ eda <- univariate(xmar$univariate)
 # Introduction
 There is no dearth of research on American's changing attitudes towards marriage, its primacy as a way of life, and its exclusivity. Approximately four-in-ten Americans say that the present institution of marriage is becoming obsolete [@Taylor2010]. According to the same Pew Research 2010 study, 72% of all adults in America were married in 1960. By 2008, this percentage had dropped to 52%. From this apparent decline in marriage, Americans are slowly becoming more accepting of open relationships, consensual non-manogamy (CNG) practices, and the like. Nearly half of the population of Americans would consider an open relationship, though fewer than 4% actually claim to be in one [@Avvo]. Notwithstanding, nearly 22% of married men and 14% of married women admit to having an affair at least once during their marriages, with or without the spousal concent [@Johnson2017].
 
-The purpose of this study is to examine the nature and evolution of attitudes and opinions with respect to (w.r.t.) extra-marital conduct. Serving as the data source, the opinions of over, 37,000 Americans (44% women, 56% men) over a period of 44 years (1972-2016), courtesy of the General Social Survey (GSS) [@NORCa], a project of NORC at the University of Chicago that monitors societal change and studies the growing complexity of American society. Concretely, this report contrasts the attitudes and opinions by various demographic factors over two periods: the years prior to and since the year 2000. Understanding the extent to which such attitudes have changed by gender, age, education, class, and geographic region is the primary aim of this investigation.
+The purpose of this study is to examine the nature and evolution of attitudes and opinions with respect to (w.r.t.) extra-marital conduct. Serving as the data source, the opinions of over, 65,000 Americans (44% women, 56% men) over a period of 44 years (1972-2016), courtesy of the General Social Survey (GSS) [@NORCa], a project of NORC at the University of Chicago that monitors societal change and studies the growing complexity of American society. Concretely, this report contrasts the attitudes and opinions by various demographic factors over two periods: the years prior to and since the year 2000. Understanding the extent to which such attitudes have changed by gender, age, education, and geographic region is the primary aim of this investigation.
 
 ## Research Questions
-This observational study examines the nature and evolution of opinion with respect to (w.r.t.) extra-marital conduct since the start of the millennium via four research questions.
+This observational study examines the nature opinion with respect to (w.r.t.) extra-marital conduct, and the degree to which such opinions have or have not evolved since the year 2000, via four research questions.
 
 **Research Question 1:**  To what degree have opinions changed since the year 2000 by age group?    
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Explanatory Variable: Age group
-* Controlling Variable: Period, i.e., years prior to and since 2000
+* Explanatory Variable: Age group  
+* Controlling Variable: Period, i.e., years prior to and since 2000   
 
 **Research Question 2:**  To what degree have opinions changed since the year 2000 by gender?  
 * Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Explanatory Variable: Gender
-* Controlling Variable: Period, i.e., years prior to and since 2000
+* Explanatory Variable: Gender   
+* Controlling Variable: Period, i.e., years prior to and since 2000   
   
-**Research Question 3:** To what degree have opinions changed since the year 2000 by highest education level achieved?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Explanatory Variable: Highest education level achieved
-* Controlling Variable: Period, i.e., years prior to and since 2000
+**Research Question 3:** To what degree have opinions changed since the year 2000 by highest education level achieved?   
+* Dependent Variable: Opinion w.r.t. extra-marital conduct     
+* Explanatory Variable: Highest education level achieved   
+* Controlling Variable: Period, i.e., years prior to and since 2000  
 
-**Research Question 4:** To what degree have opinions changed since the year 2000 by region?  
-* Dependent Variable: Opinion w.r.t. extra-marital conduct    
-* Explanatory Variable: Region
-* Controlling Variable: Period, i.e., years prior to and since 2000
+**Research Question 4:** To what degree have opinions changed since the year 2000 by region?   
+* Dependent Variable: Opinion w.r.t. extra-marital conduct        
+* Explanatory Variable: Region    
+* Controlling Variable: Period, i.e., years prior to and since 2000    
 
 ## Document Organization
 The **methods** section describes the data, the sampling techniques, data preprocessing, and introduces the methods, descriptive and inferential techniques used in the analyses. Hypotheses are offered, analyzed and tested in the **results** section. The **discussion** section describes the significance of the findings vis-a-vis currently available research. Lastly, the **conclusion** synthesizes the key points.
@@ -109,13 +109,11 @@ knitr::kable(variables) %>%
 The GSS variables were extracted for years 1972 thru 2016 and the following variables were created.
 
 **Period**: Two factor variable  
-* Prior to 2000: Period from beginning of study through 1999 inclusive  
+* Prior to 2000: Period from 1972 through 1999 inclusive  
 * Since 2000: Period from 2000 through 2016  
 **Age Group**: Four factor variable  
-* 18-24  
-* 25-44  
-* 45-64  
-* 65+  
+* 18-24   * 25-44  
+* 45-64   * 65+  
 **Opinion**: Two factor variable:  
 * Traditional: Always wrong and almost always wrong  
 * Non-Traditional: Sometimes wrong and not wrong at all  
@@ -123,11 +121,11 @@ The GSS variables were extracted for years 1972 thru 2016 and the following vari
 * Northeast: Comprised of responses from the New England and Mid Atlantic regions   
 * MidWest: Comprised of responses from the East Central and West Central regions  
 * South: Consisting of responses from the South Atlantic and East and West South Central regions  
-* Mountain  
-* Pacific 
-**Educ**: Five factor variable:  
+* Mountain    
+* Pacific   
+**Education**: Five factor variable:  
 * High School: Education years 0 thru 12   
-* Some College: Education years 13 thru 14   
+* Community College: Education years 13 thru 14   
 * UnderGraduate: Education years 15 thru 16  
 * Graduate: Education years 17 thru 18   
 * Post-Graduate: Education years 19 thru 20  
@@ -233,7 +231,7 @@ This analysis was implemented using the 64 bit version of the R Programming Lang
 As a preliminary step, a univariate exploratory data analysis was undertaken for each variable in the study as described above. 
 
 ## Exploratory Data Analysis
-Using tables nad barplots, each study variable was examined in terms of:   
+Using tables and barplots, each study variable was examined in terms of:   
 * **N**: The counts for each level of the categorical variable   
 * **Minimum N**: The minimum sample size required to ensure that the sample proportions were within a 5% margin of error (the confidence intervals) of the population proportions.   
 * **Proportion**: The proportional responses at each level of each categorical variable    
@@ -339,17 +337,16 @@ eda$region$plot
 `r kfigr::figr(label = "edaRegionPlot", prefix = TRUE, link = TRUE, type="Figure")`: Frequency and Proportions for Region Variable
 
 ### Summary of Exploratory Data Analysis
-Over `r round(eda$opinion$stats$Cumulative[1] * 100, 0)`% of all respondents since 1972 held the traditional view that extra-maritical conduct was wrong or almost always wrong. Granted, over `r round(eda$period$stats$Proportion[1] * 100, -1)`% of
+Over `r round(eda$opinion$stats$Cumulative[1] * 100, 0)`% of all respondents since 1972 held the traditional view that extra-marital conduct was wrong or almost always wrong. Granted, over `r round(eda$period$stats$Proportion[1] * 100, -1)`% of
 the responses were obtained prior to the year 2000. Over `r round(eda$age$stats$Cumulative[2] * 100, -1)`% of respondents were less than 45 years old at the time of the interview, and women comprised nearly `r round(eda$gender$stats$Proportion[2] * 100, 0)`% of all responses.  A slight majority (`r round(eda$educ$stats$Cumulative[1] * 100, 0)`%) of respondents were high school graduates and those with undergraduate, graduate, and post-graduage degrees represented `r round(eda$educ$stats$Proportion[3] * 100, 0)`%, `r round(eda$educ$stats$Proportion[4] * 100, 0)`%, and `r round(eda$educ$stats$Proportion[5] * 100, 0)`%, of the sample respectively. Respondents from the Northeast, South, Midwest, Mountain, and Pacific regions comprised `r round(eda$region$stats$Proportion[1] * 100, 0)`%, `r round(eda$region$stats$Proportion[2] * 100, 0)`%, `r round(eda$region$stats$Proportion[3] * 100, 0)`%, `r round(eda$region$stats$Proportion[4] * 100, 0)`% and `r round(eda$region$stats$Proportion[5] * 100, 0)`% of responses, respectively.
 
-All conditions of inference, independence, success/failure, and sample size, were met.  Therefore,  one can assume that the true population proportions were within a 5% margin of error from its corresponding sample proportion.
+All conditions of inference: independence, success/failure, and sample size, were met.  Therefore,  one can assume that the true population proportions were within a 5% margin of error from their corresponding sample proportion.
 
 ## Research Question 1: Evolution of opinion by age group
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by age group was examined via the following research question.  
 
 > To what degree have opinions changed since the year 2000 by age group?   
 
-### The Data
 ```{r ageAnalysis, echo = F, message = FALSE, warning=FALSE}
 data0 <- xmar$bivariate$ageGroup %>% select(Opinion, Period, AgeGroup) 
 data1 <- xmar$bivariate$ageGroup %>% filter(AgeGroup == "15-24") %>% select(Opinion, Period) 
@@ -364,15 +361,6 @@ age3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", sco
 age4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Age Group 65+", title = "Opinions by Period (Age Group 65+)")
 age <- rbind(age1$test$df, age2$test$df, age3$test$df, age4$test$df)
 ```
-
-`r kfigr::figr(label = "agePlots", prefix = TRUE, link = TRUE, type="Figure")` indicates that a trend towards traditional views for the years since 2000 across all age groups, with the exception of those 65 and older.
-
-```{r agePlots, echo = F, message = FALSE, warning=FALSE, fig.height = 16}
-agePlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(age1$plots$observed, age2$plots$observed, ncol = 2),
-             gridExtra::arrangeGrob(age3$plots$observed, age4$plots$observed, ncol = 2))
-```
-`r kfigr::figr(label = "agePlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Age Group 
-
 ### Hypotheses
 The following hypotheses were tested to discover the extent to which opinion has changed by age group, over the periods of the study. Generally stated, they are:   
 $H_0$: $p_1 - p_2 = 0$  
@@ -385,7 +373,7 @@ $p_2$ is the proportion of traditional opinion within an age group for years sin
 The specific hypotheses for each age group are stated below.
 
 ### Inference Conditions
-The inference conditions for a two-proportion test for differences in the proportion of traditional opinion between the age groups, were examined as follows:
+The inference conditions for a two-proportion hypothesis tests were examined as follows:
 
 1. **Independence:** Each observation was subject to a stratified random sampling and so **independence** was assumed.   
 2. **Success/Failure:** Expected counts for each response/explanatory/controlling variable combination must be five or greater. As shown in `r kfigr::figr(label = "ageExp", prefix = TRUE, link = TRUE, type="Table")`, the expected counts exceed this minimum threshold.
@@ -410,7 +398,12 @@ $p_2$ is the proportion of traditional opinion in age group 15-24 for years sinc
 
 `r age1$test$stmt$type` 
 
-As indicated in `r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age1$test$stmt$detail`
+```{r age1Plot, echo = F, message = FALSE, warning=FALSE, results = 'html'}
+age1$plots$observed
+```
+`r kfigr::figr(label = "age1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions for age group 15-24 prior to and since the year 2000
+
+As shown in `r kfigr::figr(label = "age1Plot", prefix = TRUE, link = TRUE, type="Figure")` and  `r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`, `r age1$test$stmt$detail`
 
 `r kfigr::figr(label = "age1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 15-24
 ```{r age1ZTest, echo = F, results='html'}
@@ -429,8 +422,12 @@ $p_1$ is the proportion of traditional opinion in age group 25-44 for years prio
 $p_2$ is the proportion of traditional opinion in age group 25-44 for years since 2000  
 
 `r age2$test$stmt$type` 
+```{r age2Plot, echo = F, message = FALSE, warning=FALSE}
+age2$plots$observed
+```
+`r kfigr::figr(label = "age2Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions for age group 25-44 prior to and since the year 2000
 
-As indicated in `r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age2$test$stmt$detail`
+As shown in `r kfigr::figr(label = "age2Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`, `r age2$test$stmt$detail`
 
 `r kfigr::figr(label = "age2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 25-44
 ```{r age2ZTest, echo = F, results='html'}
@@ -449,8 +446,12 @@ $p_1$ is the proportion of traditional opinion in age group 45-64 for years prio
 $p_2$ is the proportion of traditional opinion in age group 45-64 for years since 2000  
 
 `r age3$test$stmt$type` 
+```{r age3Plot, echo = F, message = FALSE, warning=FALSE}
+age3$plots$observed
+```
+`r kfigr::figr(label = "age3Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions for age group 45-64 prior to and since the year 2000
 
-As indicated in `r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age3$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "age3Plot", prefix = TRUE, link = TRUE, type="Table")` and `r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age3$test$stmt$detail`
 
 `r kfigr::figr(label = "age3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 45-64
 ```{r age3ZTest, echo = F, results='html'}
@@ -469,8 +470,12 @@ $p_1$ is the proportion of traditional opinion in age group 65+ for years prior 
 $p_2$ is the proportion of traditional opinion in age group 65+ for years since 2000  
 
 `r age4$test$stmt$type` 
+```{r age4Plot, echo = F, message = FALSE, warning=FALSE}
+age4Plot <- age4$plots$observed
+```
+`r kfigr::figr(label = "age4Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions for age group 65+ prior to and since the year 2000
 
-As indicated in `r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age4$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")` and `r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r age4$test$stmt$detail`
 
 `r kfigr::figr(label = "age4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for age group 65+
 ```{r age4ZTest, echo = F, results='html'}
@@ -496,14 +501,6 @@ gender1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", 
 gender2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Female", title = "Opinions by Period (Female)")
 gender <- rbind(gender1$test$df, gender2$test$df)
 ```
-
-`r kfigr::figr(label = "genderPlots", prefix = TRUE, link = TRUE, type="Figure")` indicates that a trend towards traditional views for the years since 2000 for both genders.
-
-```{r genderPlots, echo = F, message = FALSE, warning=FALSE}
-genderPlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(gender1$plots$observed, gender2$plots$observed, ncol = 2))
-```
-`r kfigr::figr(label = "genderPlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by gender  
-
 ### Hypotheses
 The degree to which opinions have changed by gender was examined via the following hypotheses:  
 $H_0$ $p_1 - p_2 = 0$  
@@ -541,8 +538,12 @@ $p_1$ is the proportion of traditional opinion among men for years prior to 2000
 $p_2$ is the proportion of traditional opinion among men for years since 2000  
 
 `r gender1$test$stmt$type` 
+```{r gender1Plot, echo = F, message = FALSE, warning=FALSE}
+gender1$plots$observed
+```
+`r kfigr::figr(label = "gender1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions among men prior to and since the year 2000  
 
-As indicated in `r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender1$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "gender1Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender1$test$stmt$detail`
 
 `r kfigr::figr(label = "gender1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for male population
 ```{r gender1ZTest, echo = F, results='html'}
@@ -562,8 +563,12 @@ $p_1$ is the proportion of traditional opinion among women for years prior to 20
 $p_2$ is the proportion of traditional opinion among women for years since 2000  
 
 `r gender2$test$stmt$type` 
+```{r gender2Plot, echo = F, message = FALSE, warning=FALSE}
+gender2$plots$observed
+```
+`r kfigr::figr(label = "gender2Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions among women prior to and since the year 2000  
 
-As indicated in `r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender2$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "gender2Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r gender2$test$stmt$detail`
 
 `r kfigr::figr(label = "gender2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for female population
 ```{r gender2ZTest, echo = F, results='html'}
@@ -573,38 +578,27 @@ knitr::kable(gender2$test$df) %>%
 
 `r gender2$test$stmt$conclude`
 
-
 ## Research Question 3: Evolution of opinion by education
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by education was examined via the following research question.  
 
 > To what degree have opinions changed since the year 2000 by highest education level achieved?   
 
-### The Data
 ```{r educAnalysis, echo = F, messeduc = FALSE, warning=FALSE}
 data0 <- xmar$bivariate$educ %>% select(Opinion, Period, Educ) 
 data1 <- xmar$bivariate$educ %>% filter(Educ == "High School") %>% select(Opinion, Period) 
-data2 <- xmar$bivariate$educ %>% filter(Educ == "Some College") %>% select(Opinion, Period) 
+data2 <- xmar$bivariate$educ %>% filter(Educ == "Community College") %>% select(Opinion, Period) 
 data3 <- xmar$bivariate$educ %>% filter(Educ == "UnderGraduate") %>% select(Opinion, Period) 
 data4 <- xmar$bivariate$educ %>% filter(Educ == "Graduate") %>% select(Opinion, Period) 
 data5 <- xmar$bivariate$educ %>% filter(Educ == "Post-Graduate") %>% select(Opinion, Period) 
 
 educ0 <- X23D(data0)
 educ1 <- analyze(data1, y = "Opinion", x = "Period", success = "Traditional", scope = "High School Graduate", title = "Opinions by Period (High School)")
-educ2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Community College Graduate", title = "Opinions by Period (Some College)")
+educ2 <- analyze(data2, y = "Opinion", x = "Period", success = "Traditional", scope = "Community College Graduate", title = "Opinions by Period (Community College)")
 educ3 <- analyze(data3, y = "Opinion", x = "Period", success = "Traditional", scope = "UnderGraduate", title = "Opinions by Period (UnderGraduate)")
 educ4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Graduate", title = "Opinions by Period (Graduate)")
 educ5 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Post-Graduate", title = "Opinions by Period (Post-Graduate)")
 educ <- rbind(educ1$test$df, educ2$test$df, educ3$test$df, educ4$test$df, educ5$test$df)
 ```
-
-`r kfigr::figr(label = "educPlots", prefix = TRUE, link = TRUE, type="Figure")` indicates...
-
-```{r educPlots, echo = F, messeduc = FALSE, warning=FALSE, fig.height = 16}
-educPlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(educ1$plots$observed, educ2$plots$observed, ncol = 2),
-             gridExtra::arrangeGrob(educ3$plots$observed, educ4$plots$observed, ncol = 2))
-```
-`r kfigr::figr(label = "educPlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Education Level
-
 ### Hypotheses
 The following hypotheses were tested to discover the extent to which opinion has changed by education level, over the periods of the study. Generally stated, they are: 
 $H_0$ $p_1 - p_2 = 0$  
@@ -642,8 +636,12 @@ $p_1$ is the proportion of traditional opinion among high school graduates for y
 $p_2$ is the proportion of traditional opinion among high school graduates for years since 2000  
 
 `r educ1$test$stmt$type` 
+```{r educ1Plot, echo = F, messeduc = FALSE, warning=FALSE}
+educ1$plots$observed
+```
+`r kfigr::figr(label = "educ1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions of high school graduates prior to and since the year 2000
 
-As indicated in `r kfigr::figr(label = "educ1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ1$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ1Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "educ1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ1$test$stmt$detail`
 
 `r kfigr::figr(label = "educ1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period for high school graduates
 ```{r educ1ZTest, echo = F, results='html'}
@@ -653,7 +651,7 @@ knitr::kable(educ1$test$df) %>%
 
 `r educ1$test$stmt$conclude`
 
-#### Some College / Associate or Technical Degree
+#### Community College
 The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct among those who have attended some college or have earned an associates or technical degree, for the two periods of the study.   
 $H_0$ $p_1 - p_2 = 0$  
 $H_a$ $p_1 - p_2 \neq 0$  
@@ -662,8 +660,12 @@ $p_1$ is the proportion of traditional opinion among those who have attended som
 $p_2$ is the proportion of traditional opinion among those who have attended some college or have earned an associates or technical degree, for years since 2000  
 
 `r educ2$test$stmt$type` 
+```{r educ2Plot, echo = F, messeduc = FALSE, warning=FALSE}
+educ2$plots$observed
+```
+`r kfigr::figr(label = "educ2Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions of community graduates prior to and since the year 2000
 
-As indicated in `r kfigr::figr(label = "educ2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ2$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ2Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "educ2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ2$test$stmt$detail`
 
 `r kfigr::figr(label = "educ2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion among those who have attended some college or have earned an associates or technical degree
 ```{r educ2ZTest, echo = F, results='html'}
@@ -682,8 +684,12 @@ $p_1$ is the proportion of traditional opinion among undergraduates for years pr
 $p_2$ is the proportion of traditional opinion among undergraduates for years since 2000  
 
 `r educ3$test$stmt$type` 
+```{r educ3Plot, echo = F, messeduc = FALSE, warning=FALSE}
+educ3$plots$observed
+```
+`r kfigr::figr(label = "educ3Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions of undergraduates prior to and since the year 2000
 
-As indicated in `r kfigr::figr(label = "educ3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ3$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ3Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "educ3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ3$test$stmt$detail`
 
 `r kfigr::figr(label = "educ3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion among undergraduates for the two periods of the study.
 ```{r educ3ZTest, echo = F, results='html'}
@@ -702,8 +708,12 @@ $p_1$ is the proportion of traditional opinion among those holding graduate degr
 $p_2$ is the proportion of traditional opinion among those holding graduate degrees, for years since 2000  
 
 `r educ4$test$stmt$type` 
+```{r educ4Plot, echo = F, messeduc = FALSE, warning=FALSE}
+educ4$plots$observed
+```
+`r kfigr::figr(label = "educ4Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions of graduates prior to and since the year 2000
 
-As indicated in `r kfigr::figr(label = "educ4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ4$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "educ4Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "educ4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ4$test$stmt$detail`
 
 `r kfigr::figr(label = "educ4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period among those holding graduate degrees
 ```{r educ4ZTest, echo = F, results='html'}
@@ -713,16 +723,38 @@ knitr::kable(educ4$test$df) %>%
 
 `r educ4$test$stmt$conclude`
 
+#### Post-Graduate
+The following hypotheses were devised to ascertain the difference in proportion of traditional opinion w.r.t. extra-marital conduct among those holding post-graduate degrees, for the two periods of the study.   
+$H_0$ $p_1 - p_2 = 0$  
+$H_a$ $p_1 - p_2 \neq 0$  
+where:  
+$p_1$ is the proportion of traditional opinion among those holding post-graduate degrees, for years prior to 2000  
+$p_2$ is the proportion of traditional opinion among those holding post-graduate degrees, for years since 2000  
+
+`r educ5$test$stmt$type` 
+```{r educ5Plot, echo = F, messeduc = FALSE, warning=FALSE}
+educ5$plots$observed
+```
+`r kfigr::figr(label = "educ5Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions of post-graduates prior to and since the year 2000
+
+As indicated in `r kfigr::figr(label = "educ5Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "educ5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r educ5$test$stmt$detail`
+
+`r kfigr::figr(label = "educ5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period among those holding post-graduate degrees
+```{r educ5ZTest, echo = F, results='html'}
+knitr::kable(educ5$test$df) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+`r educ5$test$stmt$conclude`
 
 
-
-## Research Question 3: Evolution of opinion by region
+## Research Question 4: Evolution of opinion by region
 Here, the degree to which opinions w.r.t. extra-marital conduct have changed by region was examined via the following research question.  
 
 > To what degree have opinions changed since the year 2000 by geographic region?   
 
 ### The Data
-```{r regionAnalysis, echo = F, messregion = FALSE, warning=FALSE}
+```{r regionAnalysis, echo = F, message = FALSE, warning=FALSE}
 data0 <- xmar$bivariate$region %>% select(Opinion, Period, Region) 
 data1 <- xmar$bivariate$region %>% filter(Region == "Northeast") %>% select(Opinion, Period) 
 data2 <- xmar$bivariate$region %>% filter(Region == "Midwest") %>% select(Opinion, Period) 
@@ -738,15 +770,6 @@ region4 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", 
 region5 <- analyze(data4, y = "Opinion", x = "Period", success = "Traditional", scope = "Pacific Region", title = "Opinions by Period (Pacific)")
 region <- rbind(region1$test$df, region2$test$df, region3$test$df, region4$test$df, region5$test$df)
 ```
-
-`r kfigr::figr(label = "regionPlots", prefix = TRUE, link = TRUE, type="Figure")` indicates...
-
-```{r regionPlots, echo = F, messregion = FALSE, warning=FALSE, fig.height = 16}
-regionPlots <- gridExtra::grid.arrange(gridExtra::arrangeGrob(region1$plots$observed, region2$plots$observed, ncol = 2),
-             gridExtra::arrangeGrob(region3$plots$observed, region4$plots$observed, ncol = 2))
-```
-`r kfigr::figr(label = "regionPlots", prefix = TRUE, link = TRUE, type="Figure")`: Observed Opinions by Region
-
 ### Hypotheses
 The following hypotheses were tested to discover the extent to which opinion has changed by region level, over the periods of the study. Generally stated, they are: 
 $H_0$ $p_1 - p_2 = 0$  
@@ -784,8 +807,12 @@ $p_1$ is the proportion of traditional opinion in the Northeast region, for year
 $p_2$ is the proportion of traditional opinion in the Northeast region, for years since 2000  
 
 `r region1$test$stmt$type` 
+```{r region1Plot, echo = F, message = FALSE, warning=FALSE}
+region1$plots$observed
+```
+`r kfigr::figr(label = "region1Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions from the Northeast region for periods prior to and since 2000
 
-As indicated in `r kfigr::figr(label = "region1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region1$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region1Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "region1ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region1$test$stmt$detail`
 
 `r kfigr::figr(label = "region1ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion in the Northeast region, for the two periods of the study.
 ```{r region1ZTest, echo = F, results='html'}
@@ -804,8 +831,12 @@ $p_1$ is the proportion of traditional opinion in the South region, for years pr
 $p_2$ is the proportion of traditional opinion in the South region, for years since 2000  
 
 `r region2$test$stmt$type` 
+```{r region2Plot, echo = F, message = FALSE, warning=FALSE}
+region2$plots$observed
+```
+`r kfigr::figr(label = "region2Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions from the South region for periods prior to and since 2000
 
-As indicated in `r kfigr::figr(label = "region2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region2$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region2Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "region2ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region2$test$stmt$detail`
 
 `r kfigr::figr(label = "region2ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion among residents in the South region, for the two periods of the study. 
 ```{r region2ZTest, echo = F, results='html'}
@@ -824,8 +855,12 @@ $p_1$ is the proportion of traditional opinion in the Midwest region, for years 
 $p_2$ is the proportion of traditional opinion in the Midwest region, for years since 2000  
 
 `r region3$test$stmt$type` 
+```{r region3Plot, echo = F, message = FALSE, warning=FALSE}
+region3$plots$observed
+```
+`r kfigr::figr(label = "region3Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions from the Midwest region for periods prior to and since 2000
 
-As indicated in `r kfigr::figr(label = "region3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region3$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region3Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "region3ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region3$test$stmt$detail`
 
 `r kfigr::figr(label = "region3ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion in the Midwest region, for the two periods of the study.
 ```{r region3ZTest, echo = F, results='html'}
@@ -844,8 +879,12 @@ $p_1$ is the proportion of traditional opinion in the Mountain region, for years
 $p_2$ is the proportion of traditional opinion in the Mountain region, for years since 2000  
 
 `r region4$test$stmt$type` 
+```{r region4Plot, echo = F, message = FALSE, warning=FALSE}
+region4$plots$observed
+```
+`r kfigr::figr(label = "region4Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions from the Mountain region for periods prior to and since 2000
 
-As indicated in `r kfigr::figr(label = "region4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region4$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region4Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "region4ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region4$test$stmt$detail`
 
 `r kfigr::figr(label = "region4ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period in the Mountain region
 ```{r region4ZTest, echo = F, results='html'}
@@ -864,8 +903,12 @@ $p_1$ is the proportion of traditional opinion in the Pacific region, for years 
 $p_2$ is the proportion of traditional opinion in the Pacific region, for years since 2000  
 
 `r region5$test$stmt$type` 
+```{r region5Plot, echo = F, message = FALSE, warning=FALSE}
+region5$plots$observed
+```
+`r kfigr::figr(label = "region5Plot", prefix = TRUE, link = TRUE, type="Figure")`: Observed opinions from the Pacific region for periods prior to and since 2000
 
-As indicated in `r kfigr::figr(label = "region5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region5$test$stmt$detail`
+As indicated in `r kfigr::figr(label = "region5Plot", prefix = TRUE, link = TRUE, type="Figure")` and `r kfigr::figr(label = "region5ZTest", prefix = TRUE, link = TRUE, type="Table")`,  `r region5$test$stmt$detail`
 
 `r kfigr::figr(label = "region5ZTest", prefix = TRUE, link = TRUE, type="Table")`: Two-proportion z-test of traditional opinion by period in the Pacific region
 ```{r region5ZTest, echo = F, results='html'}
@@ -876,15 +919,14 @@ knitr::kable(region5$test$df) %>%
 `r region5$test$stmt$conclude`
 
 
-
-
 # Discussion
 ```{r discussion, echo = F, message = FALSE, warning=FALSE}
 ageGroupDiscussion <- discussion(age)
 genderDiscussion <- discussion(gender)
+educDiscussion <- discussion(educ)
 ```
 ## Evolution of Opinion by Age Group
-There has been a slight increase in the proportion of people holding traditional opinions w.r.t. extra-marital conduct over the periods up to and following the year 2000 across most age groups. `r kfigr::figr(label = "agePlot", prefix = TRUE, link = TRUE, type="Figure")` shows that the degree of change in opinion appears to correlate negatively with age; whereby, the greatest amount of change (`r round(ageGroupDiscussion$data %>% summarize(max(PctChange)), 2)`%) was associate with the 15-24 age group. The `r round(ageGroupDiscussion$data %>% summarize(min(PctChange)), 2)`% within the 65+ age group was not significant.
+There has been a slight increase in the proportion of people holding traditional opinions w.r.t. extra-marital conduct over the periods up to and following the year 2000 across most age groups. `r kfigr::figr(label = "agePlot", prefix = TRUE, link = TRUE, type="Figure")` shows that the degree of change in opinion appears to correlate negatively with age; whereby, the greatest amount of change (`r round(ageGroupDiscussion$data %>% summarize(max(PctChange)), 2)`%) was associate with the 15-24 age group. The `r round(ageGroupDiscussion$data %>% summarize(min(PctChange)), 2)`% change within the 65+ age group was not significant.
 
 
 `r kfigr::figr(label = "ageDisc", prefix = TRUE, link = TRUE, type="Table")`: Summary of analysis by age group
@@ -899,7 +941,7 @@ ageGroupDiscussion$plot
 `r kfigr::figr(label = "agePlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by age group
 
 ## Evolution of Opinion by Gender
-Similarly, there was a trend towards more traditional opinion for both males and females, with `r round(ageGroupDiscussion$data %>% summarize(max(PctChange)), 2)`% and `r round(ageGroupDiscussion$data %>% summarize(min(PctChange)), 2)`% increases respectively. As indicated in `r kfigr::figr(label = "genderPlot", prefix = TRUE, link = TRUE, type="Figure")`, more men found extra-marital conduct to be wrong, or almost always wrong at over twice the rate than did the female population.  
+Similarly, there was a trend towards more traditional opinion for both males and females, with `r round(genderDiscussion$data %>% summarize(max(PctChange)), 2)`% and `r round(genderDiscussion$data %>% summarize(min(PctChange)), 2)`% increases respectively. As indicated in `r kfigr::figr(label = "genderPlot", prefix = TRUE, link = TRUE, type="Figure")`, the migration towards more traditional views was most pronounced among men.  
 
 `r kfigr::figr(label = "genderDisc", prefix = TRUE, link = TRUE, type="Table")`: Summary of analysis by gender
 ```{r genderDisc, echo = F, results='html'}
@@ -911,6 +953,20 @@ knitr::kable(genderDiscussion$data, align = c("l", rep("c", 4))) %>%
 genderDiscussion$plot
 ```
 `r kfigr::figr(label = "genderPlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by gender
+
+## Evolution of Opinion by Education Level
+Similarly, there was a trend towards more traditional opinion for both males and females, with `r round(educDiscussion$data %>% summarize(max(PctChange)), 2)`% and `r round(educDiscussion$data %>% summarize(min(PctChange)), 2)`% increases respectively. As indicated in `r kfigr::figr(label = "educPlot", prefix = TRUE, link = TRUE, type="Figure")`, the migration towards more traditional views was most pronounced among men.  
+
+`r kfigr::figr(label = "educDisc", prefix = TRUE, link = TRUE, type="Table")`: Summary of analysis by education level
+```{r educDisc, echo = F, results='html'}
+knitr::kable(educDiscussion$data, align = c("l", rep("c", 4))) %>%  
+  kableExtra::kable_styling(bootstrap_options = c("striped", "condensed"), full_width = T, position = "center")
+``` 
+
+```{r educPlot, echo = F, message = FALSE, warning=FALSE}
+educDiscussion$plot
+```
+`r kfigr::figr(label = "educPlot", prefix = TRUE, link = TRUE, type="Figure")`: Summary of analysis by education level
 
 
 
