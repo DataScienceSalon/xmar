@@ -4,7 +4,8 @@
 \alias{analyze}
 \title{analyze}
 \usage{
-analyze(data, y, x, success = "Traditional", xOrder = NULL)
+analyze(data, y, x, title, success = "Traditional", scope, conf = 0.95,
+  alpha = 0.05)
 }
 \arguments{
 \item{data}{Data frame containing two columns; the response and the explanatory variable.}
@@ -13,9 +14,11 @@ analyze(data, y, x, success = "Traditional", xOrder = NULL)
 
 \item{x}{Character string label for the explanatory variable.}
 
+\item{title}{Character string containing title of the plot}
+
 \item{success}{Character string equivalent to the response variable level to be analyzed.}
 
-\item{xOrder}{Vector of character strings which list the order of the levels of the explanatory variable.}
+\item{scope}{Character string indicating the scope of the data.}
 
 \item{conf}{Numeric between 0 and 1, indicates desired confidence level for hypothesis test.}
 
@@ -52,10 +55,10 @@ and an explanatory variable.  The key functions are:
 }
 \seealso{
 Other xmar functions: \code{\link{X23D}}, \code{\link{X2}},
-  \code{\link{analyze3d}}, \code{\link{formatData}},
-  \code{\link{plotBars}}, \code{\link{preprocess}},
-  \code{\link{propTest}}, \code{\link{univariate}},
-  \code{\link{zTest}}
+  \code{\link{analyze3d}}, \code{\link{discussion}},
+  \code{\link{formatData}}, \code{\link{plotBars}},
+  \code{\link{preprocess}}, \code{\link{propTest}},
+  \code{\link{univariate}}, \code{\link{zTest}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

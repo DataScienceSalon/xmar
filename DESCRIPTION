@@ -30,6 +30,7 @@ Imports:
     pastecs,
     printr,
     pwr,
+    reshape2,
     RColorBrewer,
     stargazer,
     statsr,

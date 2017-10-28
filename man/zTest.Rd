@@ -4,7 +4,7 @@
 \alias{zTest}
 \title{zTest}
 \usage{
-zTest(data, success = NULL, xOrder = NULL, alternative = "two.sided",
+zTest(data, success = "Traditional", scope, alternative = "two.sided",
   conf = 0.95, alpha = 0.05)
 }
 \arguments{
@@ -12,7 +12,7 @@ zTest(data, success = NULL, xOrder = NULL, alternative = "two.sided",
 
 \item{success}{Which level of response variable to call "success", i.e. upon which inference should be done. Defaults to order in which factor variables are defined.}
 
-\item{xOrder}{The order in which the levels of the explanatory variable should be analyzed. Defaults to order in which factor variables are defined.}
+\item{scope}{Character string indicating the scope of the data being analyzed.}
 
 \item{alternative}{direction of the alternative hypothesis; "less","greater", or "two.sided"}
 
@@ -31,9 +31,9 @@ hypothesis is equal proportions.
 \seealso{
 Other xmar functions: \code{\link{X23D}}, \code{\link{X2}},
   \code{\link{analyze3d}}, \code{\link{analyze}},
-  \code{\link{formatData}}, \code{\link{plotBars}},
-  \code{\link{preprocess}}, \code{\link{propTest}},
-  \code{\link{univariate}}
+  \code{\link{discussion}}, \code{\link{formatData}},
+  \code{\link{plotBars}}, \code{\link{preprocess}},
+  \code{\link{propTest}}, \code{\link{univariate}}
 }
 \author{
 John James, \email{jjames@datasciencesalon.org}

@@ -3,3 +3,5 @@ YEAR,GSS Year for This Respondent,Categorical,Discrete,GSS
 AGE,Age of Respondent,Quantitative,Discrete,GSS
 SEX,Gender of Respondent,Categorical,Discrete,GSS
 XMARSEX,Opinion w.r.t. Extra-Marital Sex,Categorical,Discrete,GSS
+EDUC,Highest Education Level Achieved,Categorical,Discrete,GSS
+REGION,Region of Interview,Categorical,Discrete,GSS

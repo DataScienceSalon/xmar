@@ -28,8 +28,9 @@
 #' @param data Data frame containing two columns; the response and the explanatory variable.
 #' @param y Character string label for the response variable.
 #' @param x Character string label for the explanatory variable.
+#' @param title Character string containing title of the plot
 #' @param success Character string equivalent to the response variable level to be analyzed.
-#' @param xOrder Vector of character strings which list the order of the levels of the explanatory variable.
+#' @param scope Character string indicating the scope of the data.
 #' @param conf Numeric between 0 and 1, indicates desired confidence level for hypothesis test.
 #' @param alpha Numeric between 0 and 1, indicates the target probability of a type I error.
 #' @return list containing three types of objects: (1) data, both raw and summarized observed and expected frequencies,
@@ -40,23 +41,19 @@
 #' @author John James, \email{jjames@@datasciencesalon.org}
 #' @family xmar functions
 #' @export
-analyze <- function(data, y, x, success = "Traditional", xOrder = NULL) {
+analyze <- function(data, y, x, title, success = "Traditional", scope,
+                    conf = 0.95, alpha = 0.05) {
 
   # Format data, render bar plots, and conduct hypothesis test
   data <- formatData(data)
-  x2 <- X2(data$raw, y = y, x = x, alpha = 0.05)
 
-  if (length(levels(data$raw[[1]])) == 2 & length(levels(data$raw[[2]])) == 2) {
-    test <- zTest(data$raw, success = success, xOrder = NULL, alternative = "two.sided",
-          conf = 0.95, alpha = 0.05)
-  } else {
-    numTests <- length(levels(data$raw[[2]])) - 1
-    test <- propTest(data, xOrder = NULL, alternative = "less",
-                     success = NULL, conf = 0.95, alpha = 0.05 / numTests)
-  }
+  # Conduct test
+  test <- zTest(data, success = success, scope = scope, alternative = "two.sided",
+                conf = conf, alpha = alpha)
 
-  observed <- plotBars(data$observed, y = y, x = x)
-  expected <- plotBars(data$expected, y = y, x = x)
+  # Plot Data
+  observed <- plotBars(data$observed, y = y, x = x, title = title)
+  expected <- plotBars(data$expected, y = y, x = x, title = title)
 
 
   results = list(
@@ -65,10 +62,7 @@ analyze <- function(data, y, x, success = "Traditional", xOrder = NULL) {
       observed = observed,
       expected = expected
     ),
-    tests = list(
-      independence = x2,
-      difference = test
-    )
+    test = test
   )
   return(results)
 }
